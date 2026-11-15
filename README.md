@@ -24,7 +24,7 @@ A **tidbit** prints whole on the front page. A **recipe** also takes `ingredient
 
 ## Columns
 
-`/columns/` is copied at build time from the JSON Feeds in `paper.config.ts` (today, tristantimblin.dev's `/feed.json`). Each copy's canonical link points at the original. A feed that can't be fetched is a build warning, not a failure.
+`/columns/` is copied at build time from the JSON Feeds in `paper.config.ts` (today, tristantimblin.dev's `/feed.json`). Only posts with `syndicate: true` in their frontmatter on tristantimblin.dev are copied. Each copy's canonical link points at the original. A feed that can't be fetched is a build warning, not a failure.
 
 tristantimblin.dev rebuilds the paper when it deploys, by sending this repo a `repository_dispatch` of type `tristantimblin-deployed`.
 

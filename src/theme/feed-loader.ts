@@ -39,6 +39,7 @@ export function feedLoader(feeds: Feed[]): Loader {
 				for (const item of items) {
 					const canonical = item.url ?? item.id;
 					if (!URL.canParse(canonical) || !item.title || !item.date_published || !item.content_html) continue;
+					if (feed.include && !feed.include(item as unknown as Record<string, unknown>)) continue;
 					// The last path segment of the original URL: /txt/mega-desk/ → mega-desk.
 					const slug = new URL(canonical).pathname.split("/").filter(Boolean).pop();
 					if (!slug) continue;

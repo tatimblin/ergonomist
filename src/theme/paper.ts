@@ -19,6 +19,9 @@ export interface Feed {
 	section: string;
 	/** Where they came from, as printed under each copied story. */
 	source: string;
+	/** Which of the feed's items to copy, given the raw item (extensions
+	 *  included). Every item with a body, when left out. */
+	include?: (item: Record<string, unknown>) => boolean;
 }
 
 export interface Paper {

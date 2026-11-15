@@ -32,6 +32,8 @@ export default {
 			url: process.env.TRISTANTIMBLIN_FEED ?? "https://tristantimblin.dev/feed.json",
 			section: "columns",
 			source: "tristantimblin.dev",
+			// Only the posts marked `syndicate: true` in their frontmatter there.
+			include: (item) => (item._tristantimblin as { syndicate?: boolean } | undefined)?.syndicate === true,
 		},
 	],
 } satisfies Paper;
