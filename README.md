@@ -30,12 +30,19 @@ tristantimblin.dev rebuilds the paper when it deploys, by sending this repo a `r
 
 ## Layout
 
-- `paper.config.ts` — the name, tagline, sections and feeds.
+- `paper.config.ts` — the name, tagline, address, satire line, sections and feeds, and `index` (off: every page is `noindex` until the paper has a domain).
 - `src/theme/` — the reusable part: layout, story list and page, schemas, feed loader, and `paper.css` (empty). It knows nothing about The Ergonomist, so it can become its own package once there's a design.
-- `src/pages/` — the routes: front page, sections, stories, RSS.
+- `src/pages/` — the routes: front page, sections, stories, RSS, sitemap, robots.txt, 404.
+
+Every page carries Open Graph tags; the paper's own stories carry schema.org JSON-LD (`SatiricalArticle`, or `Recipe`).
 
 ```sh
 bun install
 bun run dev
 bun run build
+bun run deploy   # build, then publish dist/ to https://ergonomist.tatimblin.workers.dev
 ```
+
+Set `TRISTANTIMBLIN_FEED` to read Columns from another feed URL (e.g. a local build of tristantimblin.dev).
+
+It's hosted as a Cloudflare Worker serving static files (`wrangler.jsonc`). `.github/workflows/deploy.yml` deploys it from main once the repo has the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets.

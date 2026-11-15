@@ -26,6 +26,10 @@ export interface Paper {
 	tagline: string;
 	price: string;
 	site: string;
+	/** Whether search engines may index the paper. */
+	index: boolean;
+	/** One line printed in every footer: what kind of paper this is. */
+	disclaimer: string;
 	sections: Section[];
 	feeds: Feed[];
 }

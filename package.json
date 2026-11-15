@@ -8,7 +8,8 @@
     "build": "bunx astro build",
     "preview": "bunx astro preview",
     "check": "astro check",
-    "astro": "bunx astro"
+    "astro": "bunx astro",
+    "deploy": "bun run build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "wrangler": "^4.162.0"
   }
 }

@@ -19,9 +19,23 @@ const section = paper.sections.find((s) => s.id === story.section)!;
 const local = story.origin === "local" ? story.entry.data : null;
 const copied = story.origin === "feed" ? story.entry.data : null;
 const recipe = local?.kind === "recipe" ? local : null;
+const url = new URL(Astro.url.pathname, paper.site).href;
+// Structured data for the paper's own stories (a copy's belongs to its
+// original). schema.org has a type for exactly this: SatiricalArticle.
+const jsonLd = local && {
+	"@type": recipe ? "Recipe" : "SatiricalArticle",
+	headline: local.title,
+	name: local.title,
+	description: local.summary,
+	datePublished: local.date.toISOString(),
+	url,
+	...(local.byline && { author: { "@type": "Person", name: local.byline } }),
+	publisher: { "@type": "Organization", name: paper.name, url: paper.site },
+	...(recipe && { recipeIngredient: recipe.ingredients, ...(recipe.serves && { recipeYield: recipe.serves }) }),
+};
 ---
 
-<Layout paper={paper} title={data.title} description={data.summary} canonical={copied?.canonical}>
+<Layout paper={paper} title={data.title} description={data.summary} canonical={copied?.canonical} type="article" jsonLd={jsonLd || undefined}>
 	<article>
 		<header>
 			<p><a href={sectionHref(section.id)}>{section.label}</a></p>

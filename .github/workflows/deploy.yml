@@ -1,6 +1,6 @@
 name: Build and deploy
 
-# Builds the paper and publishes it to Cloudflare Pages. Runs on pushes to
+# Builds the paper and publishes it to Cloudflare. Runs on pushes to
 # main, by hand, and when tristantimblin.dev deploys (a repository_dispatch of
 # type "tristantimblin-deployed"), so a new post there is copied here.
 on:
@@ -29,9 +29,10 @@ jobs:
 
       - run: bun run build
 
-      - name: Deploy to Cloudflare Pages
+      # wrangler.jsonc: a Worker serving dist/ as static assets.
+      - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=ergonomist --branch=main
+          command: deploy

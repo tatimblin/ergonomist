@@ -17,9 +17,13 @@ interface Props {
 	canonical?: string;
 	/** The masthead's issue line. */
 	issue?: { number: number; date: string };
+	/** "article" on a story's page (og:type). */
+	type?: "website" | "article";
+	/** schema.org structured data for the page, printed as JSON-LD. */
+	jsonLd?: Record<string, unknown>;
 }
 
-const { paper, title, description = paper.tagline, canonical, issue } = Astro.props;
+const { paper, title, description = paper.tagline, canonical, issue, type = "website", jsonLd } = Astro.props;
 const href = canonical ?? new URL(Astro.url.pathname, paper.site).href;
 const isFront = Astro.url.pathname === "/";
 ---
@@ -31,8 +35,16 @@ const isFront = Astro.url.pathname === "/";
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title ? `${title} — ${paper.name}` : paper.name}</title>
 		<meta name="description" content={description} />
+		{!paper.index && <meta name="robots" content="noindex" />}
 		<link rel="canonical" href={href} />
 		<link rel="alternate" type="application/rss+xml" title={paper.name} href="/rss.xml" />
+		<meta property="og:site_name" content={paper.name} />
+		<meta property="og:type" content={type} />
+		<meta property="og:title" content={title ?? paper.name} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={href} />
+		<meta name="twitter:card" content="summary" />
+		{jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify({ "@context": "https://schema.org", ...jsonLd })} />}
 	</head>
 	<body>
 		<header>
@@ -59,6 +71,7 @@ const isFront = Astro.url.pathname === "/";
 			<slot />
 		</main>
 		<footer>
+			<p>{paper.disclaimer}</p>
 			<p>© {new Date().getFullYear()} {paper.name}. <a href="/rss.xml">RSS</a></p>
 		</footer>
 	</body>

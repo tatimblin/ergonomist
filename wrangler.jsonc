@@ -1,0 +1,13 @@
+// The paper is static files: a Worker with nothing but assets, serving dist/.
+// `bun run deploy` builds and publishes it.
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "ergonomist",
+	"compatibility_date": "2026-11-10",
+	"assets": {
+		"directory": "./dist",
+		// /mission/ is dist/mission/index.html; /mission 307s to it.
+		"html_handling": "force-trailing-slash",
+		"not_found_handling": "404-page"
+	}
+}
