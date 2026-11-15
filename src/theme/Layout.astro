@@ -1,0 +1,65 @@
+---
+/**
+ * Every page: the head, the masthead, the section nav and the footer. Bare
+ * HTML on purpose — paper.css is empty until there is enough in the paper to
+ * design around; the markup is written so a stylesheet is all a design needs.
+ */
+import "./paper.css";
+import { sectionHref, type Paper } from "./paper";
+
+interface Props {
+	paper: Paper;
+	/** The page's own title; the paper's name alone on the front page. */
+	title?: string;
+	description?: string;
+	/** Absolute. Defaults to this page on the paper's own site; a copied
+	 *  story passes where it was first published. */
+	canonical?: string;
+	/** The masthead's issue line. */
+	issue?: { number: number; date: string };
+}
+
+const { paper, title, description = paper.tagline, canonical, issue } = Astro.props;
+const href = canonical ?? new URL(Astro.url.pathname, paper.site).href;
+const isFront = Astro.url.pathname === "/";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title ? `${title} — ${paper.name}` : paper.name}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={href} />
+		<link rel="alternate" type="application/rss+xml" title={paper.name} href="/rss.xml" />
+	</head>
+	<body>
+		<header>
+			{isFront ? <h1>{paper.name}</h1> : <p><a href="/">{paper.name}</a></p>}
+			<p>{paper.tagline}</p>
+			{issue && (
+				<p>
+					Vol. I, No. {issue.number} · <time>{issue.date}</time> · {paper.price}
+				</p>
+			)}
+			<nav aria-label="Sections">
+				<ul>
+					{paper.sections.map((s) => (
+						<li>
+							<a href={sectionHref(s.id)} aria-current={Astro.url.pathname.startsWith(sectionHref(s.id)) ? "page" : undefined}>
+								{s.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<slot />
+		</main>
+		<footer>
+			<p>© {new Date().getFullYear()} {paper.name}. <a href="/rss.xml">RSS</a></p>
+		</footer>
+	</body>
+</html>

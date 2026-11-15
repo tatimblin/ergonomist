@@ -1,0 +1,35 @@
+---
+/**
+ * A list of stories: headline, date and dek. A tidbit prints whole, as a
+ * brief, since it is all headline and a paragraph anyway.
+ */
+import { render } from "astro:content";
+import { formatDate, storyHref, type Story } from "./paper";
+
+interface Props {
+	stories: Story[];
+	/** The heading level of each headline, under the list's own heading. */
+	level?: 2 | 3;
+}
+
+const { stories, level = 3 } = Astro.props;
+const H = `h${level}`;
+const items = await Promise.all(
+	stories.map(async (story) => ({
+		story,
+		brief: story.origin === "local" && story.entry.data.kind === "tidbit" ? (await render(story.entry)).Content : null,
+	})),
+);
+---
+
+<ul>
+	{items.map(({ story, brief: Brief }) => (
+		<li>
+			<article>
+				<H><a href={storyHref(story)}>{story.entry.data.title}</a></H>
+				<p><time datetime={story.entry.data.date.toISOString()}>{formatDate(story.entry.data.date)}</time></p>
+				{Brief ? <Brief /> : story.entry.data.summary && <p>{story.entry.data.summary}</p>}
+			</article>
+		</li>
+	))}
+</ul>

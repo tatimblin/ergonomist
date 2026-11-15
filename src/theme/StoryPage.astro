@@ -1,0 +1,54 @@
+---
+/**
+ * One story on its own page. A copied story names where it was first
+ * published, and its canonical link points there.
+ */
+import { render } from "astro:content";
+import Layout from "./Layout.astro";
+import { formatDate, sectionHref, type Paper, type Story } from "./paper";
+
+interface Props {
+	paper: Paper;
+	story: Story;
+}
+
+const { paper, story } = Astro.props;
+const { Content } = await render(story.entry);
+const data = story.entry.data;
+const section = paper.sections.find((s) => s.id === story.section)!;
+const local = story.origin === "local" ? story.entry.data : null;
+const copied = story.origin === "feed" ? story.entry.data : null;
+const recipe = local?.kind === "recipe" ? local : null;
+---
+
+<Layout paper={paper} title={data.title} description={data.summary} canonical={copied?.canonical}>
+	<article>
+		<header>
+			<p><a href={sectionHref(section.id)}>{section.label}</a></p>
+			<h1>{data.title}</h1>
+			{data.summary && <p>{data.summary}</p>}
+			<p>
+				{local?.byline && <>By {local.byline} · </>}
+				<time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
+			</p>
+			{copied && (
+				<p>
+					First published at <a href={copied.canonical}>{copied.source}</a>.
+				</p>
+			)}
+		</header>
+		{recipe && (
+			<section aria-labelledby="ingredients">
+				<h2 id="ingredients">Ingredients</h2>
+				{(recipe.serves || recipe.time) && (
+					<p>{[recipe.serves && `Serves ${recipe.serves}`, recipe.time].filter(Boolean).join(" · ")}</p>
+				)}
+				<ul>
+					{recipe.ingredients!.map((i) => <li>{i}</li>)}
+				</ul>
+			</section>
+		)}
+		{recipe && <h2>Method</h2>}
+		<Content />
+	</article>
+</Layout>

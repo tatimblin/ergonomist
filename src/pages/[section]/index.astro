@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths } from "astro";
+import paper from "../../../paper.config";
+import Layout from "../../theme/Layout.astro";
+import StoryList from "../../theme/StoryList.astro";
+import { getStories, type Section } from "../../theme/paper";
+
+export const getStaticPaths = (async () => {
+	const stories = await getStories(paper);
+	return paper.sections.map((section) => ({
+		params: { section: section.id },
+		props: { section, stories: stories.filter((s) => s.section === section.id) },
+	}));
+}) satisfies GetStaticPaths;
+
+const { section, stories } = Astro.props as { section: Section; stories: Awaited<ReturnType<typeof getStories>> };
+---
+
+<Layout paper={paper} title={section.label}>
+	<h1>{section.label}</h1>
+	{stories.length ? <StoryList stories={stories} level={2} /> : <p>Nothing here yet.</p>}
+</Layout>

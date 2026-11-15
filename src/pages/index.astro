@@ -1,0 +1,27 @@
+---
+// The front page: each section's latest stories, in masthead order.
+import paper from "../../paper.config";
+import Layout from "../theme/Layout.astro";
+import StoryList from "../theme/StoryList.astro";
+import { formatDate, getStories, sectionHref } from "../theme/paper";
+
+const PER_SECTION = 5;
+const stories = await getStories(paper);
+// The issue moves with the paper: its number is the story count, its date the newest story's.
+const issue = stories.length ? { number: stories.length, date: formatDate(stories[0].entry.data.date) } : undefined;
+---
+
+<Layout paper={paper} issue={issue}>
+	{paper.sections.map((section) => {
+		const latest = stories.filter((s) => s.section === section.id).slice(0, PER_SECTION);
+		return (
+			latest.length > 0 && (
+				<section aria-labelledby={section.id}>
+					<h2 id={section.id}><a href={sectionHref(section.id)}>{section.label}</a></h2>
+					<StoryList stories={latest} />
+				</section>
+			)
+		);
+	})}
+	{stories.length === 0 && <p>No news today.</p>}
+</Layout>

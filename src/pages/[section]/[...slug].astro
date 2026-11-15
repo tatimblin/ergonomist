@@ -1,0 +1,16 @@
+---
+import type { GetStaticPaths } from "astro";
+import paper from "../../../paper.config";
+import StoryPage from "../../theme/StoryPage.astro";
+import { getStories, type Story } from "../../theme/paper";
+
+export const getStaticPaths = (async () =>
+	(await getStories(paper)).map((story) => ({
+		params: { section: story.section, slug: story.slug },
+		props: { story },
+	}))) satisfies GetStaticPaths;
+
+const { story } = Astro.props as { story: Story };
+---
+
+<StoryPage paper={paper} story={story} />
