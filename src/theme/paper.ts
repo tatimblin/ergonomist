@@ -5,7 +5,8 @@
  * until there is a design worth sharing; it moves out as a package then.
  */
 import { getCollection, type CollectionEntry } from "astro:content";
-import { TAG } from "./schema";
+import type { RecipeBody } from "./markdown";
+import { DURATION, TAG } from "./schema";
 
 export interface Section {
 	id: string;
@@ -53,6 +54,9 @@ export interface Paper {
 	mostRead: string[];
 	/** The path of the paper's editorial standards, for structured data. */
 	standards: string;
+	/** The default card, a path in public/: the image in structured data that
+	 *  needs one (a Recipe's) when the story has none of its own. */
+	card: string;
 }
 
 export type Staff = CollectionEntry<"staff">;
@@ -72,7 +76,14 @@ export type Story =
 	| (Bylined & { origin: "local"; entry: CollectionEntry<"stories"> })
 	| (Bylined & { origin: "feed"; entry: CollectionEntry<"wire"> });
 
-export const storyHref = (story: Pick<Story, "section" | "slug">) => `/${story.section}/${story.slug}/`;
+/** A headline: a story with no page of its own, printed in the Newswire. */
+export const isHeadline = (story: Story) => story.origin === "local" && story.entry.data.kind === "headline";
+
+/** Where a headline prints, anchored: /newswire/#<slug>. */
+export const newswireHref = (slug: string) => `/newswire/#${slug}`;
+
+/** A story's page; a headline's place in the Newswire. */
+export const storyHref = (story: Story) => (isHeadline(story) ? newswireHref(story.slug) : `/${story.section}/${story.slug}/`);
 export const sectionHref = (section: string) => `/${section}/`;
 export const staffHref = (id: string) => `/staff/${id}/`;
 export const tagHref = (tag: string) => `/tags/${tag}/`;
@@ -126,6 +137,13 @@ export async function getStories(paper: Paper): Promise<Story[]> {
 			return { origin: "local", section, slug: rest.join("/"), authors, series: ref ? series.get(ref) : undefined, entry };
 		},
 	);
+	// Two headlines with one slug would share an anchor in the Newswire.
+	const anchors = new Map<string, string>();
+	for (const story of local.filter(isHeadline)) {
+		const other = anchors.get(story.slug);
+		if (other) throw new Error(`Headlines "${other}" and "${story.entry.id}" would share ${newswireHref(story.slug)}; rename one.`);
+		anchors.set(story.slug, story.entry.id);
+	}
 	// A copy and a story of our own at one URL would be one page lost.
 	const ours = new Set(local.map(storyHref));
 	const copied = (await getCollection("wire")).map((entry): Story => {
@@ -191,7 +209,7 @@ export function getYears(stories: Story[]): Map<number, Story[]> {
 /**
  * Up to `n` stories to read next: the rest of its series first, then those
  * sharing the most tags with it, then the rest of its section; newest first
- * within each.
+ * within each. Headlines aren't stories to read.
  */
 export function relatedStories(story: Story, stories: Story[], n = 3): Story[] {
 	const tags = new Set(tagsOf(story));
@@ -199,7 +217,7 @@ export function relatedStories(story: Story, stories: Story[], n = 3): Story[] {
 	const rank = (s: Story) =>
 		story.series && s.series?.id === story.series.id ? 2 : shared(s) > 0 ? 1 : s.section === story.section ? 0 : -1;
 	return stories
-		.filter((s) => s !== story && rank(s) >= 0)
+		.filter((s) => s !== story && !isHeadline(s) && rank(s) >= 0)
 		.map((s, i) => ({ s, i, rank: rank(s), shared: shared(s) }))
 		// stories is newest first already: i breaks the ties.
 		.sort((a, b) => b.rank - a.rank || b.shared - a.shared || a.i - b.i)
@@ -208,9 +226,9 @@ export function relatedStories(story: Story, stories: Story[], n = 3): Story[] {
 }
 
 /** The stories either side of this one in its section: the one before it
- *  (older) and the one after it (newer). */
+ *  (older) and the one after it (newer). Headlines have no page to turn to. */
 export function sectionNeighbours(story: Story, stories: Story[]): { previous?: Story; next?: Story } {
-	const section = stories.filter((s) => s.section === story.section);
+	const section = stories.filter((s) => s.section === story.section && !isHeadline(s));
 	const i = section.indexOf(story);
 	return { previous: section[i + 1], next: i > 0 ? section[i - 1] : undefined };
 }
@@ -227,12 +245,14 @@ export async function getMostRead(paper: Paper, stories: Story[]): Promise<Story
 	});
 }
 
-/** A story as an RSS item. A copy links to where it was first published. */
-export const rssItem = (story: Story) => ({
+/** A story as an RSS item. A copy links to where it was first published, a
+ *  headline to its place in the Newswire. Links are absolute: @astrojs/rss
+ *  would put a trailing slash after a relative link's #anchor. */
+export const rssItem = (paper: Paper) => (story: Story) => ({
 	title: story.entry.data.title,
 	pubDate: story.entry.data.date,
 	description: story.entry.data.dek,
-	link: story.origin === "feed" ? story.entry.data.canonical : storyHref(story),
+	link: story.origin === "feed" ? story.entry.data.canonical : new URL(storyHref(story), paper.site).href,
 	categories: [story.section, ...tagsOf(story)],
 });
 
@@ -287,6 +307,89 @@ export const collectionLd = (paper: Paper, name: string, path: string, stories: 
 		})),
 	},
 });
+
+type Local = Extract<Story, { origin: "local" }>;
+type StoryData = Local["entry"]["data"];
+
+/** An ISO 8601 duration in minutes, to the nearest: "PT1H10M" → 70. */
+export function minutesOf(iso: string): number {
+	const match = DURATION.exec(iso);
+	if (!match) throw new Error(`"${iso}" isn't an ISO 8601 duration.`);
+	const [d, h, m, s] = match.slice(1).map((n) => Number(n ?? 0));
+	return d * 24 * 60 + h * 60 + m + Math.round(s / 60);
+}
+
+/** Minutes as ISO 8601: 70 → "PT1H10M". */
+export function isoDuration(minutes: number): string {
+	const [d, h, m] = [Math.floor(minutes / (24 * 60)), Math.floor((minutes % (24 * 60)) / 60), minutes % 60];
+	const time = `${h ? `${h}H` : ""}${m || (!d && !h) ? `${m}M` : ""}`;
+	return `P${d ? `${d}D` : ""}${time && `T${time}`}`;
+}
+
+/** An ISO 8601 duration as printed: "PT1H10M" → "1 hr 10 min". */
+export function formatDuration(iso: string): string {
+	const minutes = minutesOf(iso);
+	const [d, h, m] = [Math.floor(minutes / (24 * 60)), Math.floor((minutes % (24 * 60)) / 60), minutes % 60];
+	const parts = [d && `${d} ${d === 1 ? "day" : "days"}`, h && `${h} hr`, m && `${m} min`].filter(Boolean);
+	return parts.length ? parts.join(" ") : "0 min";
+}
+
+/** A recipe's times, ISO 8601. `total` is prep plus cook when the recipe
+ *  doesn't give it. */
+export function recipeTimes(data: StoryData): { prep: string; cook: string; active?: string; total: string } {
+	// The schema requires prep and cook of a recipe.
+	const [prep, cook] = [data.prep!, data.cook!];
+	return { prep, cook, active: data.active, total: data.total ?? isoDuration(minutesOf(prep) + minutesOf(cook)) };
+}
+
+/** A recipe's ingredients as groups; a flat list is one group with no name. */
+export function ingredientGroups(data: StoryData): { group?: string; items: string[] }[] {
+	const list = (data.ingredients ?? []) as (string | { group: string; items: string[] })[];
+	return list.every((i) => typeof i === "string") ? [{ items: list as string[] }] : (list as { group: string; items: string[] }[]);
+}
+
+/** What the theme's Markdown plugin (markdown.ts) kept of a recipe's body:
+ *  its headnote and its Method's steps. */
+export function recipeOf(story: Local): RecipeBody {
+	const frontmatter = story.entry.rendered?.metadata?.frontmatter as { recipe?: RecipeBody } | undefined;
+	const recipe = frontmatter?.recipe;
+	if (!recipe) throw new Error(`Recipe "${story.entry.id}" wasn't read by storyBodies; is it in astro.config.mjs?`);
+	return recipe;
+}
+
+/**
+ * A recipe's schema.org Recipe fields, for its page's structured data: its
+ * times, yield, ingredients, steps (HowToSteps, in HowToSections when the
+ * Method has subsections, each linked to its #step-N), course and cuisine,
+ * calories, and the tags that aren't its course or cuisine as keywords. Its
+ * image is the paper's default card when it has none, as Google wants one.
+ * Never a rating.
+ */
+export function recipeLd(paper: Paper, story: Local, url: string) {
+	const data = story.entry.data;
+	const { prep, cook, total } = recipeTimes(data);
+	const step = ({ id, text }: { id: string; text: string }) => ({ "@type": "HowToStep", text, url: `${url}#${id}` });
+	const { method } = recipeOf(story);
+	const slug = (s?: string) => s?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+	const listed = new Set([slug(data.course), slug(data.cuisine)]);
+	const keywords = data.tags.filter((t) => !listed.has(t));
+	return {
+		image: new URL(data.image?.src.src ?? paper.card, paper.site).href,
+		prepTime: prep,
+		cookTime: cook,
+		totalTime: total,
+		recipeYield: data.yield ? [String(data.serves), data.yield] : String(data.serves),
+		recipeIngredient: ingredientGroups(data).flatMap((g) => g.items),
+		recipeInstructions:
+			method.length === 1 && !method[0].name
+				? method[0].steps.map(step)
+				: method.map((s) => ({ "@type": "HowToSection", name: s.name, itemListElement: s.steps.map(step) })),
+		...(data.course && { recipeCategory: data.course }),
+		...(data.cuisine && { recipeCuisine: data.cuisine }),
+		...(keywords.length && { keywords: keywords.map(tagLabel).join(", ") }),
+		...(data.calories && { nutrition: { "@type": "NutritionInformation", calories: `${data.calories} calories` } }),
+	};
+}
 
 export const formatDate = (date: Date) =>
 	date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });

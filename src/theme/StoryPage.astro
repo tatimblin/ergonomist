@@ -10,13 +10,20 @@
  * (Google's advice for syndicated copies). A tidbit is noindex too: a
  * paragraph is too thin a page to send searchers to; it's on the front page.
  * Only the paper's own stories are in the site search (data-pagefind-body).
+ *
+ * A recipe's body opens with its headnote, then its card (RecipeCard), then
+ * the Method and notes. Its header links to the card ("Jump to recipe") and
+ * has a Print button, the page's only script; print.css prints the recipe
+ * and nothing around it, with a "Clipped from" line that shows only there.
  */
 import { Image } from "astro:assets";
+import "./print.css";
 import AuthorBox from "./AuthorBox.astro";
 import Body from "./Body.astro";
 import Byline from "./Byline.astro";
 import Label from "./Label.astro";
 import Layout from "./Layout.astro";
+import RecipeCard from "./RecipeCard.astro";
 import StoryList from "./StoryList.astro";
 import {
 	authorLd,
@@ -26,6 +33,7 @@ import {
 	modifiedOf,
 	organizationLd,
 	readingMinutes,
+	recipeLd,
 	relatedStories,
 	sectionHref,
 	sectionNeighbours,
@@ -51,7 +59,7 @@ const data = story.entry.data;
 const section = paper.sections.find((s) => s.id === story.section)!;
 const local = story.origin === "local" ? story.entry.data : null;
 const copied = story.origin === "feed" ? story.entry.data : null;
-const recipe = local?.kind === "recipe" ? local : null;
+const recipe = story.origin === "local" && story.entry.data.kind === "recipe" ? story : null;
 const tidbit = local?.kind === "tidbit";
 const kicker = kickerOf(story);
 const { veracity, source } = veracityOf(story);
@@ -80,7 +88,8 @@ const jsonLd = local && [
 		...(veracity === "reported" && { isBasedOn: source }),
 		author: authorLd(paper, story.authors),
 		publisher: organizationLd(paper),
-		...(recipe && { recipeIngredient: recipe.ingredients, ...(recipe.serves && { recipeYield: recipe.serves }) }),
+		// Its times, yield, ingredients and steps; and an image whether or not it has one.
+		...(recipe && recipeLd(paper, recipe, url)),
 	},
 	breadcrumbLd(paper, [
 		[paper.name, "/"],
@@ -100,7 +109,7 @@ const jsonLd = local && [
 	jsonLd={jsonLd || undefined}
 >
 	<nav aria-label="Breadcrumb"><a href={sectionHref(section.id)}>{section.label}</a></nav>
-	<article data-pagefind-body={local ? "" : undefined}>
+	<article data-pagefind-body={local ? "" : undefined} data-recipe={recipe ? "" : undefined}>
 		<header>
 			{kicker && <p>{story.series ? <a href={seriesHref(story.series.id)}>{kicker}</a> : kicker}</p>}
 			<h1>{data.title}</h1>
@@ -114,6 +123,11 @@ const jsonLd = local && [
 				{" "}· {readingMinutes(story)} min read
 			</p>
 			<p><strong><Label story={story} source={!copied} /></strong></p>
+			{recipe && (
+				<p data-screen-only>
+					<a href="#recipe">Jump to recipe</a> · <button type="button" onclick="window.print()">Print</button>
+				</p>
+			)}
 			{copied && (
 				<p>
 					First published at <a href={copied.canonical}>{copied.source}</a>.
@@ -132,19 +146,8 @@ const jsonLd = local && [
 				)}
 			</figure>
 		)}
-		{recipe && (
-			<section aria-labelledby="ingredients">
-				<h2 id="ingredients">Ingredients</h2>
-				{(recipe.serves || recipe.time) && (
-					<p>{[recipe.serves && `Serves ${recipe.serves}`, recipe.time].filter(Boolean).join(" · ")}</p>
-				)}
-				<ul>
-					{recipe.ingredients!.map((i) => <li>{i}</li>)}
-				</ul>
-			</section>
-		)}
-		{recipe && <h2>Method</h2>}
-		<Body story={story} />
+		<Body story={story}>{recipe && <RecipeCard story={recipe} />}</Body>
+		{recipe && <p data-clipping hidden>Clipped from {paper.name}, {url}</p>}
 		{local?.updateNote && local.updated && (
 			<p>
 				<strong>Update, <time datetime={local.updated.toISOString()}>{formatDate(local.updated)}</time>:</strong> {local.updateNote}

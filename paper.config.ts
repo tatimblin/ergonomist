@@ -37,6 +37,9 @@ export default {
 	mostRead: ["tech/standing-desk-reaches-full-height", "mission/dolores-park-fog-returns"],
 	// The editorial standards, named in the front page's structured data.
 	standards: "/standards/",
+	// The default card, in public/: the image of a recipe with no photo yet,
+	// since Google wants one in a Recipe's structured data.
+	card: "/card.png",
 	// Posts copied from elsewhere. Each item keeps a canonical link back to
 	// where it was first published.
 	feeds: [

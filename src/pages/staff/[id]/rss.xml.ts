@@ -13,6 +13,6 @@ export const GET: APIRoute = async ({ props }) => {
 		title: `${person.data.name} — ${paper.name}`,
 		description: person.data.short,
 		site: paper.site,
-		items: (await getStories(paper)).filter((s) => s.authors.some((a) => a.id === person.id)).map(rssItem),
+		items: (await getStories(paper)).filter((s) => s.authors.some((a) => a.id === person.id)).map(rssItem(paper)),
 	});
 };

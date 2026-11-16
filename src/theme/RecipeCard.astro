@@ -1,0 +1,50 @@
+---
+/**
+ * A recipe's card, between its headnote and its Method: the yield, times,
+ * difficulty, course, cuisine, diet, equipment, calories and who tested it,
+ * then the ingredients, a list per group, each with a checkbox to tick off.
+ * The page's "Jump to recipe" link lands here (#recipe).
+ */
+import { formatDuration, ingredientGroups, recipeTimes, type Story } from "./paper";
+
+interface Props {
+	story: Extract<Story, { origin: "local" }>;
+}
+
+const { data } = Astro.props.story.entry;
+const times = recipeTimes(data);
+const facts: [string, string | undefined][] = [
+	["Yield", data.yield ?? `Serves ${data.serves}`],
+	["Prep", formatDuration(times.prep)],
+	["Cook", formatDuration(times.cook)],
+	["Active", times.active && formatDuration(times.active)],
+	["Total", formatDuration(times.total)],
+	["Difficulty", data.difficulty && data.difficulty[0].toUpperCase() + data.difficulty.slice(1)],
+	["Course", data.course],
+	["Cuisine", data.cuisine],
+	["Diet", data.diet?.join(", ")],
+	["Equipment", data.equipment?.join(", ")],
+	["Calories", data.calories ? `${data.calories} per serving` : undefined],
+	["Tested by", data.testedBy],
+];
+const groups = ingredientGroups(data);
+---
+
+<section id="recipe" aria-label="Recipe">
+	<dl>
+		{facts.filter(([, value]) => value).map(([term, value]) => <><dt>{term}</dt><dd>{value}</dd></>)}
+	</dl>
+	<section aria-labelledby="ingredients">
+		<h2 id="ingredients">Ingredients</h2>
+		<div>
+			{groups.map(({ group, items }) => (
+				<div>
+					{group && <h3>{group}</h3>}
+					<ul>
+						{items.map((item) => <li><label><input type="checkbox" /> {item}</label></li>)}
+					</ul>
+				</div>
+			))}
+		</div>
+	</section>
+</section>
