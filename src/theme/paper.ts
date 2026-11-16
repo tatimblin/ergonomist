@@ -147,13 +147,13 @@ export const tagsOf = (story: Story) => (story.origin === "local" ? story.entry.
 
 /**
  * Whether a story is satire or reported, and what a reported one is based on.
- * A copy is reported (it's the real author's own post, not a bit), and its
- * source is the original.
+ * A copy is a column: the real author's own post, neither a bit nor
+ * reporting. Its source is the original.
  */
-export const veracityOf = (story: Story): { veracity: "satire" | "reported"; source?: string } =>
+export const veracityOf = (story: Story): { veracity: "satire" | "reported" | "column"; source?: string } =>
 	story.origin === "local"
 		? { veracity: story.entry.data.veracity, source: story.entry.data.source }
-		: { veracity: "reported", source: story.entry.data.canonical };
+		: { veracity: "column", source: story.entry.data.canonical };
 
 /** When a story last changed: its `updated` (a copy's `modified`), else its date. */
 export const modifiedOf = (story: Story) =>

@@ -4,8 +4,6 @@ date: 2026-11-15
 kind: recipe
 dek: One-handed, keyboard-safe, under ten minutes.
 authors: [ergonomist-test-kitchen]
-veracity: reported
-source: https://example.com/the-original-burrito
 tags: [lunch, valencia]
 serves: "1"
 time: 10 minutes
@@ -17,5 +15,5 @@ ingredients:
 draft: true
 ---
 
-1. An example recipe: `ingredients` print above this method, which is the body. It's `veracity: reported`, so it's labelled Reported and links its `source`.
+1. An example recipe: `ingredients` print above this method, which is the body.
 2. Delete it once there's a real one.
