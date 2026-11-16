@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import paper from "../../paper.config";
 import {
 	archiveHref,
+	getCorrections,
 	getStaff,
 	getStories,
 	getTags,
@@ -22,8 +23,9 @@ import {
 // Every indexable page this paper is the original of: the front page, the
 // sections with stories, its own stories but the tidbits (noindex) and the
 // headlines (no page; they're in the Newswire), its staff, the tags with
-// MIN_INDEXED_TAG stories or more, its series, the Newswire, the latest and the
-// archive. A copied story's canonical is elsewhere, so it isn't ours to list.
+// MIN_INDEXED_TAG stories or more, its series, the Newswire, its own pages
+// (/about/, the standards, /tips/, and /corrections/ once there's one), the
+// latest and the archive. A copied story's canonical is elsewhere, so it isn't ours to list.
 // A page's lastmod is the newest change (`updated`) among its stories.
 export const GET: APIRoute = async () => {
 	const all = await getStories(paper);
@@ -31,6 +33,7 @@ export const GET: APIRoute = async () => {
 	const headlines = stories.filter(isHeadline);
 	const staff = await getStaff(paper);
 	const series = await getCollection("series");
+	const corrections = getCorrections(stories);
 	const list = (path: string, of: Story[]) => ({ path, lastmod: lastModified(of) });
 	const urls = [
 		list("/", all),
@@ -49,6 +52,10 @@ export const GET: APIRoute = async () => {
 			.map((s) => ({ id: s.id, of: stories.filter((t) => t.series?.id === s.id) }))
 			.filter(({ of }) => of.length > 0)
 			.map(({ id, of }) => list(seriesHref(id), of)),
+		{ path: "/about/", lastmod: undefined },
+		{ path: paper.standards, lastmod: undefined },
+		{ path: "/tips/", lastmod: undefined },
+		...(corrections.length ? [{ path: "/corrections/", lastmod: corrections[0].date }] : []),
 		list("/latest/", all),
 		list("/archive/", all),
 		...[...getYears(all)].map(([year, of]) => list(archiveHref(year), of)),

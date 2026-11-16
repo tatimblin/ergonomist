@@ -35,8 +35,22 @@ export default {
 	// The front page's "Most Read", picked by hand: story ids, <section>/<slug>.
 	// One that names no story fails the build.
 	mostRead: ["tech/standing-desk-reaches-full-height", "mission/dolores-park-fog-returns"],
-	// The editorial standards, named in the front page's structured data.
+	// The editorial standards (src/content/pages/standards.md), linked from the
+	// footer and named in structured data.
 	standards: "/standards/",
+	// How to reach the paper. Set `email` once the paper has a domain to send
+	// it to; until then the pages say "via tristantimblin.dev".
+	contact: {
+		email: undefined,
+		url: "https://tristantimblin.dev",
+		label: "tristantimblin.dev",
+	},
+	// The asks every paper makes, as parody. Leave either out to drop it.
+	asks: {
+		membership:
+			"Become a member today, and every dollar you give will be matched, up to $100,000, by a guy at Philz who says he's good for it. (There is no membership. There is no match.)",
+		newsletter: "The Ergonomist newsletter: like a vitamin you ingest with your eyes. There isn't one yet; read the feed instead.",
+	},
 	// The default card, in public/: the image of a recipe with no photo yet,
 	// since Google wants one in a Recipe's structured data.
 	card: "/card.png",

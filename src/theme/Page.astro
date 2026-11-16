@@ -1,0 +1,42 @@
+---
+/**
+ * One of the paper's own pages (src/content/pages/<id>.md): its title as the
+ * heading, then whatever its route puts first (the slot named "before"),
+ * the body, and whatever the route adds after it (the default slot). Its
+ * structured data is a schema.org WebPage, or the `type` given (AboutPage),
+ * with any `ld` fields added (an AboutPage's mainEntity).
+ */
+import { render } from "astro:content";
+import Layout from "./Layout.astro";
+import { webPageLd, type Page, type Paper } from "./paper";
+
+interface Props {
+	paper: Paper;
+	page: Page;
+	type?: string;
+	ld?: Record<string, unknown>;
+	noindex?: boolean;
+	/** The page's own RSS feed. */
+	feed?: { title: string; href: string };
+}
+
+const { paper, page, type = "WebPage", ld, noindex, feed } = Astro.props;
+const { Content } = await render(page);
+const { title, description } = page.data;
+---
+
+<Layout
+	paper={paper}
+	title={title}
+	description={description}
+	noindex={noindex}
+	feed={feed}
+	jsonLd={webPageLd(paper, type, title, Astro.url.pathname, { description, ...ld })}
+>
+	<article>
+		<h1>{title}</h1>
+		<slot name="before" />
+		<Content />
+		<slot />
+	</article>
+</Layout>

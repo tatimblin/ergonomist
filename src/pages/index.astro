@@ -6,7 +6,7 @@
 import paper from "../../paper.config";
 import Layout from "../theme/Layout.astro";
 import StoryList from "../theme/StoryList.astro";
-import { formatDate, getMostRead, getStories, isHeadline, issueNumber, organizationLd, sectionHref, storyHref } from "../theme/paper";
+import { formatDate, getMostRead, getStories, isHeadline, issueNumber, paperLd, sectionHref, storyHref } from "../theme/paper";
 
 const PER_SECTION = 5;
 const NEWSWIRE = 10;
@@ -22,7 +22,7 @@ const above = new Set([lead, ...featured, ...stories.filter(isHeadline)]);
 const mostRead = await getMostRead(paper, stories);
 // The paper, and its search, for search engines.
 const jsonLd = [
-	{ ...organizationLd(paper), publishingPrinciples: new URL(paper.standards, paper.site).href },
+	paperLd(paper),
 	{
 		"@type": "WebSite",
 		name: paper.name,

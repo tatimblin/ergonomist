@@ -1,9 +1,11 @@
 ---
 /**
  * One story on its own page, top to bottom: kicker, headline and dek; byline,
- * dates and reading time; Satire or Reported; the lead image; the body; the
- * update note and corrections; tags; the authors' bio box; then related
- * stories and the stories either side of it in its section.
+ * dates and reading time; Satire or Reported; significant corrections; the
+ * lead image; the body; the update note and the other corrections; tags; the
+ * authors' bio box; then the paper's membership ask, if it has one, related
+ * stories and the stories either side of it in its section. Each correction
+ * has its anchor, #correction-N, where /corrections/ links it.
  *
  * A copied story names where it was first published, its canonical link
  * points there, and it is noindex: the search result belongs to the original
@@ -28,6 +30,7 @@ import StoryList from "./StoryList.astro";
 import {
 	authorLd,
 	breadcrumbLd,
+	correctionsOf,
 	formatDate,
 	kickerOf,
 	modifiedOf,
@@ -69,6 +72,10 @@ const related = relatedStories(story, stories);
 const { previous, next } = sectionNeighbours(story, stories);
 const url = new URL(Astro.url.pathname, paper.site).href;
 const image = local?.image;
+// A significant correction goes at the top of the story; the rest at the foot.
+const corrections = correctionsOf(story);
+const atTop = corrections.filter((c) => c.significant);
+const atFoot = corrections.filter((c) => !c.significant);
 // A satire's description says so, wherever it's quoted out of the page.
 const description = veracity === "satire" ? `Satire: ${data.dek ?? data.title}` : data.dek;
 // Structured data for the paper's own stories (a copy's belongs to its
@@ -134,6 +141,16 @@ const jsonLd = local && [
 				</p>
 			)}
 		</header>
+		{atTop.length > 0 && (
+			<section aria-labelledby="corrections-top">
+				<h2 id="corrections-top">{atTop.length > 1 ? "Corrections" : "Correction"}</h2>
+				<ul>
+					{atTop.map((c) => (
+						<li id={c.id}><time datetime={c.date.toISOString()}>{formatDate(c.date)}</time>: {c.text}</li>
+					))}
+				</ul>
+			</section>
+		)}
 		{image && (
 			<figure>
 				<Image src={image.src} alt={image.alt} width={1200} />
@@ -153,12 +170,12 @@ const jsonLd = local && [
 				<strong>Update, <time datetime={local.updated.toISOString()}>{formatDate(local.updated)}</time>:</strong> {local.updateNote}
 			</p>
 		)}
-		{local && local.corrections.length > 0 && (
+		{atFoot.length > 0 && (
 			<section aria-labelledby="corrections">
-				<h2 id="corrections">{local.corrections.length > 1 ? "Corrections" : "Correction"}</h2>
+				<h2 id="corrections">{atFoot.length > 1 ? "Corrections" : "Correction"}</h2>
 				<ul>
-					{local.corrections.map((c) => (
-						<li><time datetime={c.date.toISOString()}>{formatDate(c.date)}</time>: {c.text}</li>
+					{atFoot.map((c) => (
+						<li id={c.id}><time datetime={c.date.toISOString()}>{formatDate(c.date)}</time>: {c.text}</li>
 					))}
 				</ul>
 			</section>
@@ -172,6 +189,11 @@ const jsonLd = local && [
 		)}
 		<AuthorBox authors={story.authors} />
 	</article>
+	{paper.asks?.membership && (
+		<aside aria-label="Membership" data-pagefind-ignore>
+			<p>{paper.asks.membership}</p>
+		</aside>
+	)}
 	{related.length > 0 && (
 		<section aria-labelledby="related">
 			<h2 id="related">Related</h2>

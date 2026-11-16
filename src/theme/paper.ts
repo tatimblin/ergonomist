@@ -4,7 +4,7 @@
  * against a `Paper` and knowing nothing about The Ergonomist. Kept in this repo
  * until there is a design worth sharing; it moves out as a package then.
  */
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection, getEntry, type CollectionEntry } from "astro:content";
 import type { RecipeBody } from "./markdown";
 import { DURATION, TAG } from "./schema";
 
@@ -52,15 +52,33 @@ export interface Paper {
 	places: string[];
 	/** The front page's "Most Read", in order: story ids, `<section>/<slug>`. */
 	mostRead: string[];
-	/** The path of the paper's editorial standards, for structured data. */
+	/** The path of the paper's editorial standards (src/pages/standards.astro),
+	 *  linked from the footer and named in structured data. Its `#corrections`
+	 *  and `#ethics` headings are the corrections and ethics policies. */
 	standards: string;
 	/** The default card, a path in public/: the image in structured data that
 	 *  needs one (a Recipe's) when the story has none of its own. */
 	card: string;
+	/** How to reach the paper, on /about/, /standards/ and /tips/: `email`
+	 *  once it has one; until then, "via <label>", linked to `url`. */
+	contact: { email?: string; url: string; label: string };
+	/** Lines a paper prints to ask for money and sign-ups, printed as
+	 *  written: `membership` at the foot of every story, `newsletter` in the
+	 *  footer beside a link to the RSS feed. Either, or both, can be left out. */
+	asks?: { membership?: string; newsletter?: string };
 }
 
 export type Staff = CollectionEntry<"staff">;
 export type Series = CollectionEntry<"series">;
+export type Page = CollectionEntry<"pages">;
+
+/** One of the paper's own pages (src/content/pages/<id>.md), which its route
+ *  can't do without: a missing one fails the build. */
+export async function getPage(id: string): Promise<Page> {
+	const page = await getEntry("pages", id);
+	if (!page) throw new Error(`There's no src/content/pages/${id}.md, which /${id}/ prints.`);
+	return page;
+}
 
 interface Bylined {
 	section: string;
@@ -256,9 +274,60 @@ export const rssItem = (paper: Paper) => (story: Story) => ({
 	categories: [story.section, ...tagsOf(story)],
 });
 
+/** One correction to a story, as /corrections/ and its feed list it. */
+export interface Correction {
+	story: Story;
+	date: Date;
+	text: string;
+	/** Printed at the top of the story, not the foot. */
+	significant: boolean;
+	/** Its anchor on the story's page: correction-1 is the story's first. */
+	id: string;
+}
+
+/** A correction's place on its story's page, `#correction-N`. */
+export const correctionHref = (c: Correction) => `${storyHref(c.story)}#${c.id}`;
+
+/** A story's corrections, in the order it lists them; a copy has none. */
+export const correctionsOf = (story: Story): Correction[] =>
+	story.origin === "local" ? story.entry.data.corrections.map((c, i) => ({ story, ...c, id: `correction-${i + 1}` })) : [];
+
+/** Every correction to the paper's own stories, newest first; a story's
+ *  corrections, on one day, in the order it lists them. */
+export const getCorrections = (stories: Story[]): Correction[] =>
+	stories
+		.flatMap(correctionsOf)
+		.map((c, i) => ({ c, i }))
+		.sort((a, b) => b.c.date.getTime() - a.c.date.getTime() || a.i - b.i)
+		.map(({ c }) => c);
+
 /** The paper as a schema.org NewsMediaOrganization: the publisher of every
  *  story, and the author of those under a persona's byline. */
 export const organizationLd = (paper: Paper) => ({ "@type": "NewsMediaOrganization", name: paper.name, url: paper.site });
+
+/** The paper in full, where it's the page's subject (the front page, /about/):
+ *  with its standards, the corrections and ethics policies in them (the
+ *  standards page's #corrections and #ethics), and its email once it has one. */
+export const paperLd = (paper: Paper) => {
+	const standards = new URL(paper.standards, paper.site).href;
+	return {
+		...organizationLd(paper),
+		publishingPrinciples: standards,
+		correctionsPolicy: `${standards}#corrections`,
+		ethicsPolicy: `${standards}#ethics`,
+		...(paper.contact.email && { email: paper.contact.email }),
+	};
+};
+
+/** One of the paper's own pages as schema.org: a WebPage, or a subtype
+ *  (AboutPage), part of the paper's site. */
+export const webPageLd = (paper: Paper, type: string, name: string, path: string, extra: Record<string, unknown> = {}) => ({
+	"@type": type,
+	name,
+	url: new URL(path, paper.site).href,
+	isPartOf: { "@type": "WebSite", name: paper.name, url: paper.site },
+	...extra,
+});
 
 /** A real person on the staff as a schema.org Person. */
 export const personLd = (paper: Paper, person: Staff) => ({
