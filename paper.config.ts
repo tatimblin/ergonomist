@@ -45,12 +45,9 @@ export default {
 		url: "https://tristantimblin.dev",
 		label: "tristantimblin.dev",
 	},
-	// The asks every paper makes, as parody. Leave either out to drop it.
-	asks: {
-		membership:
-			"Become a member today, and every dollar you give will be matched, up to $100,000, by a guy at Philz who says he's good for it. (There is no membership. There is no match.)",
-		newsletter: "The Ergonomist newsletter: like a vitamin you ingest with your eyes. There isn't one yet; read the feed instead.",
-	},
+	// The asks every paper makes (`membership` at the foot of every story,
+	// `newsletter` in the footer). None yet.
+	asks: {},
 	// The default card, in public/: the image of a recipe with no photo yet,
 	// since Google wants one in a Recipe's structured data.
 	card: "/card.png",

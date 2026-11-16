@@ -16,12 +16,12 @@ kind: tidbit        # article (the default), tidbit, recipe or headline
 kicker: Fog Watch   # optional; the rubric above the headline (the series' name when left out)
 dek: One line under the headline and in the lists. Articles and recipes need one.
 dateline: Mission District, S.F.   # optional; opens the body as "MISSION DISTRICT, S.F.—"
-authors: [dale-footrest]  # staff ids; The Ergonomist Staff when left out
+authors: [tristan-timblin]  # staff ids; The Ergonomist Staff when left out
 image:              # optional; the lead image
   src: ./fog.jpg    # next to this file
   alt: Fog over the Dolores Park palms.
   caption: The fog, Sunday.          # optional
-  credit: Photo by Dale Footrest     # optional, printed as written
+  credit: Photo by Tristan Timblin   # optional, printed as written
 updated: 2026-11-16 # optional; printed beside the date, and the sitemap's lastmod
 updateNote: Adds a response from the fog.  # optional (needs `updated`), at the foot of the story
 tags: [fog, dolores-park, mission-district]  # optional; lowercase words joined by hyphens
@@ -64,7 +64,7 @@ ingredients:                # required; a list, or a list per group:
   - group: To assemble
     items: [2 flour tortillas]
 calories: 780               # optional; per serving
-testedBy: Marguerite Swivel # optional
+testedBy: Tristan Timblin   # optional
 ```
 
 Its body has a shape (`src/theme/markdown.ts` checks it, and a body that breaks it fails the build, drafts included):
@@ -90,7 +90,7 @@ tags: [fog, mission-district]
 
 It has no page of its own. The latest ten print in the front page's Newswire, and all of them at `/newswire/`, newest first, each at its anchor, `/newswire/#<slug>`; that's where the lists, the feeds and the search link to it. Two headlines with one slug, in any sections, fail the build.
 
-A story's page prints, top to bottom: kicker, headline, dek; byline and titles, the date (and update), reading time; **Satire** or **Reported** (with its source); any significant corrections; the lead image, caption and credit; the body; the update note and the other corrections; tags; the bio box; the membership ask; up to three related stories (the rest of its series, then those sharing the most tags, then its section); and the previous and next stories in its section. Lists print the Satire or Reported label too, and a satire's description (`og:description` and all) starts "Satire: ". Copied stories are labelled **Column**: the author's own post, neither satire nor reporting.
+A story's page prints, top to bottom: kicker, headline, dek; byline and titles, the date (and update), reading time; **Satire** or **Reported** (with its source); any significant corrections; the lead image, caption and credit; the body; the update note and the other corrections; tags; the bio box; the membership ask (if `asks.membership` is set); up to three related stories (the rest of its series, then those sharing the most tags, then its section); and the previous and next stories in its section. Lists print the Satire or Reported label too, and a satire's description (`og:description` and all) starts "Satire: ". Copied stories are labelled **Column**: the author's own post, neither satire nor reporting.
 
 The front page leads with the newest `placement: lead` story, then the `featured` ones, then the **Newswire**'s latest headlines, then each section's latest (without the stories and headlines already printed above), then **Most Read**: the story ids, `<section>/<slug>`, in `mostRead` in `paper.config.ts`, picked by hand. An id that names no story fails the build.
 
@@ -112,11 +112,11 @@ Everyone who can be on a byline is a markdown file in `src/content/staff/<id>.md
 
 ```md
 ---
-name: Marguerite Swivel
-title: Ergonomics Correspondent   # printed under the byline
-beat: Chairs, desks, and the people bent over them   # optional
+name: A. Correspondent
+title: Correspondent      # printed under the byline
+beat: What they cover     # optional
 short: One line, for the bio box at the end of each story and the masthead.
-photo: ./marguerite.jpg   # optional, next to this file
+photo: ./photo.jpg        # optional, next to this file
 links: [https://example.com]   # optional
 email: tips@example.com   # optional, printed as the tip line
 real: false               # a persona

@@ -3,7 +3,7 @@ title: Local Standing Desk Reaches Full Height for First Time
 date: 2026-11-15
 kicker: Desk Report
 dek: Owner reports "mostly sitting at it anyway."
-authors: [marguerite-swivel]
+authors: [ergonomist-staff]
 image:
   src: ./standing-desk.svg
   alt: A standing desk at full height, nobody standing at it.

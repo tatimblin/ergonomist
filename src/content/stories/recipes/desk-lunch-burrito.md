@@ -33,7 +33,7 @@ ingredients:
       - 1 ripe avocado, sliced
       - ¼ cup sour cream (optional)
 calories: 780
-testedBy: Marguerite Swivel
+testedBy: Tristan Timblin
 draft: true
 ---
 
