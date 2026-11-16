@@ -1,0 +1,21 @@
+---
+// The archive: a page for each year with a story in it, newest first.
+import paper from "../../../paper.config";
+import Layout from "../../theme/Layout.astro";
+import { archiveHref, getStories, getYears } from "../../theme/paper";
+
+const years = getYears(await getStories(paper));
+---
+
+<Layout paper={paper} title="Archive" description={`Every year of ${paper.name}.`}>
+	<h1>Archive</h1>
+	{years.size ? (
+		<ul>
+			{[...years].map(([year, stories]) => (
+				<li><a href={archiveHref(year)}>{year}</a> ({stories.length} {stories.length === 1 ? "story" : "stories"})</li>
+			))}
+		</ul>
+	) : (
+		<p>Nothing filed yet.</p>
+	)}
+</Layout>

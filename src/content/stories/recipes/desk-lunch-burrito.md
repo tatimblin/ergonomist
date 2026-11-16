@@ -2,8 +2,9 @@
 title: The Desk-Lunch Burrito
 date: 2026-11-15
 kind: recipe
-summary: One-handed, keyboard-safe, under ten minutes.
+dek: One-handed, keyboard-safe, under ten minutes.
 authors: [ergonomist-test-kitchen]
+tags: [lunch, valencia]
 serves: "1"
 time: 10 minutes
 ingredients:

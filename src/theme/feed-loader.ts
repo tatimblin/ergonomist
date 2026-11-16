@@ -107,7 +107,7 @@ export function feedLoader(paper: Paper): Loader {
 							title: item.title,
 							date: item.date_published,
 							modified: item.date_modified,
-							summary: item.summary,
+							dek: item.summary,
 							section: feed.section,
 							slug,
 							canonical,

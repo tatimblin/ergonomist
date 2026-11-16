@@ -1,0 +1,32 @@
+---
+// A series: what it is, and every story in it, newest first.
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import paper from "../../../paper.config";
+import Layout from "../../theme/Layout.astro";
+import StoryList from "../../theme/StoryList.astro";
+import { collectionLd, getStories, seriesHref, type Series, type Story } from "../../theme/paper";
+
+export const getStaticPaths = (async () => {
+	const stories = await getStories(paper);
+	return (await getCollection("series")).map((series) => ({
+		params: { id: series.id },
+		props: { series, stories: stories.filter((s) => s.series?.id === series.id) },
+	}));
+}) satisfies GetStaticPaths;
+
+const { series, stories } = Astro.props as { series: Series; stories: Story[] };
+const { name, description } = series.data;
+---
+
+<Layout
+	paper={paper}
+	title={name}
+	description={description}
+	noindex={stories.length === 0}
+	jsonLd={collectionLd(paper, name, seriesHref(series.id), stories)}
+>
+	<h1>{name}</h1>
+	<p>{description}</p>
+	{stories.length ? <StoryList stories={stories} level={2} /> : <p>Nothing in it yet.</p>}
+</Layout>

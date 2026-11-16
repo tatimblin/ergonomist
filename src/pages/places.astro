@@ -1,0 +1,24 @@
+---
+// Places: the tags in paper.places that have stories, in that order, each
+// linked to its tag page.
+import paper from "../../paper.config";
+import Layout from "../theme/Layout.astro";
+import { getStories, getTags, tagHref, tagLabel } from "../theme/paper";
+
+const tags = getTags(await getStories(paper));
+const places = paper.places.filter((p) => tags.has(p));
+---
+
+<Layout paper={paper} title="Places" description={`Where ${paper.name} has been.`} noindex={places.length === 0}>
+	<h1>Places</h1>
+	{places.length ? (
+		<ul>
+			{places.map((p) => {
+				const n = tags.get(p)!.length;
+				return <li><a href={tagHref(p)}>{tagLabel(p)}</a> ({n} {n === 1 ? "story" : "stories"})</li>;
+			})}
+		</ul>
+	) : (
+		<p>Nowhere yet.</p>
+	)}
+</Layout>

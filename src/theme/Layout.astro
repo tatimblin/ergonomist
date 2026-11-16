@@ -22,8 +22,9 @@ interface Props {
 	issue?: { number: number; date: Date };
 	/** "article" on a story's page (og:type). */
 	type?: "website" | "article";
-	/** schema.org structured data for the page, printed as JSON-LD. */
-	jsonLd?: Record<string, unknown>;
+	/** schema.org structured data for the page, printed as JSON-LD; a list
+	 *  is printed as one @graph. */
+	jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 	/** The page's own RSS feed, advertised beside the paper's. */
 	feed?: { title: string; href: string };
 }
@@ -35,7 +36,9 @@ const isFront = Astro.url.pathname === "/";
 const current = (section: string) =>
 	Astro.url.pathname === sectionHref(section) ? "page" : Astro.url.pathname.startsWith(sectionHref(section)) ? "true" : undefined;
 // JSON.stringify leaves "</script>" in a string as is; escaped, it can't close the tag.
-const ld = jsonLd && JSON.stringify({ "@context": "https://schema.org", ...jsonLd }).replace(/</g, "\\u003c");
+const ld =
+	jsonLd &&
+	JSON.stringify({ "@context": "https://schema.org", ...(Array.isArray(jsonLd) ? { "@graph": jsonLd } : jsonLd) }).replace(/</g, "\\u003c");
 ---
 
 <!doctype html>
@@ -56,6 +59,7 @@ const ld = jsonLd && JSON.stringify({ "@context": "https://schema.org", ...jsonL
 		{href && <meta property="og:url" content={href} />}
 		<meta name="twitter:card" content="summary" />
 		{ld && <script type="application/ld+json" is:inline set:html={ld} />}
+		<slot name="head" />
 	</head>
 	<body>
 		<a href="#main">Skip to content</a>
@@ -78,13 +82,17 @@ const ld = jsonLd && JSON.stringify({ "@context": "https://schema.org", ...jsonL
 					))}
 				</ul>
 			</nav>
+			<form role="search" action="/search/">
+				<label>Search <input type="search" name="q" /></label>
+				<button>Search</button>
+			</form>
 		</header>
 		<main id="main">
 			<slot />
 		</main>
 		<footer>
 			<p>{paper.disclaimer}</p>
-			<p>© {new Date().getFullYear()} {paper.name}. <a href="/staff/">Staff</a> · <a href="/rss.xml">RSS</a></p>
+			<p>© {new Date().getFullYear()} {paper.name}. <a href="/latest/">Latest</a> · <a href="/archive/">Archive</a> · <a href="/places/">Places</a> · <a href="/staff/">Staff</a> · <a href="/search/">Search</a> · <a href="/rss.xml">RSS</a></p>
 		</footer>
 	</body>
 </html>

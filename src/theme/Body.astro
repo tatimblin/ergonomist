@@ -1,0 +1,19 @@
+---
+/**
+ * A story's body. A dateline heads it in caps, "MISSION DISTRICT, S.F.—", as
+ * a <strong> just before the first paragraph; a stylesheet can run it in.
+ */
+import { render } from "astro:content";
+import type { Story } from "./paper";
+
+interface Props {
+	story: Story;
+}
+
+const { story } = Astro.props;
+const { Content } = await render(story.entry);
+const dateline = story.origin === "local" ? story.entry.data.dateline : undefined;
+---
+
+{dateline && <strong>{dateline.toUpperCase()}—</strong>}
+<Content />

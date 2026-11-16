@@ -1,22 +1,53 @@
 import type { APIRoute } from "astro";
+import { getCollection } from "astro:content";
 import paper from "../../paper.config";
-import { getStaff, getStories, sectionHref, staffHref, storyHref } from "../theme/paper";
+import {
+	archiveHref,
+	getStaff,
+	getStories,
+	getTags,
+	getYears,
+	lastModified,
+	MIN_INDEXED_TAG,
+	modifiedOf,
+	sectionHref,
+	seriesHref,
+	staffHref,
+	storyHref,
+	tagHref,
+	type Story,
+} from "../theme/paper";
 
-// Every page this paper is the original of: the front page, the sections, its
-// own stories and its staff. A copied story's canonical is elsewhere, so it
-// isn't ours to list.
+// Every indexable page this paper is the original of: the front page, the
+// sections with stories, its own stories but the tidbits (noindex), its
+// staff, the tags with MIN_INDEXED_TAG stories or more, its series, the
+// latest and the archive. A copied story's canonical is elsewhere, so it isn't
+// ours to list. A page's lastmod is the newest change (`updated`) among its stories.
 export const GET: APIRoute = async () => {
-	const stories = (await getStories(paper)).filter((s) => s.origin === "local");
+	const all = await getStories(paper);
+	const stories = all.filter((s) => s.origin === "local");
 	const staff = await getStaff(paper);
+	const series = await getCollection("series");
+	const list = (path: string, of: Story[]) => ({ path, lastmod: lastModified(of) });
 	const urls = [
-		{ path: "/", lastmod: stories[0]?.entry.data.date },
-		...paper.sections.map((s) => ({ path: sectionHref(s.id), lastmod: stories.find((t) => t.section === s.id)?.entry.data.date })),
-		...stories.map((s) => ({ path: storyHref(s), lastmod: s.entry.data.date })),
+		list("/", all),
+		...paper.sections
+			.map((s) => ({ id: s.id, of: all.filter((t) => t.section === s.id) }))
+			.filter(({ of }) => of.length > 0)
+			.map(({ id, of }) => list(sectionHref(id), of)),
+		...stories
+			.filter((s) => s.origin === "local" && s.entry.data.kind !== "tidbit")
+			.map((s) => ({ path: storyHref(s), lastmod: modifiedOf(s) })),
 		{ path: "/staff/", lastmod: undefined },
-		...staff.map((p) => ({
-			path: staffHref(p.id),
-			lastmod: stories.find((s) => s.authors.some((a) => a.id === p.id))?.entry.data.date,
-		})),
+		...staff.map((p) => list(staffHref(p.id), stories.filter((s) => s.authors.some((a) => a.id === p.id)))),
+		...[...getTags(stories)].filter(([, of]) => of.length >= MIN_INDEXED_TAG).map(([tag, of]) => list(tagHref(tag), of)),
+		...series
+			.map((s) => ({ id: s.id, of: stories.filter((t) => t.series?.id === s.id) }))
+			.filter(({ of }) => of.length > 0)
+			.map(({ id, of }) => list(seriesHref(id), of)),
+		list("/latest/", all),
+		list("/archive/", all),
+		...[...getYears(all)].map(([year, of]) => list(archiveHref(year), of)),
 	];
 	const body = urls
 		.map(({ path, lastmod }) => {

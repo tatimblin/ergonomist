@@ -1,0 +1,22 @@
+---
+// A year of the paper: every story dated in it, newest first.
+import type { GetStaticPaths } from "astro";
+import paper from "../../../paper.config";
+import Layout from "../../theme/Layout.astro";
+import StoryList from "../../theme/StoryList.astro";
+import { archiveHref, collectionLd, getStories, getYears, type Story } from "../../theme/paper";
+
+export const getStaticPaths = (async () =>
+	[...getYears(await getStories(paper))].map(([year, stories]) => ({
+		params: { year: String(year) },
+		props: { year, stories },
+	}))) satisfies GetStaticPaths;
+
+const { year, stories } = Astro.props as { year: number; stories: Story[] };
+---
+
+<Layout paper={paper} title={String(year)} description={`${paper.name} in ${year}.`} jsonLd={collectionLd(paper, String(year), archiveHref(year), stories)}>
+	<h1>{year}</h1>
+	<p><a href="/archive/">Archive</a></p>
+	<StoryList stories={stories} level={2} />
+</Layout>
