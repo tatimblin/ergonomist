@@ -29,6 +29,9 @@ export interface Paper {
 	tagline: string;
 	price: string;
 	site: string;
+	/** The first issue's date, ISO (2026-11-15). The issue number counts the
+	 *  weeks since. */
+	founded: string;
 	/** Whether search engines may index the paper. */
 	index: boolean;
 	/** One line printed in every footer: what kind of paper this is. */
@@ -60,11 +63,23 @@ export async function getStories(paper: Paper): Promise<Story[]> {
 			return { origin: "local", section, slug: rest.join("/"), entry };
 		},
 	);
-	const copied = (await getCollection("wire")).map(
-		(entry): Story => ({ origin: "feed", section: entry.data.section, slug: entry.data.slug, entry }),
-	);
+	// A copy and a story of our own at one URL would be one page lost.
+	const ours = new Set(local.map(storyHref));
+	const copied = (await getCollection("wire")).map((entry): Story => {
+		const story: Story = { origin: "feed", section: entry.data.section, slug: entry.data.slug, entry };
+		if (ours.has(storyHref(story))) {
+			throw new Error(`The copy of ${entry.data.canonical} would print over our own story at ${storyHref(story)}.`);
+		}
+		return story;
+	});
 	return [...local, ...copied].sort((a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime());
 }
 
 export const formatDate = (date: Date) =>
 	date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+
+const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+
+/** The issue dated `date`: No. 1 in the founding week, and one more each week. */
+export const issueNumber = (paper: Paper, date: Date) =>
+	Math.max(1, Math.floor((date.getTime() - new Date(paper.founded).getTime()) / WEEK_MS) + 1);

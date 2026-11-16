@@ -12,7 +12,7 @@ const stories = defineCollection({
 
 // Stories copied from the feeds in paper.config.ts.
 const wire = defineCollection({
-	loader: feedLoader(paper.feeds),
+	loader: feedLoader(paper),
 	schema: wireSchema,
 });
 

@@ -1,7 +1,8 @@
 ---
 /**
  * One story on its own page. A copied story names where it was first
- * published, and its canonical link points there.
+ * published, its canonical link points there, and it is noindex: the search
+ * result belongs to the original (Google's advice for syndicated copies).
  */
 import { render } from "astro:content";
 import Layout from "./Layout.astro";
@@ -35,7 +36,7 @@ const jsonLd = local && {
 };
 ---
 
-<Layout paper={paper} title={data.title} description={data.summary} canonical={copied?.canonical} type="article" jsonLd={jsonLd || undefined}>
+<Layout paper={paper} title={data.title} description={data.summary} canonical={copied?.canonical} noindex={!!copied} type="article" jsonLd={jsonLd || undefined}>
 	<article>
 		<header>
 			<p><a href={sectionHref(section.id)}>{section.label}</a></p>

@@ -10,12 +10,13 @@ export default {
 	price: "25¢",
 	// The deployed origin: canonical links and the feed are built against it.
 	site: "https://ergonomist.tatimblin.workers.dev",
+	// Vol. I, No. 1. The masthead's issue number is the weeks since.
+	founded: "2026-11-15",
 	// Keep search engines out (a noindex on every page) while this is a
 	// preview on workers.dev. Flip, and change `site`, once it has a domain.
 	index: false,
-	// Printed in every footer and in the meta description, so no reader (or
-	// search engine) takes a story for real news.
-	disclaimer: "The Ergonomist is satire. Its stories are made up, except the ones that aren't.",
+	// The line printed in every page's footer.
+	disclaimer: "If a school newspaper were made by adults",
 	// Sections in masthead order. A local story's section is its folder under
 	// src/content/stories; a syndicated story's section is named by its feed.
 	sections: [
