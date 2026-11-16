@@ -1,4 +1,4 @@
-import { z } from "astro:content";
+import { z } from "astro/zod";
 
 /**
  * A story written for the paper, in src/content/stories/<section>/<slug>.md.

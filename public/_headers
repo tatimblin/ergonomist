@@ -1,0 +1,13 @@
+# Cloudflare static-asset headers. Astro fingerprints everything under
+# /_astro/, so it never changes; the feeds do, every deploy.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/rss.xml
+  Cache-Control: public, max-age=300
+
+/sitemap.xml
+  Cache-Control: public, max-age=300
+
+/wire.json
+  Cache-Control: public, max-age=300

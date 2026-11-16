@@ -3,12 +3,13 @@
 import paper from "../../paper.config";
 import Layout from "../theme/Layout.astro";
 import StoryList from "../theme/StoryList.astro";
-import { formatDate, getStories, sectionHref } from "../theme/paper";
+import { getStories, issueNumber, sectionHref } from "../theme/paper";
 
 const PER_SECTION = 5;
 const stories = await getStories(paper);
-// The issue moves with the paper: its number is the story count, its date the newest story's.
-const issue = stories.length ? { number: stories.length, date: formatDate(stories[0].entry.data.date) } : undefined;
+// The issue moves with the paper: its date is the newest story's, its number the weeks since founding.
+const latest = stories[0]?.entry.data.date;
+const issue = latest && { number: issueNumber(paper, latest), date: latest };
 ---
 
 <Layout paper={paper} issue={issue}>
