@@ -2,11 +2,12 @@
 import type { GetStaticPaths } from "astro";
 import paper from "../../../paper.config";
 import StoryPage from "../../theme/StoryPage.astro";
-import { getStories, type Story } from "../../theme/paper";
+import { getStories, isHeadline, type Story } from "../../theme/paper";
 
+// A page for every story but the headlines, which print in the Newswire.
 export const getStaticPaths = (async () => {
 	const stories = await getStories(paper);
-	return stories.map((story) => ({
+	return stories.filter((s) => !isHeadline(s)).map((story) => ({
 		params: { section: story.section, slug: story.slug },
 		props: { story, stories },
 	}));

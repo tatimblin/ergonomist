@@ -1,0 +1,55 @@
+/*
+ * A recipe, printed: the recipe and nothing around it, black on white. The
+ * only CSS in the paper until it has a design. Out goes the masthead's nav and
+ * search, the footer's links, the photo, the tags, the bio box, related and
+ * previous/next (everything in <main> but the story), and the screen-only
+ * "Jump to recipe" and Print. In comes the "Clipped from" line, hidden on
+ * screen. The ingredients run in two columns, and no step, or ingredient
+ * group, is split across a page break.
+ */
+@media print {
+	body:has(article[data-recipe]) {
+		color: #000;
+		background: #fff;
+	}
+
+	body:has(article[data-recipe]) a {
+		color: #000;
+	}
+
+	body:has(article[data-recipe]) > a[href="#main"],
+	body:has(article[data-recipe]) > header :is(nav, form),
+	body:has(article[data-recipe]) > footer p:has(a),
+	main:has(> article[data-recipe]) > :not(article),
+	article[data-recipe] :is(figure, nav, aside, [data-screen-only]) {
+		display: none;
+	}
+
+	article[data-recipe] [data-clipping][hidden] {
+		display: block;
+	}
+
+	/* The groups' container, then each group: its heading stays with its list. */
+	article[data-recipe] #ingredients + div {
+		columns: 2;
+	}
+
+	article[data-recipe] #ingredients + div > div,
+	article[data-recipe] li[id^="step-"] {
+		break-inside: avoid;
+	}
+
+	article[data-recipe] :is(h2, h3) {
+		break-after: avoid;
+	}
+
+	/* So the two columns' first groups line up. */
+	article[data-recipe] #ingredients + div h3 {
+		margin-top: 0;
+	}
+
+	article[data-recipe] #ingredients + div ul {
+		list-style: none;
+		padding-left: 0;
+	}
+}

@@ -1,8 +1,10 @@
 /**
  * The site search's index: run after `astro build` (package.json's
  * postbuild), it gives Pagefind the built pages that mark a story of the
- * paper's own with data-pagefind-body (StoryPage.astro), and writes the index
- * to dist/pagefind/. The rest — lists, staff pages and copied stories, whose
+ * paper's own with data-pagefind-body (StoryPage.astro), and the Newswire's
+ * list of headlines (each found by its heading's anchor, since a headline has
+ * no page), and writes the index to dist/pagefind/. The rest — other lists,
+ * staff pages and copied stories, whose
  * search result belongs to the original — stay out. (Pagefind on its own
  * indexes every page whole when no page has a data-pagefind-body, as on a
  * paper with nothing of its own published yet.)
@@ -17,7 +19,7 @@ const site = process.argv[2] ?? "dist";
 const { index, errors } = await pagefind.createIndex({});
 if (!index) throw new Error(`Pagefind: ${errors.join("; ")}`);
 
-let stories = 0;
+let pages = 0;
 for (const file of await readdir(site, { recursive: true })) {
 	if (!file.endsWith(".html")) continue;
 	const content = await readFile(join(site, file), "utf8");
@@ -25,9 +27,9 @@ for (const file of await readdir(site, { recursive: true })) {
 	// The URL comes from the path: tech/desk/index.html is /tech/desk/.
 	const added = await index.addHTMLFile({ sourcePath: file, content });
 	if (added.errors.length) throw new Error(`Pagefind, ${file}: ${added.errors.join("; ")}`);
-	stories++;
+	pages++;
 }
 const written = await index.writeFiles({ outputPath: join(site, "pagefind") });
 if (written.errors.length) throw new Error(`Pagefind: ${written.errors.join("; ")}`);
 await pagefind.close();
-console.log(`Indexed ${stories} stories for search in ${join(site, "pagefind")}.`);
+console.log(`Indexed ${pages} pages for search in ${join(site, "pagefind")}.`);

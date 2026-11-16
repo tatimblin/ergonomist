@@ -2,9 +2,13 @@
 /**
  * A story's body. A dateline heads it in caps, "MISSION DISTRICT, S.F.—", as
  * a <strong> just before the first paragraph; a stylesheet can run it in.
+ *
+ * A recipe's headnote (markdown.ts takes it out of the body) prints first,
+ * then whatever's in the slot (the recipe card), then the rest: the Method
+ * and the notes.
  */
 import { render } from "astro:content";
-import type { Story } from "./paper";
+import { recipeOf, type Story } from "./paper";
 
 interface Props {
 	story: Story;
@@ -12,8 +16,12 @@ interface Props {
 
 const { story } = Astro.props;
 const { Content } = await render(story.entry);
-const dateline = story.origin === "local" ? story.entry.data.dateline : undefined;
+const local = story.origin === "local" ? story : null;
+const dateline = local?.entry.data.dateline;
+const headnote = local?.entry.data.kind === "recipe" ? recipeOf(local).headnote : undefined;
 ---
 
 {dateline && <strong>{dateline.toUpperCase()}—</strong>}
+{headnote && <Fragment set:html={headnote} />}
+<slot />
 <Content />

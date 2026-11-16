@@ -1,21 +1,24 @@
 ---
-// The front page: the newest lead story, then the featured ones, then each
-// section's latest in masthead order, then Most Read. A story printed above
-// isn't printed again in its section's block.
+// The front page: the newest lead story, then the featured ones, then the
+// Newswire's latest headlines, then each section's latest in masthead order,
+// then Most Read. A story printed above isn't printed again in its section's
+// block, and headlines are only in the Newswire.
 import paper from "../../paper.config";
 import Layout from "../theme/Layout.astro";
 import StoryList from "../theme/StoryList.astro";
-import { getMostRead, getStories, issueNumber, organizationLd, sectionHref, storyHref } from "../theme/paper";
+import { formatDate, getMostRead, getStories, isHeadline, issueNumber, organizationLd, sectionHref, storyHref } from "../theme/paper";
 
 const PER_SECTION = 5;
+const NEWSWIRE = 10;
 const stories = await getStories(paper);
+const newswire = stories.filter(isHeadline).slice(0, NEWSWIRE);
 // The issue moves with the paper: its date is the newest story's, its number the weeks since founding.
 const latest = stories[0]?.entry.data.date;
 const issue = latest && { number: issueNumber(paper, latest), date: latest };
 const placement = (s: (typeof stories)[number]) => (s.origin === "local" ? s.entry.data.placement : undefined);
 const lead = stories.find((s) => placement(s) === "lead");
 const featured = stories.filter((s) => placement(s) === "featured");
-const above = new Set([lead, ...featured]);
+const above = new Set([lead, ...featured, ...stories.filter(isHeadline)]);
 const mostRead = await getMostRead(paper, stories);
 // The paper, and its search, for search engines.
 const jsonLd = [
@@ -43,6 +46,19 @@ const jsonLd = [
 		<section aria-label="Featured">
 			<StoryList stories={featured} level={2} />
 		</section>
+	)}
+	{newswire.length > 0 && (
+		<aside aria-labelledby="newswire">
+			<h2 id="newswire"><a href="/newswire/">Newswire</a></h2>
+			<ul>
+				{newswire.map((s) => (
+					<li>
+						<a href={storyHref(s)}>{s.entry.data.title}</a>{" "}
+						<time datetime={s.entry.data.date.toISOString()}>{formatDate(s.entry.data.date)}</time>
+					</li>
+				))}
+			</ul>
+		</aside>
 	)}
 	{paper.sections.map((section) => {
 		const latest = stories.filter((s) => s.section === section.id && !above.has(s)).slice(0, PER_SECTION);

@@ -1,0 +1,37 @@
+---
+// The Newswire: every headline, newest first. A headline has no page of its
+// own; it's here, at /newswire/#<slug>, where the front page, the lists and
+// the feeds link to it. The list is in the site search, each headline a
+// result of its own (Pagefind's sub-results, by the headings' ids).
+import paper from "../../paper.config";
+import Byline from "../theme/Byline.astro";
+import Label from "../theme/Label.astro";
+import Layout from "../theme/Layout.astro";
+import { collectionLd, formatDate, getStories, isHeadline } from "../theme/paper";
+
+const headlines = (await getStories(paper)).filter(isHeadline);
+---
+
+<Layout
+	paper={paper}
+	title="Newswire"
+	description={`The news in ${paper.name}, a headline at a time.`}
+	noindex={headlines.length === 0}
+	jsonLd={collectionLd(paper, "Newswire", "/newswire/", headlines)}
+>
+	<h1>Newswire</h1>
+	{headlines.length ? (
+		<ul data-pagefind-body>
+			{headlines.map((s) => (
+				<li>
+					<h2 id={s.slug}>{s.entry.data.title}</h2>
+					<p data-pagefind-ignore>
+						<Label story={s} /> · By <Byline authors={s.authors} /> · <time datetime={s.entry.data.date.toISOString()}>{formatDate(s.entry.data.date)}</time>
+					</p>
+				</li>
+			))}
+		</ul>
+	) : (
+		<p>No news today.</p>
+	)}
+</Layout>

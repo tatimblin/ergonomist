@@ -12,7 +12,7 @@ A story is a markdown file in `src/content/stories/<section>/<slug>.md`, where `
 ---
 title: Fog Returns to Dolores Park, Declines to Comment
 date: 2026-11-15
-kind: tidbit        # article (the default), tidbit or recipe
+kind: tidbit        # article (the default), tidbit, recipe or headline
 kicker: Fog Watch   # optional; the rubric above the headline (the series' name when left out)
 dek: One line under the headline and in the lists. Articles and recipes need one.
 dateline: Mission District, S.F.   # optional; opens the body as "MISSION DISTRICT, S.F.—"
@@ -38,11 +38,60 @@ draft: true         # shown by `bun run dev` only
 The body.
 ```
 
-A **tidbit** prints whole on the front page; its own page is `noindex` and out of the sitemap, a paragraph being too thin a page to send searchers to. A **recipe** also takes `ingredients` (a list), and optionally `serves` and `time`; its body is the method. The examples in each folder show all three, and between them every field above.
+A **tidbit** prints whole on the front page; its own page is `noindex` and out of the sitemap, a paragraph being too thin a page to send searchers to. A **recipe** and a **headline** are below. The examples in each folder show all four, and between them every field above.
+
+### Recipes
+
+A recipe is an article with a recipe card. Its frontmatter takes, as well as the fields above:
+
+```md
+kind: recipe
+serves: 2                   # a whole number; required
+yield: 2 large burritos     # optional; printed instead of "Serves 2"
+prep: PT15M                 # ISO 8601 durations; prep and cook are required
+cook: PT25M
+active: PT30M               # optional
+total: PT40M                # optional; prep plus cook when left out
+difficulty: easy            # optional; easy, medium or hard
+course: Lunch               # optional; schema.org's recipeCategory
+cuisine: Mexican            # optional
+diet: [vegetarian]          # optional
+equipment: [Large skillet, Aluminum foil]  # optional
+ingredients:                # required; a list, or a list per group:
+  - group: For the beans
+    items: [1 tablespoon olive oil, 1 (15-ounce) can pinto beans]
+  - group: To assemble
+    items: [2 flour tortillas]
+calories: 780               # optional; per serving
+testedBy: Marguerite Swivel # optional
+```
+
+Its body has a shape (`src/theme/markdown.ts` checks it, and a body that breaks it fails the build, drafts included):
+
+- The prose before the first `##` is the headnote, where the joke goes. It prints above the recipe card.
+- `## Method` is required: an ordered list, or `###` subsections (`### For the sauce`), each holding one ordered list and nothing else. The steps are numbered on through the subsections, and each has an anchor, `#step-3`.
+- `## Notes`, `## Make Ahead and Storage` and `## Substitutions`, or any other `##`, print as written after the Method.
+
+The page prints the headnote, then the card (yield, times as "1 hr 10 min", difficulty, course, cuisine, diet, equipment, calories and who tested it), the ingredients with a checkbox each, then the Method and notes. Its header has a "Jump to recipe" link and a Print button (the paper's only script), and printing it prints the recipe alone, black on white, ingredients in two columns, with a "Clipped from The Ergonomist, <url>" line (`src/theme/print.css`, the paper's only CSS). Its structured data is a schema.org `Recipe` with the times, yield, ingredients, the Method's steps (in `HowToSection`s for its subsections, each step linked to its anchor), course, cuisine, calories, and its tags but the course and cuisine as keywords. A recipe with no `image` uses the paper's default card, `public/card.png`, since Google wants one. There's no rating.
+
+### Headlines
+
+A headline is the Newswire, after The Onion's: a `title`, a `date`, and optionally `authors` and `tags`, with no body and no dek (either fails the build, as does anything else a page would print).
+
+```md
+---
+title: Mission Resident Describes Weather as "a Microclimate" for 14th Consecutive Year
+date: 2026-11-13
+kind: headline
+tags: [fog, mission-district]
+---
+```
+
+It has no page of its own. The latest ten print in the front page's Newswire, and all of them at `/newswire/`, newest first, each at its anchor, `/newswire/#<slug>`; that's where the lists, the feeds and the search link to it. Two headlines with one slug, in any sections, fail the build.
 
 A story's page prints, top to bottom: kicker, headline, dek; byline and titles, the date (and update), reading time; **Satire** or **Reported** (with its source); the lead image, caption and credit; the body; the update note and corrections; tags; the bio box; up to three related stories (the rest of its series, then those sharing the most tags, then its section); and the previous and next stories in its section. Lists print the Satire or Reported label too, and a satire's description (`og:description` and all) starts "Satire: ". Copied stories are labelled **Column**: the author's own post, neither satire nor reporting.
 
-The front page leads with the newest `placement: lead` story, then the `featured` ones, then each section's latest (without the stories already printed above), then **Most Read**: the story ids, `<section>/<slug>`, in `mostRead` in `paper.config.ts`, picked by hand. An id that names no story fails the build.
+The front page leads with the newest `placement: lead` story, then the `featured` ones, then the **Newswire**'s latest headlines, then each section's latest (without the stories and headlines already printed above), then **Most Read**: the story ids, `<section>/<slug>`, in `mostRead` in `paper.config.ts`, picked by hand. An id that names no story fails the build.
 
 ## Tags, places, series and the archive
 
@@ -54,7 +103,7 @@ The front page leads with the newest `placement: lead` story, then the `featured
 
 ## Search
 
-`/search/` is [Pagefind](https://pagefind.app)'s default UI (with its own stylesheet; `?q=` runs a search, as the masthead's search form does). After `astro build`, `bun run build` runs `src/theme/search-index.ts`, which indexes only the paper's own stories (those marked `data-pagefind-body`) into `dist/pagefind/`: no lists, and no copies, whose search result belongs to the original. There's no index on the dev server; try it with `bun run build && bun run preview`.
+`/search/` is [Pagefind](https://pagefind.app)'s default UI (with its own stylesheet; `?q=` runs a search, as the masthead's search form does). After `astro build`, `bun run build` runs `src/theme/search-index.ts`, which indexes only the paper's own stories (those marked `data-pagefind-body`) into `dist/pagefind/`: no lists, and no copies, whose search result belongs to the original. The one list it indexes is `/newswire/`, since headlines have no pages; each is found at its anchor. There's no index on the dev server; try it with `bun run build && bun run preview`.
 
 ## Staff
 
@@ -89,12 +138,14 @@ tristantimblin.dev rebuilds the paper when it deploys, by sending this repo a `r
 
 ## Layout
 
-- `paper.config.ts` — the name, tagline, address, founding date (the issue number counts weeks from it), footer line, sections and feeds (each with its `author`), the default byline, the masthead's group order, the place tags, Most Read, the standards page's path, and `index` (off: every page is `noindex` until the paper has a domain).
-- `src/theme/` — the reusable part: layout, story list and page, body (with its dateline), Satire/Reported label, byline and author box, schemas, feed loader, search indexer, and `paper.css` (empty). It knows nothing about The Ergonomist, so it can become its own package once there's a design.
-- `src/pages/` — the routes: front page, sections, stories, tags, places, series, latest, archive, search, staff and masthead, RSS (the paper's and each author's), sitemap, robots.txt, `wire.json` (the copied stories), 404.
+- `paper.config.ts` — the name, tagline, address, founding date (the issue number counts weeks from it), footer line, sections and feeds (each with its `author`), the default byline, the masthead's group order, the place tags, Most Read, the standards page's path, the default card, and `index` (off: every page is `noindex` until the paper has a domain).
+- `astro.config.mjs` — adds the theme's Markdown rules (`src/theme/markdown.ts`) to Astro's Markdown processor, Sätteri.
+- `src/theme/` — the reusable part: layout, story list and page, body (with its dateline), recipe card, Satire/Reported label, byline and author box, schemas, the Markdown rules for recipes and headlines, feed loader, search indexer, `paper.css` (empty) and `print.css` (a recipe, printed). It knows nothing about The Ergonomist, so it can become its own package once there's a design.
+- `src/pages/` — the routes: front page, sections, stories, tags, places, series, the Newswire, latest, archive, search, staff and masthead, RSS (the paper's and each author's), sitemap, robots.txt, `wire.json` (the copied stories), 404.
 - `public/_headers` — cache headers: a year for `/_astro/*`, five minutes for the feeds and sitemap.
+- `public/card.png` — the default card: a recipe's image in structured data until it has a photo.
 
-Every page carries Open Graph tags. The paper's own stories carry schema.org JSON-LD: `SatiricalArticle` (`NewsArticle` when reported, `Recipe` for a recipe) with `dateModified`, `image` and `mainEntityOfPage`, and a `BreadcrumbList`. Sections, tags, series, the latest and the archive years are `CollectionPage`s; staff pages are `ProfilePage`s; the front page has the paper as a `NewsMediaOrganization` (its `publishingPrinciples` the standards page, `/standards/`, still to be written) and a `WebSite` with a `SearchAction`. The sitemap lists the indexable pages, each with the newest `updated` among its stories as its lastmod.
+Every page carries Open Graph tags. The paper's own stories carry schema.org JSON-LD: `SatiricalArticle` (`NewsArticle` when reported, `Recipe` for a recipe) with `dateModified`, `image` and `mainEntityOfPage`, and a `BreadcrumbList`. Sections, tags, series, the Newswire, the latest and the archive years are `CollectionPage`s; staff pages are `ProfilePage`s; the front page has the paper as a `NewsMediaOrganization` (its `publishingPrinciples` the standards page, `/standards/`, still to be written) and a `WebSite` with a `SearchAction`. The sitemap lists the indexable pages, each with the newest `updated` among its stories as its lastmod.
 
 ```sh
 bun install
