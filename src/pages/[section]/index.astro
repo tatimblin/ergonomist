@@ -1,9 +1,11 @@
 ---
+// A section: its stories, newest first. An empty one is noindex, and out of
+// the sitemap, until it has a story.
 import type { GetStaticPaths } from "astro";
 import paper from "../../../paper.config";
 import Layout from "../../theme/Layout.astro";
 import StoryList from "../../theme/StoryList.astro";
-import { getStories, type Section } from "../../theme/paper";
+import { collectionLd, getStories, sectionHref, type Section, type Story } from "../../theme/paper";
 
 export const getStaticPaths = (async () => {
 	const stories = await getStories(paper);
@@ -13,10 +15,15 @@ export const getStaticPaths = (async () => {
 	}));
 }) satisfies GetStaticPaths;
 
-const { section, stories } = Astro.props as { section: Section; stories: Awaited<ReturnType<typeof getStories>> };
+const { section, stories } = Astro.props as { section: Section; stories: Story[] };
 ---
 
-<Layout paper={paper} title={section.label}>
+<Layout
+	paper={paper}
+	title={section.label}
+	noindex={stories.length === 0}
+	jsonLd={collectionLd(paper, section.label, sectionHref(section.id), stories)}
+>
 	<h1>{section.label}</h1>
 	{stories.length ? <StoryList stories={stories} level={2} /> : <p>Nothing here yet.</p>}
 </Layout>

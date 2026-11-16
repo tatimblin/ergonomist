@@ -5,6 +5,7 @@
  * until there is a design worth sharing; it moves out as a package then.
  */
 import { getCollection, type CollectionEntry } from "astro:content";
+import { TAG } from "./schema";
 
 export interface Section {
 	id: string;
@@ -46,15 +47,24 @@ export interface Paper {
 	/** The masthead's headings, in the order /staff/ prints them. Every staff
 	 *  entry's `group` is one of these. */
 	staffGroups: string[];
+	/** The tags that are places (neighbourhoods, streets), listed at /places/. */
+	places: string[];
+	/** The front page's "Most Read", in order: story ids, `<section>/<slug>`. */
+	mostRead: string[];
+	/** The path of the paper's editorial standards, for structured data. */
+	standards: string;
 }
 
 export type Staff = CollectionEntry<"staff">;
+export type Series = CollectionEntry<"series">;
 
 interface Bylined {
 	section: string;
 	slug: string;
 	/** Its `authors`, looked up in the staff collection. */
 	authors: Staff[];
+	/** Its `series`, looked up in the series collection. */
+	series?: Series;
 }
 
 /** One story as the pages see it, written here or copied from a feed. */
@@ -65,6 +75,15 @@ export type Story =
 export const storyHref = (story: Pick<Story, "section" | "slug">) => `/${story.section}/${story.slug}/`;
 export const sectionHref = (section: string) => `/${section}/`;
 export const staffHref = (id: string) => `/staff/${id}/`;
+export const tagHref = (tag: string) => `/tags/${tag}/`;
+export const seriesHref = (id: string) => `/series/${id}/`;
+export const archiveHref = (year: number) => `/archive/${year}/`;
+
+/** A tag as printed: "24th-street" → "24th Street". */
+export const tagLabel = (tag: string) => tag.replace(/(^|-)(\w)/g, (_, dash, c: string) => (dash ? " " : "") + c.toUpperCase());
+
+/** A tag page is noindex (and out of the sitemap) until it has this many. */
+export const MIN_INDEXED_TAG = 5;
 
 /** Everyone on the masthead, by group order, then `order`, then name. */
 export async function getStaff(paper: Paper): Promise<Staff[]> {
@@ -81,6 +100,7 @@ export async function getStaff(paper: Paper): Promise<Staff[]> {
 export async function getStories(paper: Paper): Promise<Story[]> {
 	const known = new Set(paper.sections.map((s) => s.id));
 	const staff = new Map((await getCollection("staff")).map((s) => [s.id, s]));
+	const series = new Map((await getCollection("series")).map((s) => [s.id, s]));
 	// A byline names someone who isn't on the masthead: a typo, so fail.
 	const byline = (refs: { id: string }[], what: string) =>
 		refs.map(({ id }) => {
@@ -88,6 +108,9 @@ export async function getStories(paper: Paper): Promise<Story[]> {
 			if (!person) throw new Error(`${what} is bylined to "${id}", who isn't in src/content/staff.`);
 			return person;
 		});
+	for (const place of paper.places) {
+		if (!TAG.test(place)) throw new Error(`paper.places has "${place}", which isn't written as a tag ("24th-street").`);
+	}
 	const local = (await getCollection("stories", (e) => import.meta.env.DEV || !e.data.draft)).map(
 		(entry): Story => {
 			// "mission/taqueria-closes" → section "mission", slug "taqueria-closes".
@@ -98,7 +121,9 @@ export async function getStories(paper: Paper): Promise<Story[]> {
 				);
 			}
 			const authors = byline(entry.data.authors, `Story "${entry.id}"`);
-			return { origin: "local", section, slug: rest.join("/"), authors, entry };
+			const ref = entry.data.series?.id;
+			if (ref && !series.has(ref)) throw new Error(`Story "${entry.id}" is in series "${ref}", which isn't in src/content/series.`);
+			return { origin: "local", section, slug: rest.join("/"), authors, series: ref ? series.get(ref) : undefined, entry };
 		},
 	);
 	// A copy and a story of our own at one URL would be one page lost.
@@ -114,18 +139,106 @@ export async function getStories(paper: Paper): Promise<Story[]> {
 	return [...local, ...copied].sort((a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime());
 }
 
+/** The rubric above a story's headline: its `kicker`, else its series' name. */
+export const kickerOf = (story: Story) => (story.origin === "local" ? story.entry.data.kicker : undefined) ?? story.series?.data.name;
+
+/** A story's tags; a copy has none. */
+export const tagsOf = (story: Story) => (story.origin === "local" ? story.entry.data.tags : []);
+
+/**
+ * Whether a story is satire or reported, and what a reported one is based on.
+ * A copy is reported (it's the real author's own post, not a bit), and its
+ * source is the original.
+ */
+export const veracityOf = (story: Story): { veracity: "satire" | "reported"; source?: string } =>
+	story.origin === "local"
+		? { veracity: story.entry.data.veracity, source: story.entry.data.source }
+		: { veracity: "reported", source: story.entry.data.canonical };
+
+/** When a story last changed: its `updated` (a copy's `modified`), else its date. */
+export const modifiedOf = (story: Story) =>
+	(story.origin === "local" ? story.entry.data.updated : story.entry.data.modified) ?? story.entry.data.date;
+
+/** The newest change among some stories, for a sitemap's lastmod. */
+export const lastModified = (stories: Story[]) =>
+	stories.reduce<Date | undefined>((max, s) => (!max || modifiedOf(s) > max ? modifiedOf(s) : max), undefined);
+
+const WORDS_PER_MINUTE = 230;
+
+/** Minutes to read the body, at least one. A copy's body is its HTML. */
+export function readingMinutes(story: Story): number {
+	const text = story.origin === "local" ? (story.entry.body ?? "") : (story.entry.rendered?.html ?? "").replace(/<[^>]*>/g, " ");
+	return Math.max(1, Math.round(text.split(/\s+/).filter(Boolean).length / WORDS_PER_MINUTE));
+}
+
+/** Every tag in use, with its stories (newest first), in alphabetical order. */
+export function getTags(stories: Story[]): Map<string, Story[]> {
+	const tags = new Map<string, Story[]>();
+	for (const story of stories) for (const tag of tagsOf(story)) tags.set(tag, [...(tags.get(tag) ?? []), story]);
+	return new Map([...tags].sort(([a], [b]) => a.localeCompare(b)));
+}
+
+/** Every year with a story in it, newest first, with its stories. */
+export function getYears(stories: Story[]): Map<number, Story[]> {
+	const years = new Map<number, Story[]>();
+	for (const story of stories) {
+		const year = story.entry.data.date.getUTCFullYear();
+		years.set(year, [...(years.get(year) ?? []), story]);
+	}
+	return new Map([...years].sort(([a], [b]) => b - a));
+}
+
+/**
+ * Up to `n` stories to read next: the rest of its series first, then those
+ * sharing the most tags with it, then the rest of its section; newest first
+ * within each.
+ */
+export function relatedStories(story: Story, stories: Story[], n = 3): Story[] {
+	const tags = new Set(tagsOf(story));
+	const shared = (s: Story) => tagsOf(s).filter((t) => tags.has(t)).length;
+	const rank = (s: Story) =>
+		story.series && s.series?.id === story.series.id ? 2 : shared(s) > 0 ? 1 : s.section === story.section ? 0 : -1;
+	return stories
+		.filter((s) => s !== story && rank(s) >= 0)
+		.map((s, i) => ({ s, i, rank: rank(s), shared: shared(s) }))
+		// stories is newest first already: i breaks the ties.
+		.sort((a, b) => b.rank - a.rank || b.shared - a.shared || a.i - b.i)
+		.slice(0, n)
+		.map(({ s }) => s);
+}
+
+/** The stories either side of this one in its section: the one before it
+ *  (older) and the one after it (newer). */
+export function sectionNeighbours(story: Story, stories: Story[]): { previous?: Story; next?: Story } {
+	const section = stories.filter((s) => s.section === story.section);
+	const i = section.indexOf(story);
+	return { previous: section[i + 1], next: i > 0 ? section[i - 1] : undefined };
+}
+
+/** paper.mostRead as stories. An id that names no story, ours or copied, is a
+ *  typo and fails the build; a draft's is skipped outside the dev server. */
+export async function getMostRead(paper: Paper, stories: Story[]): Promise<Story[]> {
+	const byId = new Map(stories.map((s) => [`${s.section}/${s.slug}`, s]));
+	const drafts = new Set((await getCollection("stories", (e) => e.data.draft)).map((e) => e.id));
+	return paper.mostRead.flatMap((id) => {
+		const story = byId.get(id);
+		if (!story && !drafts.has(id)) throw new Error(`paper.mostRead has "${id}", which is no story (it's <section>/<slug>).`);
+		return story ? [story] : [];
+	});
+}
+
 /** A story as an RSS item. A copy links to where it was first published. */
 export const rssItem = (story: Story) => ({
 	title: story.entry.data.title,
 	pubDate: story.entry.data.date,
-	description: story.entry.data.summary,
+	description: story.entry.data.dek,
 	link: story.origin === "feed" ? story.entry.data.canonical : storyHref(story),
-	categories: [story.section],
+	categories: [story.section, ...tagsOf(story)],
 });
 
-/** The paper as a schema.org Organization: the publisher of every story, and
- *  the author of those under a persona's byline. */
-export const organizationLd = (paper: Paper) => ({ "@type": "Organization", name: paper.name, url: paper.site });
+/** The paper as a schema.org NewsMediaOrganization: the publisher of every
+ *  story, and the author of those under a persona's byline. */
+export const organizationLd = (paper: Paper) => ({ "@type": "NewsMediaOrganization", name: paper.name, url: paper.site });
 
 /** A real person on the staff as a schema.org Person. */
 export const personLd = (paper: Paper, person: Staff) => ({
@@ -145,6 +258,35 @@ export function authorLd(paper: Paper, authors: Staff[]) {
 	const all = real.length < authors.length ? [...real, organizationLd(paper)] : real;
 	return all.length === 1 ? all[0] : all;
 }
+
+/** The trail to a page as a schema.org BreadcrumbList: [name, path] pairs,
+ *  the front page first. */
+export const breadcrumbLd = (paper: Paper, trail: [string, string][]) => ({
+	"@type": "BreadcrumbList",
+	itemListElement: trail.map(([name, path], i) => ({
+		"@type": "ListItem",
+		position: i + 1,
+		name,
+		item: new URL(path, paper.site).href,
+	})),
+});
+
+/** A list page (a section, a tag, a series, the latest) as a schema.org
+ *  CollectionPage of its stories. */
+export const collectionLd = (paper: Paper, name: string, path: string, stories: Story[]) => ({
+	"@type": "CollectionPage",
+	name,
+	url: new URL(path, paper.site).href,
+	isPartOf: { "@type": "WebSite", name: paper.name, url: paper.site },
+	mainEntity: {
+		"@type": "ItemList",
+		itemListElement: stories.map((s, i) => ({
+			"@type": "ListItem",
+			position: i + 1,
+			url: s.origin === "feed" ? s.entry.data.canonical : new URL(storyHref(s), paper.site).href,
+		})),
+	},
+});
 
 export const formatDate = (date: Date) =>
 	date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });

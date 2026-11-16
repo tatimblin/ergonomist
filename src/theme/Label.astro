@@ -1,0 +1,22 @@
+---
+/**
+ * What kind of story it is, printed wherever it is: "Satire", or "Reported"
+ * and, with `source`, a link to what it's based on.
+ */
+import { veracityOf, type Story } from "./paper";
+
+interface Props {
+	story: Story;
+	/** Link a reported story's source (on its own page). */
+	source?: boolean;
+}
+
+const { story, source: withSource } = Astro.props;
+const { veracity, source } = veracityOf(story);
+---
+
+{veracity === "reported" ? (
+	<>Reported{withSource && source && <> · Source: <a href={source}>{new URL(source).host}</a></>}</>
+) : (
+	<>Satire</>
+)}

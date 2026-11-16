@@ -2,7 +2,7 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import paper from "../paper.config";
 import { feedLoader } from "./theme/feed-loader";
-import { staffSchema, storySchema, wireSchema } from "./theme/schema";
+import { seriesSchema, staffSchema, storySchema, wireSchema } from "./theme/schema";
 
 // Stories written here: src/content/stories/<section>/<slug>.md.
 const stories = defineCollection({
@@ -22,4 +22,10 @@ const staff = defineCollection({
 	schema: staffSchema(paper),
 });
 
-export const collections = { stories, wire, staff };
+// Running bits: src/content/series/<id>.md, named by a story's `series`.
+const series = defineCollection({
+	loader: glob({ pattern: "*.md", base: "./src/content/series" }),
+	schema: seriesSchema,
+});
+
+export const collections = { stories, wire, staff, series };

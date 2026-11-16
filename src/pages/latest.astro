@@ -1,0 +1,14 @@
+---
+// The river: every story in every section, copies included, newest first.
+import paper from "../../paper.config";
+import Layout from "../theme/Layout.astro";
+import StoryList from "../theme/StoryList.astro";
+import { collectionLd, getStories } from "../theme/paper";
+
+const stories = await getStories(paper);
+---
+
+<Layout paper={paper} title="Latest" description={`Everything in ${paper.name}, newest first.`} jsonLd={collectionLd(paper, "Latest", "/latest/", stories)}>
+	<h1>Latest</h1>
+	{stories.length ? <StoryList stories={stories} level={2} /> : <p>No news today.</p>}
+</Layout>

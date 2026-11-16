@@ -12,7 +12,7 @@ export const GET: APIRoute = async () => {
 			id: data.canonical,
 			url: data.canonical,
 			title: data.title,
-			summary: data.summary,
+			summary: data.dek,
 			content_html: rendered?.html,
 			date_published: data.date.toISOString(),
 			date_modified: data.modified?.toISOString(),

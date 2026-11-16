@@ -29,6 +29,14 @@ export default {
 	byline: "ergonomist-staff",
 	// The masthead at /staff/, in this order. A staff entry's `group` is one.
 	staffGroups: ["Editors", "Correspondents", "Test Kitchen", "Columnists"],
+	// The tags that are places, down to the street, listed at /places/. A place
+	// tag is an ordinary tag otherwise: /tags/valencia/.
+	places: ["mission-district", "dolores-park", "valencia", "24th-street"],
+	// The front page's "Most Read", picked by hand: story ids, <section>/<slug>.
+	// One that names no story fails the build.
+	mostRead: ["tech/standing-desk-reaches-full-height", "mission/dolores-park-fog-returns"],
+	// The editorial standards, named in the front page's structured data.
+	standards: "/standards/",
 	// Posts copied from elsewhere. Each item keeps a canonical link back to
 	// where it was first published.
 	feeds: [

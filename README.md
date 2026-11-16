@@ -13,15 +13,48 @@ A story is a markdown file in `src/content/stories/<section>/<slug>.md`, where `
 title: Fog Returns to Dolores Park, Declines to Comment
 date: 2026-11-15
 kind: tidbit        # article (the default), tidbit or recipe
-summary: One line under the headline. Articles and recipes need one.
+kicker: Fog Watch   # optional; the rubric above the headline (the series' name when left out)
+dek: One line under the headline and in the lists. Articles and recipes need one.
+dateline: Mission District, S.F.   # optional; opens the body as "MISSION DISTRICT, S.F.—"
 authors: [dale-footrest]  # staff ids; The Ergonomist Staff when left out
+image:              # optional; the lead image
+  src: ./fog.jpg    # next to this file
+  alt: Fog over the Dolores Park palms.
+  caption: The fog, Sunday.          # optional
+  credit: Photo by Dale Footrest     # optional, printed as written
+updated: 2026-11-16 # optional; printed beside the date, and the sitemap's lastmod
+updateNote: Adds a response from the fog.  # optional (needs `updated`), at the foot of the story
+tags: [fog, dolores-park, mission-district]  # optional; lowercase words joined by hyphens
+series: fog-watch   # optional; an id in src/content/series
+veracity: satire    # the default; or reported, which needs a `source`
+source: https://example.com/the-real-story  # what a reported story is based on
+corrections:        # optional, at the foot of the story
+  - date: 2026-11-16
+    text: An earlier version misidentified the fog.
+placement: lead     # optional; lead or featured, on the front page
 draft: true         # shown by `bun run dev` only
 ---
 
 The body.
 ```
 
-A **tidbit** prints whole on the front page. A **recipe** also takes `ingredients` (a list), and optionally `serves` and `time`; its body is the method. The examples in each folder show all three.
+A **tidbit** prints whole on the front page; its own page is `noindex` and out of the sitemap, a paragraph being too thin a page to send searchers to. A **recipe** also takes `ingredients` (a list), and optionally `serves` and `time`; its body is the method. The examples in each folder show all three, and between them every field above.
+
+A story's page prints, top to bottom: kicker, headline, dek; byline and titles, the date (and update), reading time; **Satire** or **Reported** (with its source); the lead image, caption and credit; the body; the update note and corrections; tags; the bio box; up to three related stories (the rest of its series, then those sharing the most tags, then its section); and the previous and next stories in its section. Lists print the Satire or Reported label too, and a satire's description (`og:description` and all) starts "Satire: ". Copied stories count as Reported, their source the original.
+
+The front page leads with the newest `placement: lead` story, then the `featured` ones, then each section's latest (without the stories already printed above), then **Most Read**: the story ids, `<section>/<slug>`, in `mostRead` in `paper.config.ts`, picked by hand. An id that names no story fails the build.
+
+## Tags, places, series and the archive
+
+- `/tags/<tag>/` lists a tag's stories. Until a tag has 5 stories its page is `noindex` and out of the sitemap.
+- A place is a tag, down to the street (`valencia`, `24th-street`); `places` in `paper.config.ts` says which tags are places, and `/places/` lists those with stories.
+- A series is a markdown file in `src/content/series/<id>.md` with a `name` and a `description`; `/series/<id>/` lists its stories.
+- `/latest/` is everything, copies included, newest first; `/archive/` links a page per year, `/archive/<year>/`.
+- An empty section's page is `noindex` and out of the sitemap.
+
+## Search
+
+`/search/` is [Pagefind](https://pagefind.app)'s default UI (with its own stylesheet; `?q=` runs a search, as the masthead's search form does). After `astro build`, `bun run build` runs `src/theme/search-index.ts`, which indexes only the paper's own stories (those marked `data-pagefind-body`) into `dist/pagefind/`: no lists, and no copies, whose search result belongs to the original. There's no index on the dev server; try it with `bun run build && bun run preview`.
 
 ## Staff
 
@@ -56,12 +89,12 @@ tristantimblin.dev rebuilds the paper when it deploys, by sending this repo a `r
 
 ## Layout
 
-- `paper.config.ts` — the name, tagline, address, founding date (the issue number counts weeks from it), footer line, sections and feeds (each with its `author`), the default byline, the masthead's group order, and `index` (off: every page is `noindex` until the paper has a domain).
-- `src/theme/` — the reusable part: layout, story list and page, byline and author box, schemas, feed loader, and `paper.css` (empty). It knows nothing about The Ergonomist, so it can become its own package once there's a design.
-- `src/pages/` — the routes: front page, sections, stories, staff and masthead, RSS (the paper's and each author's), sitemap, robots.txt, `wire.json` (the copied stories), 404.
+- `paper.config.ts` — the name, tagline, address, founding date (the issue number counts weeks from it), footer line, sections and feeds (each with its `author`), the default byline, the masthead's group order, the place tags, Most Read, the standards page's path, and `index` (off: every page is `noindex` until the paper has a domain).
+- `src/theme/` — the reusable part: layout, story list and page, body (with its dateline), Satire/Reported label, byline and author box, schemas, feed loader, search indexer, and `paper.css` (empty). It knows nothing about The Ergonomist, so it can become its own package once there's a design.
+- `src/pages/` — the routes: front page, sections, stories, tags, places, series, latest, archive, search, staff and masthead, RSS (the paper's and each author's), sitemap, robots.txt, `wire.json` (the copied stories), 404.
 - `public/_headers` — cache headers: a year for `/_astro/*`, five minutes for the feeds and sitemap.
 
-Every page carries Open Graph tags; the paper's own stories carry schema.org JSON-LD (`SatiricalArticle`, or `Recipe`), and staff pages a `ProfilePage`.
+Every page carries Open Graph tags. The paper's own stories carry schema.org JSON-LD: `SatiricalArticle` (`NewsArticle` when reported, `Recipe` for a recipe) with `dateModified`, `image` and `mainEntityOfPage`, and a `BreadcrumbList`. Sections, tags, series, the latest and the archive years are `CollectionPage`s; staff pages are `ProfilePage`s; the front page has the paper as a `NewsMediaOrganization` (its `publishingPrinciples` the standards page, `/standards/`, still to be written) and a `WebSite` with a `SearchAction`. The sitemap lists the indexable pages, each with the newest `updated` among its stories as its lastmod.
 
 ```sh
 bun install

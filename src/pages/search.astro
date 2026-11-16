@@ -1,0 +1,22 @@
+---
+// Search, by Pagefind: `bun run build` indexes dist/ into dist/pagefind/
+// after Astro builds it, and this page loads its default UI (which brings its
+// own stylesheet). Only the paper's own stories are indexed, so there's
+// nothing to find on the dev server. ?q= runs a search, as the masthead's
+// search form and the front page's SearchAction do.
+import paper from "../../paper.config";
+import Layout from "../theme/Layout.astro";
+---
+
+<Layout paper={paper} title="Search" description={`Search ${paper.name}.`} noindex>
+	<link slot="head" rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+	<h1>Search</h1>
+	<div id="search"></div>
+	<noscript><p>Search needs JavaScript. Everything is also at <a href="/latest/">Latest</a>.</p></noscript>
+	<script is:inline src="/pagefind/pagefind-ui.js"></script>
+	<script is:inline>
+		const ui = new PagefindUI({ element: "#search", showSubResults: true });
+		const q = new URLSearchParams(location.search).get("q");
+		if (q) ui.triggerSearch(q);
+	</script>
+</Layout>

@@ -1,36 +1,42 @@
 ---
 /**
- * A list of stories: headline, byline, date and dek. A tidbit prints whole,
- * as a brief, since it is all headline and a paragraph anyway.
+ * A list of stories: kicker, headline, whether it's satire or reported,
+ * byline, date and dek. A tidbit prints whole, as a brief, since it is all
+ * headline and a paragraph anyway. With `images`, each story's lead image
+ * prints above its headline (the front page's lead).
  */
-import { render } from "astro:content";
+import { Image } from "astro:assets";
+import Body from "./Body.astro";
 import Byline from "./Byline.astro";
-import { formatDate, storyHref, type Story } from "./paper";
+import Label from "./Label.astro";
+import { formatDate, kickerOf, storyHref, type Story } from "./paper";
 
 interface Props {
 	stories: Story[];
 	/** The heading level of each headline, under the list's own heading. */
 	level?: 2 | 3;
+	images?: boolean;
 }
 
-const { stories, level = 3 } = Astro.props;
+const { stories, level = 3, images = false } = Astro.props;
 const H = `h${level}`;
-const items = await Promise.all(
-	stories.map(async (story) => ({
-		story,
-		brief: story.origin === "local" && story.entry.data.kind === "tidbit" ? (await render(story.entry)).Content : null,
-	})),
-);
 ---
 
 <ul>
-	{items.map(({ story, brief: Brief }) => (
-		<li>
-			<article>
-				<H><a href={storyHref(story)}>{story.entry.data.title}</a></H>
-				<p>By <Byline authors={story.authors} /> · <time datetime={story.entry.data.date.toISOString()}>{formatDate(story.entry.data.date)}</time></p>
-				{Brief ? <Brief /> : story.entry.data.summary && <p>{story.entry.data.summary}</p>}
-			</article>
-		</li>
-	))}
+	{stories.map((story) => {
+		const { data } = story.entry;
+		const local = story.origin === "local" ? story.entry.data : null;
+		const kicker = kickerOf(story);
+		return (
+			<li>
+				<article>
+					{images && local?.image && <Image src={local.image.src} alt={local.image.alt} width={800} />}
+					{kicker && <p>{kicker}</p>}
+					<H><a href={storyHref(story)}>{data.title}</a></H>
+					<p><Label story={story} /> · By <Byline authors={story.authors} /> · <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time></p>
+					{local?.kind === "tidbit" ? <Body story={story} /> : data.dek && <p>{data.dek}</p>}
+				</article>
+			</li>
+		);
+	})}
 </ul>

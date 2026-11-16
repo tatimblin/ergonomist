@@ -4,13 +4,15 @@ import paper from "../../../paper.config";
 import StoryPage from "../../theme/StoryPage.astro";
 import { getStories, type Story } from "../../theme/paper";
 
-export const getStaticPaths = (async () =>
-	(await getStories(paper)).map((story) => ({
+export const getStaticPaths = (async () => {
+	const stories = await getStories(paper);
+	return stories.map((story) => ({
 		params: { section: story.section, slug: story.slug },
-		props: { story },
-	}))) satisfies GetStaticPaths;
+		props: { story, stories },
+	}));
+}) satisfies GetStaticPaths;
 
-const { story } = Astro.props as { story: Story };
+const { story, stories } = Astro.props as { story: Story; stories: Story[] };
 ---
 
-<StoryPage paper={paper} story={story} />
+<StoryPage paper={paper} story={story} stories={stories} />

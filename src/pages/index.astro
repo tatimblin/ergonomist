@@ -1,20 +1,51 @@
 ---
-// The front page: each section's latest stories, in masthead order.
+// The front page: the newest lead story, then the featured ones, then each
+// section's latest in masthead order, then Most Read. A story printed above
+// isn't printed again in its section's block.
 import paper from "../../paper.config";
 import Layout from "../theme/Layout.astro";
 import StoryList from "../theme/StoryList.astro";
-import { getStories, issueNumber, sectionHref } from "../theme/paper";
+import { getMostRead, getStories, issueNumber, organizationLd, sectionHref, storyHref } from "../theme/paper";
 
 const PER_SECTION = 5;
 const stories = await getStories(paper);
 // The issue moves with the paper: its date is the newest story's, its number the weeks since founding.
 const latest = stories[0]?.entry.data.date;
 const issue = latest && { number: issueNumber(paper, latest), date: latest };
+const placement = (s: (typeof stories)[number]) => (s.origin === "local" ? s.entry.data.placement : undefined);
+const lead = stories.find((s) => placement(s) === "lead");
+const featured = stories.filter((s) => placement(s) === "featured");
+const above = new Set([lead, ...featured]);
+const mostRead = await getMostRead(paper, stories);
+// The paper, and its search, for search engines.
+const jsonLd = [
+	{ ...organizationLd(paper), publishingPrinciples: new URL(paper.standards, paper.site).href },
+	{
+		"@type": "WebSite",
+		name: paper.name,
+		url: paper.site,
+		potentialAction: {
+			"@type": "SearchAction",
+			target: { "@type": "EntryPoint", urlTemplate: `${new URL("/search/", paper.site).href}?q={search_term_string}` },
+			"query-input": "required name=search_term_string",
+		},
+	},
+];
 ---
 
-<Layout paper={paper} issue={issue}>
+<Layout paper={paper} issue={issue} jsonLd={jsonLd}>
+	{lead && (
+		<section aria-label="Lead story">
+			<StoryList stories={[lead]} level={2} images />
+		</section>
+	)}
+	{featured.length > 0 && (
+		<section aria-label="Featured">
+			<StoryList stories={featured} level={2} />
+		</section>
+	)}
 	{paper.sections.map((section) => {
-		const latest = stories.filter((s) => s.section === section.id).slice(0, PER_SECTION);
+		const latest = stories.filter((s) => s.section === section.id && !above.has(s)).slice(0, PER_SECTION);
 		return (
 			latest.length > 0 && (
 				<section aria-labelledby={section.id}>
@@ -24,5 +55,13 @@ const issue = latest && { number: issueNumber(paper, latest), date: latest };
 			)
 		);
 	})}
+	{mostRead.length > 0 && (
+		<aside aria-labelledby="most-read">
+			<h2 id="most-read">Most Read</h2>
+			<ol>
+				{mostRead.map((s) => <li><a href={storyHref(s)}>{s.entry.data.title}</a></li>)}
+			</ol>
+		</aside>
+	)}
 	{stories.length === 0 && <p>No news today.</p>}
 </Layout>

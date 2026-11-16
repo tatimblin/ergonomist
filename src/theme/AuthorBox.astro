@@ -13,7 +13,7 @@ interface Props {
 const { authors } = Astro.props;
 ---
 
-<aside aria-label={authors.length > 1 ? "About the authors" : "About the author"}>
+<aside aria-label={authors.length > 1 ? "About the authors" : "About the author"} data-pagefind-ignore>
 	{authors.map((a) => (
 		<section>
 			{a.data.photo && <Image src={a.data.photo} alt="" width={96} />}
