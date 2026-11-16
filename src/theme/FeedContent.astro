@@ -1,0 +1,33 @@
+---
+/**
+ * One of the paper's own stories as a feed item carries it: the lead image,
+ * caption and credit, then the body as its page prints it (Body, with the
+ * dateline, and a recipe's headnote and card). Rendered on its own by
+ * feeds.ts, through Astro's Container API, so its URLs are still relative.
+ */
+import { Image } from "astro:assets";
+import Body from "./Body.astro";
+import RecipeCard from "./RecipeCard.astro";
+import type { Story } from "./paper";
+
+interface Props {
+	story: Extract<Story, { origin: "local" }>;
+}
+
+const { story } = Astro.props;
+const { image, kind } = story.entry.data;
+---
+
+{image && (
+	<figure>
+		<Image src={image.src} alt={image.alt} width={1200} />
+		{(image.caption || image.credit) && (
+			<figcaption>
+				{image.caption}
+				{image.caption && image.credit && " "}
+				{image.credit && <small>{image.credit}</small>}
+			</figcaption>
+		)}
+	</figure>
+)}
+<Body story={story}>{kind === "recipe" && <RecipeCard story={story} />}</Body>

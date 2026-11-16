@@ -1,7 +1,7 @@
-import rss from "@astrojs/rss";
 import type { APIRoute, GetStaticPaths } from "astro";
 import paper from "../../../../paper.config";
-import { getStaff, getStories, rssItem, type Staff } from "../../../theme/paper";
+import { rssFeed } from "../../../theme/feeds";
+import { getStaff, getStories, type Staff } from "../../../theme/paper";
 
 // One feed per person on the staff: everything bylined to them, copies included.
 export const getStaticPaths = (async () =>
@@ -9,10 +9,9 @@ export const getStaticPaths = (async () =>
 
 export const GET: APIRoute = async ({ props }) => {
 	const { person } = props as { person: Staff };
-	return rss({
+	return rssFeed(paper, {
 		title: `${person.data.name} — ${paper.name}`,
 		description: person.data.short,
-		site: paper.site,
-		items: (await getStories(paper)).filter((s) => s.authors.some((a) => a.id === person.id)).map(rssItem(paper)),
+		stories: (await getStories(paper)).filter((s) => s.authors.some((a) => a.id === person.id)),
 	});
 };

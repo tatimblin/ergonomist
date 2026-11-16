@@ -1,18 +1,19 @@
 ---
-// A tag: every story carrying it, newest first. A place is a tag like any
-// other. A tag with fewer than MIN_INDEXED_TAG stories is noindex, and out of
-// the sitemap: a page of one story is thin.
+// A tag: every story carrying it, newest first, and its feed. A place is a
+// tag like any other. A tag with fewer than MIN_INDEXED_TAG stories is
+// noindex, and out of the sitemap: a page of one story is thin.
 import type { GetStaticPaths } from "astro";
 import paper from "../../../paper.config";
 import Layout from "../../theme/Layout.astro";
 import StoryList from "../../theme/StoryList.astro";
-import { collectionLd, getStories, getTags, MIN_INDEXED_TAG, tagHref, tagLabel, type Story } from "../../theme/paper";
+import { collectionLd, getStories, getTags, MIN_INDEXED_TAG, rssHref, tagHref, tagLabel, type Story } from "../../theme/paper";
 
 export const getStaticPaths = (async () =>
 	[...getTags(await getStories(paper))].map(([tag, stories]) => ({ params: { tag }, props: { tag, stories } }))) satisfies GetStaticPaths;
 
 const { tag, stories } = Astro.props as { tag: string; stories: Story[] };
 const label = tagLabel(tag);
+const feed = rssHref(tagHref(tag));
 ---
 
 <Layout
@@ -21,8 +22,10 @@ const label = tagLabel(tag);
 	description={`Stories tagged ${label}.`}
 	noindex={stories.length < MIN_INDEXED_TAG}
 	jsonLd={collectionLd(paper, label, tagHref(tag), stories)}
+	feed={{ title: `${label} — ${paper.name}`, href: feed }}
 >
 	<h1>{label}</h1>
 	{paper.places.includes(tag) && <p><a href="/places/">Places</a></p>}
 	<StoryList stories={stories} level={2} />
+	<p><a href={feed}>RSS</a></p>
 </Layout>

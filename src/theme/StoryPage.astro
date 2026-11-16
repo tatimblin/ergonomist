@@ -41,6 +41,7 @@ import {
 	sectionHref,
 	sectionNeighbours,
 	seriesHref,
+	shareImage,
 	storyHref,
 	tagHref,
 	tagLabel,
@@ -114,6 +115,8 @@ const jsonLd = local && [
 	noindex={!!copied || tidbit}
 	type="article"
 	jsonLd={jsonLd || undefined}
+	image={await shareImage(paper, story)}
+	article={{ published: data.date, modified: modifiedOf(story), section: section.label, tags: tags.map(tagLabel) }}
 >
 	<nav aria-label="Breadcrumb"><a href={sectionHref(section.id)}>{section.label}</a></nav>
 	<article data-pagefind-body={local ? "" : undefined} data-recipe={recipe ? "" : undefined}>

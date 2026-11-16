@@ -4,9 +4,10 @@ import paper from "../paper.config";
 import { feedLoader } from "./theme/feed-loader";
 import { pageSchema, seriesSchema, staffSchema, storySchema, wireSchema } from "./theme/schema";
 
-// Stories written here: src/content/stories/<section>/<slug>.md.
+// Stories written here: src/content/stories/<section>/<slug>.md. A file whose
+// name starts with "_" (each section's _template.md) isn't a story.
 const stories = defineCollection({
-	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/stories" }),
+	loader: glob({ pattern: ["**/*.{md,mdx}", "!**/_*"], base: "./src/content/stories" }),
 	schema: storySchema(paper),
 });
 
