@@ -141,7 +141,11 @@ export async function getStaff(paper: Paper): Promise<Staff[]> {
 	);
 }
 
-/** Every published story, newest first. Drafts show on the dev server only. */
+/** Whether drafts are built: on the dev server, and in a build with
+ *  INCLUDE_DRAFTS=1 (CI checks one, so the drafts' pages are checked too). */
+export const includeDrafts = () => import.meta.env.DEV || process.env.INCLUDE_DRAFTS === "1";
+
+/** Every published story, newest first. Drafts show only where includeDrafts. */
 export async function getStories(paper: Paper): Promise<Story[]> {
 	const known = new Set(paper.sections.map((s) => s.id));
 	const staff = new Map((await getCollection("staff")).map((s) => [s.id, s]));
@@ -156,7 +160,7 @@ export async function getStories(paper: Paper): Promise<Story[]> {
 	for (const place of paper.places) {
 		if (!TAG.test(place)) throw new Error(`paper.places has "${place}", which isn't written as a tag ("24th-street").`);
 	}
-	const local = (await getCollection("stories", (e) => import.meta.env.DEV || !e.data.draft)).map(
+	const local = (await getCollection("stories", (e) => includeDrafts() || !e.data.draft)).map(
 		(entry): Story => {
 			// "mission/taqueria-closes" → section "mission", slug "taqueria-closes".
 			const [section, ...rest] = entry.id.split("/");
@@ -268,7 +272,7 @@ export function sectionNeighbours(story: Story, stories: Story[]): { previous?: 
 }
 
 /** paper.mostRead as stories. An id that names no story, ours or copied, is a
- *  typo and fails the build; a draft's is skipped outside the dev server. */
+ *  typo and fails the build; a draft's is skipped unless includeDrafts. */
 export async function getMostRead(paper: Paper, stories: Story[]): Promise<Story[]> {
 	const byId = new Map(stories.map((s) => [`${s.section}/${s.slug}`, s]));
 	const drafts = new Set((await getCollection("stories", (e) => e.data.draft)).map((e) => e.id));

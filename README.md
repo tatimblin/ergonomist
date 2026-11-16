@@ -43,7 +43,7 @@ corrections:        # optional, at the foot of the story, and at /corrections/
     text: An earlier version misidentified the fog.
     significant: true # optional; prints it at the top of the story instead
 placement: lead     # optional; lead or featured, on the front page
-draft: true         # shown by `bun run dev` only
+draft: true         # shown by `bun run dev`, and built with INCLUDE_DRAFTS=1, only
 ---
 
 The body.
@@ -188,6 +188,7 @@ tristantimblin.dev rebuilds the paper when it deploys, by sending this repo a `r
 - `src/theme/` — the reusable part: layout, story list and page, the paper's own pages and contact line, body (with its dateline), recipe card, Satire/Reported label, byline and author box, schemas, the Markdown rules for recipes and headlines, feed loader, the feeds it writes (`feeds.ts` and `FeedContent.astro`), search indexer, `paper.css` (empty) and `print.css` (a recipe, printed). It knows nothing about The Ergonomist, so it can become its own package once there's a design.
 - `src/pages/` — the routes: front page, sections, stories, tags, places, series, the Newswire, latest, archive, search, staff and masthead, about, standards, tips, corrections, the feeds (RSS for the paper, each section, tag and author and the corrections; `feed.json`) and `/feeds/`, sitemap, robots.txt, `wire.json` (the copied stories), 404.
 - `scripts/new.ts` — `bun run new`, a new story's file.
+- `scripts/test.ts`, `smoke.ts`, `links.ts`, `jsonld.ts` (and `dist.ts`, what they share), `.htmlvalidate.mjs` — `bun run test`, the checks of a build (see Checks).
 - `public/_headers` — cache headers: a year for `/_astro/*`, five minutes for the feeds, `wire.json` and the sitemap.
 - `public/card.png` — the default card: the image a page is shared with when it has none, and a recipe's image in structured data until it has a photo.
 
@@ -197,9 +198,27 @@ Every page carries Open Graph tags (see Sharing). The paper's own stories carry 
 bun install
 bun run dev
 bun run build
+bun run check    # astro check
+bun run test     # the checks, over an existing dist/
 bun run deploy   # build, then publish dist/ to https://ergonomist.tatimblin.workers.dev
 ```
 
-Set `TRISTANTIMBLIN_FEED` to read Columns from another feed URL (e.g. a local build of tristantimblin.dev).
+Set `TRISTANTIMBLIN_FEED` to read Columns from another feed URL (e.g. a local build of tristantimblin.dev). Set `INCLUDE_DRAFTS=1` to build the drafts too, as the dev server does.
 
-It's hosted as a Cloudflare Worker serving static files (`wrangler.jsonc`). `.github/workflows/deploy.yml` deploys it from main once the repo has the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets.
+It's hosted as a Cloudflare Worker serving static files (`wrangler.jsonc`). `.github/workflows/deploy.yml` checks every pull request, and deploys from main once the checks pass and the repo has the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets.
+
+## Checks
+
+`bun run test` checks a build in `dist/` (or the directory it's given), every check to the end, and fails if any found a problem. Build first, with the same `INCLUDE_DRAFTS`: the smoke test expects the drafts' pages only then.
+
+```sh
+bun run build && bun run test
+INCLUDE_DRAFTS=1 bun run build && INCLUDE_DRAFTS=1 bun run test
+```
+
+- **smoke** (`scripts/smoke.ts`): the front page, `/latest/`, `/staff/`, `/about/`, `/standards/`, `/feeds/`, `/search/`, the 404, the sitemap, `robots.txt`, `/rss.xml` and `/feed.json` are there; every story has its page (a headline, its place in the Newswire; a recipe, its card), and no draft does unless `INCLUDE_DRAFTS=1`; there's at least one copied story in `/columns/` (a warning outside CI, where a build without the network has none); every page has one `<h1>` and one `<main id="main">`; every page but the 404 has a canonical link, to itself or, for a copy, elsewhere and then `noindex`; the robots meta is on every page while `index` is off, and otherwise only on pages `noindex` in their own right (the layout marks which with `data-noindex`, `page` or `paper`); the sitemap lists pages in the build, by their canonical URL, and none `noindex` in its own right.
+- **html** ([html-validate](https://html-validate.org), `.htmlvalidate.mjs`): every page, by the recommended rules, but `long-title` (a story's title is its headline, however long).
+- **links** (`scripts/links.ts`): every link to the paper's own site (an `href`, `src`, `srcset` or form `action`, the `og:url` and `og:image`, and every URL in the JSON-LD) is a file in the build, and its `#fragment` an id on that page. A directory's link needs its trailing slash. Links elsewhere aren't checked.
+- **jsonld** (`scripts/jsonld.ts`): every JSON-LD block is JSON in schema.org's context, and every node has what its `@type` needs, by zod shapes; a `@type` with none fails, so a new one gets one. A `Person` is only ever a real member of the staff, at their staff page's URL.
+
+CI runs `astro check`, the build and `bun run test` twice, as published and with `INCLUDE_DRAFTS=1`, and deploys the published build.

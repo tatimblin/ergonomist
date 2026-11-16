@@ -71,7 +71,8 @@ const ld =
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title ? `${title} — ${paper.name}` : paper.name}</title>
 		<meta name="description" content={description} />
-		{(noindex || !paper.index) && <meta name="robots" content="noindex, follow" />}
+		{/* data-noindex says why: "page" (it's noindex in its own right) or "paper" (the whole paper is); scripts/smoke.ts reads it. */}
+		{(noindex || !paper.index) && <meta name="robots" content="noindex, follow" data-noindex={noindex ? "page" : "paper"} />}
 		{href && <link rel="canonical" href={href} />}
 		<link rel="alternate" type="application/rss+xml" title={paper.name} href="/rss.xml" />
 		<link rel="alternate" type="application/feed+json" title={paper.name} href="/feed.json" />
@@ -129,7 +130,7 @@ const ld =
 			</nav>
 			<form role="search" action="/search/">
 				<label>Search <input type="search" name="q" /></label>
-				<button>Search</button>
+				<button type="submit">Search</button>
 			</form>
 		</header>
 		<main id="main">

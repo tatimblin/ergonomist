@@ -1,23 +1,33 @@
-name: Build and deploy
+name: Check and deploy
 
-# Builds the paper and publishes it to Cloudflare. Runs on pushes to
-# main, by hand, and when tristantimblin.dev deploys (a repository_dispatch of
-# type "tristantimblin-deployed"), so a new post there is copied here.
+# Checks the paper on every pull request, and deploys it to Cloudflare once
+# the checks pass: on pushes to main, by hand, and when tristantimblin.dev
+# deploys (a repository_dispatch of type "tristantimblin-deployed"), so a new
+# post there is copied here. A pull request is checked, never deployed.
 on:
+  pull_request:
   push:
     branches: [main]
   workflow_dispatch:
   repository_dispatch:
     types: [tristantimblin-deployed]
 
+permissions:
+  contents: read
+
 jobs:
-  deploy:
+  # `astro check`, the build, and `bun run test` over it (scripts/test.ts):
+  # once as it's published, and once with the drafts (INCLUDE_DRAFTS=1), so
+  # the example drafts' pages are checked too.
+  checks:
+    name: checks (${{ matrix.drafts && 'with drafts' || 'published' }})
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    concurrency:
-      group: ergonomist-production
-      cancel-in-progress: false
+    strategy:
+      fail-fast: false
+      matrix:
+        drafts: [false, true]
+    env:
+      INCLUDE_DRAFTS: ${{ matrix.drafts && '1' || '' }}
     steps:
       - uses: actions/checkout@v5
 
@@ -32,6 +42,38 @@ jobs:
       # CI is set, so a feed that can't be fetched falls back to the last good
       # copy (/wire.json) or fails the build.
       - run: bun run build
+
+      - run: bun run test
+
+      # The published build is the one deployed.
+      - if: ${{ !matrix.drafts }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 1
+
+  deploy:
+    needs: checks
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ergonomist-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: .bun-version
+
+      # For wrangler.
+      - run: bun install --frozen-lockfile
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
 
       # wrangler.jsonc: a Worker serving dist/ as static assets.
       - name: Deploy to Cloudflare
