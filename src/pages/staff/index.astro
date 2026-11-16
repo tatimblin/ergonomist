@@ -1,0 +1,29 @@
+---
+// The masthead: everyone, under the headings in paper.staffGroups, in order.
+// Real people and personas are listed together; each staff page says which.
+import paper from "../../../paper.config";
+import Layout from "../../theme/Layout.astro";
+import { getStaff, staffHref } from "../../theme/paper";
+
+const staff = await getStaff(paper);
+const groups = paper.staffGroups
+	.map((group) => ({ group, people: staff.filter((s) => s.data.group === group) }))
+	.filter(({ people }) => people.length > 0);
+---
+
+<Layout paper={paper} title="Staff" description={`Who makes ${paper.name}.`}>
+	<h1>Staff</h1>
+	{groups.map(({ group, people }) => (
+		<section aria-label={group}>
+			<h2>{group}</h2>
+			<ul>
+				{people.map((p) => (
+					<li>
+						<a href={staffHref(p.id)}>{p.data.name}</a>, {p.data.title}
+						<p>{p.data.short}</p>
+					</li>
+				))}
+			</ul>
+		</section>
+	))}
+</Layout>

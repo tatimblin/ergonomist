@@ -1,9 +1,10 @@
 ---
 /**
- * A list of stories: headline, date and dek. A tidbit prints whole, as a
- * brief, since it is all headline and a paragraph anyway.
+ * A list of stories: headline, byline, date and dek. A tidbit prints whole,
+ * as a brief, since it is all headline and a paragraph anyway.
  */
 import { render } from "astro:content";
+import Byline from "./Byline.astro";
 import { formatDate, storyHref, type Story } from "./paper";
 
 interface Props {
@@ -27,7 +28,7 @@ const items = await Promise.all(
 		<li>
 			<article>
 				<H><a href={storyHref(story)}>{story.entry.data.title}</a></H>
-				<p><time datetime={story.entry.data.date.toISOString()}>{formatDate(story.entry.data.date)}</time></p>
+				<p>By <Byline authors={story.authors} /> · <time datetime={story.entry.data.date.toISOString()}>{formatDate(story.entry.data.date)}</time></p>
 				{Brief ? <Brief /> : story.entry.data.summary && <p>{story.entry.data.summary}</p>}
 			</article>
 		</li>

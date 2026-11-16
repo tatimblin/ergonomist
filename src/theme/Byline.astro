@@ -1,0 +1,18 @@
+---
+/**
+ * A byline's names, inline and linked to their staff pages: "A", "A and B",
+ * "A, B and C". The caller prints "By" and anything around it.
+ */
+import { staffHref, type Staff } from "./paper";
+
+interface Props {
+	authors: Staff[];
+}
+
+const { authors } = Astro.props;
+const sep = (i: number) => (i === 0 ? "" : i === authors.length - 1 ? " and " : ", ");
+---
+
+{authors.map((a, i) => (
+	<>{sep(i)}<a href={staffHref(a.id)} rel="author">{a.data.name}</a></>
+))}

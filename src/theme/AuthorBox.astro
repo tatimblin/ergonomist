@@ -1,0 +1,25 @@
+---
+/**
+ * The end of a story: who wrote it. A photo, if they have one, their name,
+ * title and one-line bio, and a link to the rest of their work.
+ */
+import { Image } from "astro:assets";
+import { staffHref, type Staff } from "./paper";
+
+interface Props {
+	authors: Staff[];
+}
+
+const { authors } = Astro.props;
+---
+
+<aside aria-label={authors.length > 1 ? "About the authors" : "About the author"}>
+	{authors.map((a) => (
+		<section>
+			{a.data.photo && <Image src={a.data.photo} alt="" width={96} />}
+			<p><a href={staffHref(a.id)}>{a.data.name}</a>, {a.data.title}</p>
+			<p>{a.data.short}</p>
+			<p><a href={staffHref(a.id)}>More by {a.data.name}</a></p>
+		</section>
+	))}
+</aside>

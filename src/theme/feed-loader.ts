@@ -112,6 +112,7 @@ export function feedLoader(paper: Paper): Loader {
 							slug,
 							canonical,
 							source: feed.source,
+							authors: [feed.author ?? paper.byline],
 						},
 					});
 					entries.push({ id, data, rendered: { html }, digest: generateDigest({ ...data, html }) });
