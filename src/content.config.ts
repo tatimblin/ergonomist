@@ -2,7 +2,7 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import paper from "../paper.config";
 import { feedLoader } from "./theme/feed-loader";
-import { seriesSchema, staffSchema, storySchema, wireSchema } from "./theme/schema";
+import { pageSchema, seriesSchema, staffSchema, storySchema, wireSchema } from "./theme/schema";
 
 // Stories written here: src/content/stories/<section>/<slug>.md.
 const stories = defineCollection({
@@ -28,4 +28,11 @@ const series = defineCollection({
 	schema: seriesSchema,
 });
 
-export const collections = { stories, wire, staff, series };
+// The paper's own pages: src/content/pages/<id>.md, each printed by its route
+// (src/pages/about.astro and the rest).
+const pages = defineCollection({
+	loader: glob({ pattern: "*.md", base: "./src/content/pages" }),
+	schema: pageSchema,
+});
+
+export const collections = { stories, wire, staff, series, pages };

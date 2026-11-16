@@ -81,7 +81,11 @@ export const storySchema =
 				veracity: z.enum(["satire", "reported"]).default("satire"),
 				// What a reported story is based on.
 				source: z.url().optional(),
-				corrections: z.array(z.object({ date: z.coerce.date(), text: z.string() }).strict()).default([]),
+				// At the foot of the story, or the top when `significant`; all
+				// of them at /corrections/ too.
+				corrections: z
+					.array(z.object({ date: z.coerce.date(), text: z.string(), significant: z.boolean().default(false) }).strict())
+					.default([]),
 				// On the front page: the newest "lead" tops it, the "featured" follow.
 				placement: z.enum(["lead", "featured"]).optional(),
 				// A recipe's: how many it serves, and `yield` to print instead
@@ -148,6 +152,12 @@ export const storySchema =
 /** A running bit, in src/content/series/<id>.md: every story naming it is
  *  listed at /series/<id>/. */
 export const seriesSchema = z.object({ name: z.string(), description: z.string() }).strict();
+
+/** One of the paper's own pages, in src/content/pages/<id>.md (about,
+ *  standards, tips, corrections): its title, its description for search and
+ *  sharing, and a body of prose. Each has its own route, which prints the
+ *  body and whatever it adds (a contact line, the list of corrections). */
+export const pageSchema = z.object({ title: z.string(), description: z.string() }).strict();
 
 /** A story copied from a feed (feed-loader.ts). Its body is the feed item's
  *  content_html and its dek the item's summary; `canonical` is where it was

@@ -1,0 +1,31 @@
+---
+// Every correction, newest first, each linked to its place on its story:
+// src/content/pages/corrections.md, then the list. Until there's one, the page
+// is noindex and out of the sitemap.
+import paper from "../../../paper.config";
+import Page from "../../theme/Page.astro";
+import { correctionHref, formatDate, getCorrections, getPage, getStories } from "../../theme/paper";
+
+const page = await getPage("corrections");
+const corrections = getCorrections(await getStories(paper));
+---
+
+<Page
+	paper={paper}
+	page={page}
+	noindex={corrections.length === 0}
+	feed={{ title: `Corrections — ${paper.name}`, href: "/corrections/rss.xml" }}
+>
+	{corrections.length ? (
+		<ul>
+			{corrections.map((c) => (
+				<li>
+					<time datetime={c.date.toISOString()}>{formatDate(c.date)}</time>, <a href={correctionHref(c)}>{c.story.entry.data.title}</a>: {c.text}
+				</li>
+			))}
+		</ul>
+	) : (
+		<p>No corrections yet.</p>
+	)}
+	<p><a href="/corrections/rss.xml">RSS</a></p>
+</Page>

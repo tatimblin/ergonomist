@@ -1,0 +1,15 @@
+---
+/**
+ * How to reach the paper: its email, linked, once paper.contact has one;
+ * until then "via <label>", linked to the contact url.
+ */
+import type { Paper } from "./paper";
+
+interface Props {
+	paper: Paper;
+}
+
+const { email, url, label } = Astro.props.paper.contact;
+---
+
+{email ? <a href={`mailto:${email}`}>{email}</a> : <a href={url}>via {label}</a>}

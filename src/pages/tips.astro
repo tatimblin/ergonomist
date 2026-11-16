@@ -1,0 +1,13 @@
+---
+// Tips: the real way to send one first, then src/content/pages/tips.md.
+import paper from "../../paper.config";
+import Contact from "../theme/Contact.astro";
+import Page from "../theme/Page.astro";
+import { getPage } from "../theme/paper";
+
+const page = await getPage("tips");
+---
+
+<Page paper={paper} page={page}>
+	<p slot="before"><strong>To send a tip: <Contact paper={paper} />.</strong></p>
+</Page>

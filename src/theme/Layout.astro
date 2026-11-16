@@ -1,6 +1,8 @@
 ---
 /**
- * Every page: the head, the masthead, the section nav and the footer. Bare
+ * Every page: the head, the masthead, the section nav and the footer (the
+ * paper's own pages, the lists and feeds, the newsletter ask, the
+ * disclaimer, and the line that says what's satire). Bare
  * HTML on purpose — paper.css is empty until there is enough in the paper to
  * design around; the markup is written so a stylesheet is all a design needs.
  */
@@ -91,8 +93,29 @@ const ld =
 			<slot />
 		</main>
 		<footer>
+			<nav aria-label="The paper">
+				<ul>
+					<li><a href="/about/">About</a></li>
+					<li><a href="/staff/">Staff</a></li>
+					<li><a href={paper.standards}>Standards</a></li>
+					<li><a href="/corrections/">Corrections</a></li>
+					<li><a href="/tips/">Tips</a></li>
+				</ul>
+			</nav>
+			<nav aria-label="Everything else">
+				<ul>
+					<li><a href="/newswire/">Newswire</a></li>
+					<li><a href="/latest/">Latest</a></li>
+					<li><a href="/archive/">Archive</a></li>
+					<li><a href="/places/">Places</a></li>
+					<li><a href="/search/">Search</a></li>
+					<li><a href="/rss.xml">RSS</a></li>
+				</ul>
+			</nav>
+			{paper.asks?.newsletter && <p>{paper.asks.newsletter} <a href="/rss.xml">RSS</a></p>}
 			<p>{paper.disclaimer}</p>
-			<p>© {new Date().getFullYear()} {paper.name}. <a href="/latest/">Latest</a> · <a href="/newswire/">Newswire</a> · <a href="/archive/">Archive</a> · <a href="/places/">Places</a> · <a href="/staff/">Staff</a> · <a href="/search/">Search</a> · <a href="/rss.xml">RSS</a></p>
+			<p><a href={paper.standards}>Satire unless marked Reported.</a></p>
+			<p>© {new Date().getFullYear()} {paper.name}.</p>
 		</footer>
 	</body>
 </html>

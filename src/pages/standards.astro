@@ -1,0 +1,23 @@
+---
+// The paper's standards: src/content/pages/standards.md, then how to reach it
+// (the page ends with how to have something taken down). Structured data
+// names its #corrections and #ethics headings as the paper's policies
+// (paperLd), so a standards page without them fails the build.
+import { render } from "astro:content";
+import paper from "../../paper.config";
+import Contact from "../theme/Contact.astro";
+import Page from "../theme/Page.astro";
+import { getPage } from "../theme/paper";
+
+const page = await getPage("standards");
+const { headings } = await render(page);
+for (const id of ["corrections", "ethics"]) {
+	if (!headings.some((h) => h.slug === id)) {
+		throw new Error(`src/content/pages/standards.md needs a "## ${id[0].toUpperCase()}${id.slice(1)}" heading (#${id}).`);
+	}
+}
+---
+
+<Page paper={paper} page={page}>
+	<p>Contact: <Contact paper={paper} /></p>
+</Page>
