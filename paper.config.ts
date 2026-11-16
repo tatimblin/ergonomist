@@ -25,6 +25,10 @@ export default {
 		{ id: "recipes", label: "Recipes" },
 		{ id: "columns", label: "Columns" },
 	],
+	// The staff id (src/content/staff) on a story that names no authors.
+	byline: "ergonomist-staff",
+	// The masthead at /staff/, in this order. A staff entry's `group` is one.
+	staffGroups: ["Editors", "Correspondents", "Test Kitchen", "Columnists"],
 	// Posts copied from elsewhere. Each item keeps a canonical link back to
 	// where it was first published.
 	feeds: [
@@ -33,6 +37,8 @@ export default {
 			url: process.env.TRISTANTIMBLIN_FEED ?? "https://tristantimblin.dev/feed.json",
 			section: "columns",
 			source: "tristantimblin.dev",
+			// Copies are bylined to whoever wrote them there.
+			author: "tristan-timblin",
 			// Only the posts marked `syndicate: true` in their frontmatter there.
 			include: (item) => (item._tristantimblin as { syndicate?: boolean } | undefined)?.syndicate === true,
 		},

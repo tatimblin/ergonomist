@@ -1,0 +1,52 @@
+---
+// A staff page: who they are, how to reach them, and everything they've filed.
+import type { GetStaticPaths } from "astro";
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import paper from "../../../../paper.config";
+import Layout from "../../../theme/Layout.astro";
+import StoryList from "../../../theme/StoryList.astro";
+import { getStaff, getStories, organizationLd, personLd, staffHref, type Staff } from "../../../theme/paper";
+
+export const getStaticPaths = (async () => {
+	const stories = await getStories(paper);
+	return (await getStaff(paper)).map((person) => ({
+		params: { id: person.id },
+		props: { person, stories: stories.filter((s) => s.authors.some((a) => a.id === person.id)) },
+	}));
+}) satisfies GetStaticPaths;
+
+const { person, stories } = Astro.props as { person: Staff; stories: Awaited<ReturnType<typeof getStories>> };
+const { Content } = await render(person);
+const { name, title, beat, photo, links, email, real } = person.data;
+const feed = `${staffHref(person.id)}rss.xml`;
+// A persona's page is about the paper that writes as them: no fake Person.
+const jsonLd = {
+	"@type": "ProfilePage",
+	url: new URL(Astro.url.pathname, paper.site).href,
+	mainEntity: real ? personLd(paper, person) : organizationLd(paper),
+};
+---
+
+<Layout paper={paper} title={name} description={person.data.short} jsonLd={jsonLd} feed={{ title: `${name} — ${paper.name}`, href: feed }}>
+	<article>
+		<header>
+			{photo && <Image src={photo} alt={name} width={240} />}
+			<h1>{name}</h1>
+			<p>{title}</p>
+			{beat && <p>Beat: {beat}</p>}
+		</header>
+		<Content />
+		{(links?.length || email) && (
+			<ul>
+				{links?.map((link) => <li><a href={link} rel="me">{new URL(link).host}</a></li>)}
+				{email && <li>Tips: <a href={`mailto:${email}`}>{email}</a></li>}
+			</ul>
+		)}
+	</article>
+	<section aria-labelledby="stories">
+		<h2 id="stories">Stories</h2>
+		{stories.length ? <StoryList stories={stories} /> : <p>Nothing filed yet.</p>}
+		<p><a href={feed}>RSS</a></p>
+	</section>
+</Layout>

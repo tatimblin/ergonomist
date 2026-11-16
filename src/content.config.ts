@@ -2,12 +2,12 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import paper from "../paper.config";
 import { feedLoader } from "./theme/feed-loader";
-import { storySchema, wireSchema } from "./theme/schema";
+import { staffSchema, storySchema, wireSchema } from "./theme/schema";
 
 // Stories written here: src/content/stories/<section>/<slug>.md.
 const stories = defineCollection({
 	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/stories" }),
-	schema: storySchema,
+	schema: storySchema(paper),
 });
 
 // Stories copied from the feeds in paper.config.ts.
@@ -16,4 +16,10 @@ const wire = defineCollection({
 	schema: wireSchema,
 });
 
-export const collections = { stories, wire };
+// The masthead: src/content/staff/<id>.md, bylined by id.
+const staff = defineCollection({
+	loader: glob({ pattern: "*.md", base: "./src/content/staff" }),
+	schema: staffSchema(paper),
+});
+
+export const collections = { stories, wire, staff };

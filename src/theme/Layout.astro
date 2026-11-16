@@ -24,9 +24,11 @@ interface Props {
 	type?: "website" | "article";
 	/** schema.org structured data for the page, printed as JSON-LD. */
 	jsonLd?: Record<string, unknown>;
+	/** The page's own RSS feed, advertised beside the paper's. */
+	feed?: { title: string; href: string };
 }
 
-const { paper, title, description = paper.tagline, canonical, noindex, issue, type = "website", jsonLd } = Astro.props;
+const { paper, title, description = paper.tagline, canonical, noindex, issue, type = "website", jsonLd, feed } = Astro.props;
 const href = canonical === false ? undefined : (canonical ?? new URL(Astro.url.pathname, paper.site).href);
 const isFront = Astro.url.pathname === "/";
 // "page" on a section's own page, "true" on its stories: they're in it, not it.
@@ -46,6 +48,7 @@ const ld = jsonLd && JSON.stringify({ "@context": "https://schema.org", ...jsonL
 		{(noindex || !paper.index) && <meta name="robots" content="noindex, follow" />}
 		{href && <link rel="canonical" href={href} />}
 		<link rel="alternate" type="application/rss+xml" title={paper.name} href="/rss.xml" />
+		{feed && <link rel="alternate" type="application/rss+xml" title={feed.title} href={feed.href} />}
 		<meta property="og:site_name" content={paper.name} />
 		<meta property="og:type" content={type} />
 		<meta property="og:title" content={title ?? paper.name} />
@@ -81,7 +84,7 @@ const ld = jsonLd && JSON.stringify({ "@context": "https://schema.org", ...jsonL
 		</main>
 		<footer>
 			<p>{paper.disclaimer}</p>
-			<p>© {new Date().getFullYear()} {paper.name}. <a href="/rss.xml">RSS</a></p>
+			<p>© {new Date().getFullYear()} {paper.name}. <a href="/staff/">Staff</a> · <a href="/rss.xml">RSS</a></p>
 		</footer>
 	</body>
 </html>
