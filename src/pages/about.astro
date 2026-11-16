@@ -1,6 +1,7 @@
 ---
-// About the paper: src/content/pages/about.md, then how to reach it. Its
-// structured data is an AboutPage about the paper, policies and all.
+// About the paper: src/content/pages/about.md, then how to reach it, and
+// what counts visits once paper.analytics is set. Its structured data is an
+// AboutPage about the paper, policies and all.
 import paper from "../../paper.config";
 import Contact from "../theme/Contact.astro";
 import Page from "../theme/Page.astro";
@@ -11,4 +12,5 @@ const page = await getPage("about");
 
 <Page paper={paper} page={page} type="AboutPage" ld={{ mainEntity: paperLd(paper) }}>
 	<p>Contact: <Contact paper={paper} /></p>
+	{paper.analytics && <p>Visits are counted with Cloudflare Web Analytics, which sets no cookies.</p>}
 </Page>

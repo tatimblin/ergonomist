@@ -25,7 +25,7 @@ import {
 // headlines (no page; they're in the Newswire), its staff, the tags with
 // MIN_INDEXED_TAG stories or more, its series, the Newswire, its own pages
 // (/about/, the standards, /tips/, and /corrections/ once there's one), the
-// latest and the archive. A copied story's canonical is elsewhere, so it isn't ours to list.
+// latest, the archive and /feeds/. A copied story's canonical is elsewhere, so it isn't ours to list.
 // A page's lastmod is the newest change (`updated`) among its stories.
 export const GET: APIRoute = async () => {
 	const all = await getStories(paper);
@@ -58,6 +58,7 @@ export const GET: APIRoute = async () => {
 		...(corrections.length ? [{ path: "/corrections/", lastmod: corrections[0].date }] : []),
 		list("/latest/", all),
 		list("/archive/", all),
+		{ path: "/feeds/", lastmod: undefined },
 		...[...getYears(all)].map(([year, of]) => list(archiveHref(year), of)),
 	];
 	const body = urls

@@ -4,6 +4,7 @@
  * against a `Paper` and knowing nothing about The Ergonomist. Kept in this repo
  * until there is a design worth sharing; it moves out as a package then.
  */
+import { getImage } from "astro:assets";
 import { getCollection, getEntry, type CollectionEntry } from "astro:content";
 import type { RecipeBody } from "./markdown";
 import { DURATION, TAG } from "./schema";
@@ -27,6 +28,15 @@ export interface Feed {
 	/** The staff id its copies are bylined to; the paper's `byline` when
 	 *  left out. */
 	author?: string;
+}
+
+/** An image a page is shared with: its path on the paper's site, its alt
+ *  text and its size in pixels, for og:image and the rest. */
+export interface ShareImage {
+	src: string;
+	alt: string;
+	width: number;
+	height: number;
 }
 
 export interface Paper {
@@ -56,9 +66,13 @@ export interface Paper {
 	 *  linked from the footer and named in structured data. Its `#corrections`
 	 *  and `#ethics` headings are the corrections and ethics policies. */
 	standards: string;
-	/** The default card, a path in public/: the image in structured data that
-	 *  needs one (a Recipe's) when the story has none of its own. */
-	card: string;
+	/** The default card, a file in public/: the image every page is shared
+	 *  with (og:image) when it has none of its own, and a Recipe's in
+	 *  structured data until it has a photo. */
+	card: ShareImage;
+	/** A Cloudflare Web Analytics token. When set, every page loads its
+	 *  beacon (no cookies), and /about/ says so. */
+	analytics?: string;
 	/** How to reach the paper, on /about/, /standards/ and /tips/: `email`
 	 *  once it has one; until then, "via <label>", linked to `url`. */
 	contact: { email?: string; url: string; label: string };
@@ -107,6 +121,8 @@ export const staffHref = (id: string) => `/staff/${id}/`;
 export const tagHref = (tag: string) => `/tags/${tag}/`;
 export const seriesHref = (id: string) => `/series/${id}/`;
 export const archiveHref = (year: number) => `/archive/${year}/`;
+/** A list page's RSS feed: /tags/fog/ → /tags/fog/rss.xml. */
+export const rssHref = (page: string) => `${page}rss.xml`;
 
 /** A tag as printed: "24th-street" → "24th Street". */
 export const tagLabel = (tag: string) => tag.replace(/(^|-)(\w)/g, (_, dash, c: string) => (dash ? " " : "") + c.toUpperCase());
@@ -263,16 +279,26 @@ export async function getMostRead(paper: Paper, stories: Story[]): Promise<Story
 	});
 }
 
-/** A story as an RSS item. A copy links to where it was first published, a
- *  headline to its place in the Newswire. Links are absolute: @astrojs/rss
- *  would put a trailing slash after a relative link's #anchor. */
-export const rssItem = (paper: Paper) => (story: Story) => ({
-	title: story.entry.data.title,
-	pubDate: story.entry.data.date,
-	description: story.entry.data.dek,
-	link: story.origin === "feed" ? story.entry.data.canonical : new URL(storyHref(story), paper.site).href,
-	categories: [story.section, ...tagsOf(story)],
-});
+/** A story's absolute URL: a copy's is where it was first published, a
+ *  headline's its place in the Newswire. */
+export const storyUrl = (paper: Paper, story: Story) =>
+	story.origin === "feed" ? story.entry.data.canonical : new URL(storyHref(story), paper.site).href;
+
+/**
+ * The image a page is shared with (og:image): a story's lead image, at most
+ * 1200 wide, as a JPEG if it is one and a PNG otherwise (link previews take
+ * neither WebP nor SVG); else the paper's default card. An SVG gets the card
+ * too: Astro won't rasterize one unless image.dangerouslyProcessSVG is on.
+ * Its `src` is a path on the paper's site.
+ */
+export async function shareImage(paper: Paper, story?: Story): Promise<ShareImage> {
+	const image = story?.origin === "local" ? story.entry.data.image : undefined;
+	if (!image || image.src.format === "svg") return paper.card;
+	const { src } = image;
+	const format = src.format === "jpg" || src.format === "jpeg" ? "jpg" : "png";
+	const out = await getImage({ src, width: Math.min(src.width, 1200), format });
+	return { src: out.src, alt: image.alt, width: Number(out.attributes.width), height: Number(out.attributes.height) };
+}
 
 /** One correction to a story, as /corrections/ and its feed list it. */
 export interface Correction {
@@ -372,7 +398,7 @@ export const collectionLd = (paper: Paper, name: string, path: string, stories: 
 		itemListElement: stories.map((s, i) => ({
 			"@type": "ListItem",
 			position: i + 1,
-			url: s.origin === "feed" ? s.entry.data.canonical : new URL(storyHref(s), paper.site).href,
+			url: storyUrl(paper, s),
 		})),
 	},
 });
@@ -443,7 +469,7 @@ export function recipeLd(paper: Paper, story: Local, url: string) {
 	const listed = new Set([slug(data.course), slug(data.cuisine)]);
 	const keywords = data.tags.filter((t) => !listed.has(t));
 	return {
-		image: new URL(data.image?.src.src ?? paper.card, paper.site).href,
+		image: new URL(data.image?.src.src ?? paper.card.src, paper.site).href,
 		prepTime: prep,
 		cookTime: cook,
 		totalTime: total,

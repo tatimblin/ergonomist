@@ -1,0 +1,39 @@
+---
+// Every feed the paper publishes: the whole paper (RSS and JSON Feed), each
+// section, each person on the staff, each tag in use, and the corrections.
+import paper from "../../paper.config";
+import Layout from "../theme/Layout.astro";
+import { getStaff, getStories, getTags, rssHref, sectionHref, staffHref, tagHref, tagLabel } from "../theme/paper";
+
+const tags = [...getTags(await getStories(paper)).keys()];
+const staff = await getStaff(paper);
+---
+
+<Layout paper={paper} title="Feeds" description={`Every feed ${paper.name} publishes.`}>
+	<h1>Feeds</h1>
+	<h2>{paper.name}</h2>
+	<ul>
+		<li><a href="/rss.xml">RSS</a></li>
+		<li><a href="/feed.json">JSON Feed</a></li>
+	</ul>
+	<h2>Sections</h2>
+	<ul>
+		{paper.sections.map((s) => <li><a href={rssHref(sectionHref(s.id))}>{s.label}</a></li>)}
+	</ul>
+	<h2>Staff</h2>
+	<ul>
+		{staff.map((p) => <li><a href={rssHref(staffHref(p.id))}>{p.data.name}</a></li>)}
+	</ul>
+	{tags.length > 0 && (
+		<>
+			<h2>Tags</h2>
+			<ul>
+				{tags.map((t) => <li><a href={rssHref(tagHref(t))}>{tagLabel(t)}</a></li>)}
+			</ul>
+		</>
+	)}
+	<h2>Corrections</h2>
+	<ul>
+		<li><a href="/corrections/rss.xml">RSS</a></li>
+	</ul>
+</Layout>

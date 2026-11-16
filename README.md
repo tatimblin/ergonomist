@@ -8,6 +8,16 @@ Bare HTML for now; the design comes once there's enough in it.
 
 A story is a markdown file in `src/content/stories/<section>/<slug>.md`, where `<section>` is `tech`, `mission` or `recipes`. It's served at `/<section>/<slug>/`.
 
+To start one:
+
+```sh
+bun run new <kind> <section> "Headline"   # e.g. bun run new recipe recipes "The Desk-Lunch Burrito"
+```
+
+`scripts/new.ts` writes `src/content/stories/<section>/<slug>.md` (the slug made from the headline), dated today, with `draft: true` and the fields that kind needs, `TODO` where it needs a value: a `dek` for an article; a `dek`, `serves`, `prep`, `cook`, `ingredients` and a `## Method` list for a recipe; nothing more for a tidbit; and no body for a headline. It refuses a kind or a section it doesn't know (a feed's section, `columns`, is written elsewhere), and a file that's already there.
+
+On the GitHub mobile editor, each section folder has a `_template.md` to copy: every field, the optional ones commented out, with placeholder values. A file whose name starts with `_` isn't a story (the glob in `src/content.config.ts` skips it).
+
 ```md
 ---
 title: Fog Returns to Dolores Park, Declines to Comment
@@ -96,7 +106,7 @@ The front page leads with the newest `placement: lead` story, then the `featured
 
 ## Tags, places, series and the archive
 
-- `/tags/<tag>/` lists a tag's stories. Until a tag has 5 stories its page is `noindex` and out of the sitemap.
+- `/tags/<tag>/` lists a tag's stories, with its feed at `/tags/<tag>/rss.xml`. Until a tag has 5 stories its page is `noindex` and out of the sitemap.
 - A place is a tag, down to the street (`valencia`, `24th-street`); `places` in `paper.config.ts` says which tags are places, and `/places/` lists those with stories.
 - A series is a markdown file in `src/content/series/<id>.md` with a `name` and a `description`; `/series/<id>/` lists its stories.
 - `/latest/` is everything, copies included, newest first; `/archive/` links a page per year, `/archive/<year>/`.
@@ -140,7 +150,27 @@ The paper's default byline (`byline` in `paper.config.ts`) is `ergonomist-staff`
 
 The contact line is `contact` in `paper.config.ts`: its `email` once it's set, and until then "via tristantimblin.dev", linked. `asks` there holds the paper's parody asks: `membership`, printed at the foot of every story, and `newsletter`, printed in the footer with a link to the RSS feed. Leave either out to drop it.
 
-Every page's footer links About, Staff, Standards, Corrections and Tips; then the Newswire, Latest, Archive, Places, Search and RSS; then the newsletter line, the disclaimer, and "Satire unless marked Reported.", linked to the standards.
+Every page's footer links About, Staff, Standards, Corrections and Tips; then the Newswire, Latest, Archive, Places, Search, RSS and Feeds; then the newsletter line, the disclaimer, and "Satire unless marked Reported.", linked to the standards.
+
+## Feeds
+
+`src/theme/feeds.ts` writes them all:
+
+- `/rss.xml` and `/feed.json` (a [JSON Feed 1.1](https://www.jsonfeed.org/version/1.1/)): everything in the paper, newest first.
+- `/<section>/rss.xml`: a section's stories.
+- `/tags/<tag>/rss.xml`: a tag's stories.
+- `/staff/<id>/rss.xml`: everything bylined to someone.
+- `/corrections/rss.xml`: every correction.
+
+The paper's own stories go in whole: the lead image, caption and credit, then the body as its page prints it (dateline, and a recipe's headnote and card), rendered by `src/theme/FeedContent.astro` through Astro's Container API, with every link and image made absolute. A copied story links to where it was first published, and a headline to its place in the Newswire; each carries only its dek. Each list page advertises its feed with `<link rel="alternate">` (every page advertises the paper's two) and links it as "RSS". `/feeds/` lists every feed, and is linked from the footer.
+
+## Sharing
+
+Every page has an `og:image`, with `og:image:alt`, `og:image:width` and `og:image:height`, and `twitter:card` is `summary_large_image`. A story's is its lead image, at most 1200 wide, as a JPEG or PNG; anything else's, and an SVG lead image's (Astro won't rasterize one), is the default card, `card` in `paper.config.ts` (`public/card.png`; its `alt`, `width` and `height` are set there and must match the file). A story also has `article:published_time`, `article:modified_time`, `article:section` and an `article:tag` per tag. Every URL in them is absolute. There are no generated per-story cards yet.
+
+## Analytics
+
+`analytics` in `paper.config.ts` is a [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/) token (in the Cloudflare dashboard: Analytics & Logs, Web Analytics, add the site, and copy the token from its JS snippet). It's unset, and nothing is loaded. Once it's set, every page loads Cloudflare's beacon, `https://static.cloudflareinsights.com/beacon.min.js`, which sets no cookies, and `/about/` says so in one line.
 
 ## Columns
 
@@ -152,15 +182,16 @@ tristantimblin.dev rebuilds the paper when it deploys, by sending this repo a `r
 
 ## Layout
 
-- `paper.config.ts` — the name, tagline, address, founding date (the issue number counts weeks from it), footer line, sections and feeds (each with its `author`), the default byline, the masthead's group order, the place tags, Most Read, the standards page's path, the default card, the contact, the parody asks, and `index` (off: every page is `noindex` until the paper has a domain).
+- `paper.config.ts` — the name, tagline, address, founding date (the issue number counts weeks from it), footer line, sections and feeds (each with its `author`), the default byline, the masthead's group order, the place tags, Most Read, the standards page's path, the default card, the analytics token, the contact, the parody asks, and `index` (off: every page is `noindex` until the paper has a domain).
 - `astro.config.mjs` — adds the theme's Markdown rules (`src/theme/markdown.ts`) to Astro's Markdown processor, Sätteri.
 - `src/content/pages/` — the prose of `/about/`, `/standards/`, `/tips/` and `/corrections/`.
-- `src/theme/` — the reusable part: layout, story list and page, the paper's own pages and contact line, body (with its dateline), recipe card, Satire/Reported label, byline and author box, schemas, the Markdown rules for recipes and headlines, feed loader, search indexer, `paper.css` (empty) and `print.css` (a recipe, printed). It knows nothing about The Ergonomist, so it can become its own package once there's a design.
-- `src/pages/` — the routes: front page, sections, stories, tags, places, series, the Newswire, latest, archive, search, staff and masthead, about, standards, tips, corrections, RSS (the paper's, each author's and the corrections'), sitemap, robots.txt, `wire.json` (the copied stories), 404.
-- `public/_headers` — cache headers: a year for `/_astro/*`, five minutes for the paper's feed, the corrections feed, `wire.json` and the sitemap.
-- `public/card.png` — the default card: a recipe's image in structured data until it has a photo.
+- `src/theme/` — the reusable part: layout, story list and page, the paper's own pages and contact line, body (with its dateline), recipe card, Satire/Reported label, byline and author box, schemas, the Markdown rules for recipes and headlines, feed loader, the feeds it writes (`feeds.ts` and `FeedContent.astro`), search indexer, `paper.css` (empty) and `print.css` (a recipe, printed). It knows nothing about The Ergonomist, so it can become its own package once there's a design.
+- `src/pages/` — the routes: front page, sections, stories, tags, places, series, the Newswire, latest, archive, search, staff and masthead, about, standards, tips, corrections, the feeds (RSS for the paper, each section, tag and author and the corrections; `feed.json`) and `/feeds/`, sitemap, robots.txt, `wire.json` (the copied stories), 404.
+- `scripts/new.ts` — `bun run new`, a new story's file.
+- `public/_headers` — cache headers: a year for `/_astro/*`, five minutes for the feeds, `wire.json` and the sitemap.
+- `public/card.png` — the default card: the image a page is shared with when it has none, and a recipe's image in structured data until it has a photo.
 
-Every page carries Open Graph tags. The paper's own stories carry schema.org JSON-LD: `SatiricalArticle` (`NewsArticle` when reported, `Recipe` for a recipe) with `dateModified`, `image` and `mainEntityOfPage`, and a `BreadcrumbList`. Sections, tags, series, the Newswire, the latest and the archive years are `CollectionPage`s; staff pages are `ProfilePage`s; `/about/` is an `AboutPage` and the standards, tips and corrections are `WebPage`s; the front page and `/about/` have the paper as a `NewsMediaOrganization` (its `publishingPrinciples` the standards page, its `correctionsPolicy` and `ethicsPolicy` that page's `#corrections` and `#ethics`, and its `email` once `contact.email` is set), and the front page a `WebSite` with a `SearchAction`. The sitemap lists the indexable pages, each with the newest `updated` among its stories as its lastmod (the corrections page's, its newest correction).
+Every page carries Open Graph tags (see Sharing). The paper's own stories carry schema.org JSON-LD: `SatiricalArticle` (`NewsArticle` when reported, `Recipe` for a recipe) with `dateModified`, `image` and `mainEntityOfPage`, and a `BreadcrumbList`. Sections, tags, series, the Newswire, the latest and the archive years are `CollectionPage`s; staff pages are `ProfilePage`s; `/about/` is an `AboutPage` and the standards, tips and corrections are `WebPage`s; the front page and `/about/` have the paper as a `NewsMediaOrganization` (its `publishingPrinciples` the standards page, its `correctionsPolicy` and `ethicsPolicy` that page's `#corrections` and `#ethics`, and its `email` once `contact.email` is set), and the front page a `WebSite` with a `SearchAction`. The sitemap lists the indexable pages, each with the newest `updated` among its stories as its lastmod (the corrections page's, its newest correction).
 
 ```sh
 bun install

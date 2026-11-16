@@ -48,9 +48,13 @@ export default {
 	// The asks every paper makes (`membership` at the foot of every story,
 	// `newsletter` in the footer). None yet.
 	asks: {},
-	// The default card, in public/: the image of a recipe with no photo yet,
-	// since Google wants one in a Recipe's structured data.
-	card: "/card.png",
+	// The default card, in public/: the image a page is shared with when it has
+	// no image of its own, and a recipe's with no photo yet, since Google wants
+	// one in a Recipe's structured data. Its size is the file's.
+	card: { src: "/card.png", alt: "The Ergonomist", width: 1200, height: 900 },
+	// A Cloudflare Web Analytics token (dash.cloudflare.com, Analytics & Logs,
+	// Web Analytics). When set, every page loads its beacon; it sets no cookies.
+	analytics: undefined,
 	// Posts copied from elsewhere. Each item keeps a canonical link back to
 	// where it was first published.
 	feeds: [

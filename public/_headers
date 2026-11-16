@@ -6,7 +6,10 @@
 /rss.xml
   Cache-Control: public, max-age=300
 
-/corrections/rss.xml
+/*/rss.xml
+  Cache-Control: public, max-age=300
+
+/feed.json
   Cache-Control: public, max-age=300
 
 /sitemap.xml

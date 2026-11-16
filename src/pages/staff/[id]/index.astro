@@ -6,7 +6,7 @@ import { render } from "astro:content";
 import paper from "../../../../paper.config";
 import Layout from "../../../theme/Layout.astro";
 import StoryList from "../../../theme/StoryList.astro";
-import { getStaff, getStories, organizationLd, personLd, staffHref, type Staff } from "../../../theme/paper";
+import { getStaff, getStories, organizationLd, personLd, rssHref, staffHref, type Staff } from "../../../theme/paper";
 
 export const getStaticPaths = (async () => {
 	const stories = await getStories(paper);
@@ -19,7 +19,7 @@ export const getStaticPaths = (async () => {
 const { person, stories } = Astro.props as { person: Staff; stories: Awaited<ReturnType<typeof getStories>> };
 const { Content } = await render(person);
 const { name, title, beat, photo, links, email, real } = person.data;
-const feed = `${staffHref(person.id)}rss.xml`;
+const feed = rssHref(staffHref(person.id));
 // A persona's page is about the paper that writes as them: no fake Person.
 const jsonLd = {
 	"@type": "ProfilePage",

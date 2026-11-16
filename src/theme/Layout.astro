@@ -1,13 +1,15 @@
 ---
 /**
- * Every page: the head, the masthead, the section nav and the footer (the
+ * Every page: the head (its feeds, Open Graph tags with an image to share it
+ * with, structured data, and the analytics beacon once paper.analytics is
+ * set), the masthead, the section nav and the footer (the
  * paper's own pages, the lists and feeds, the newsletter ask, the
  * disclaimer, and the line that says what's satire). Bare
  * HTML on purpose — paper.css is empty until there is enough in the paper to
  * design around; the markup is written so a stylesheet is all a design needs.
  */
 import "./paper.css";
-import { formatDate, sectionHref, type Paper } from "./paper";
+import { formatDate, sectionHref, type Paper, type ShareImage } from "./paper";
 
 interface Props {
 	paper: Paper;
@@ -29,10 +31,29 @@ interface Props {
 	jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 	/** The page's own RSS feed, advertised beside the paper's. */
 	feed?: { title: string; href: string };
+	/** The image the page is shared with (shareImage); the paper's default
+	 *  card when left out. */
+	image?: ShareImage;
+	/** A story's dates, section and tags, as article:* Open Graph tags. */
+	article?: { published: Date; modified: Date; section: string; tags: string[] };
 }
 
-const { paper, title, description = paper.tagline, canonical, noindex, issue, type = "website", jsonLd, feed } = Astro.props;
+const {
+	paper,
+	title,
+	description = paper.tagline,
+	canonical,
+	noindex,
+	issue,
+	type = "website",
+	jsonLd,
+	feed,
+	image = paper.card,
+	article,
+} = Astro.props;
 const href = canonical === false ? undefined : (canonical ?? new URL(Astro.url.pathname, paper.site).href);
+// Link previews need an absolute image URL.
+const imageUrl = new URL(image.src, paper.site).href;
 const isFront = Astro.url.pathname === "/";
 // "page" on a section's own page, "true" on its stories: they're in it, not it.
 const current = (section: string) =>
@@ -53,14 +74,36 @@ const ld =
 		{(noindex || !paper.index) && <meta name="robots" content="noindex, follow" />}
 		{href && <link rel="canonical" href={href} />}
 		<link rel="alternate" type="application/rss+xml" title={paper.name} href="/rss.xml" />
+		<link rel="alternate" type="application/feed+json" title={paper.name} href="/feed.json" />
 		{feed && <link rel="alternate" type="application/rss+xml" title={feed.title} href={feed.href} />}
 		<meta property="og:site_name" content={paper.name} />
 		<meta property="og:type" content={type} />
 		<meta property="og:title" content={title ?? paper.name} />
 		<meta property="og:description" content={description} />
 		{href && <meta property="og:url" content={href} />}
-		<meta name="twitter:card" content="summary" />
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:image:alt" content={image.alt} />
+		<meta property="og:image:width" content={String(image.width)} />
+		<meta property="og:image:height" content={String(image.height)} />
+		{article && (
+			<>
+				<meta property="article:published_time" content={article.published.toISOString()} />
+				<meta property="article:modified_time" content={article.modified.toISOString()} />
+				<meta property="article:section" content={article.section} />
+				{article.tags.map((tag) => <meta property="article:tag" content={tag} />)}
+			</>
+		)}
+		<meta name="twitter:card" content="summary_large_image" />
 		{ld && <script type="application/ld+json" is:inline set:html={ld} />}
+		{/* Cloudflare Web Analytics: cookieless, and only once paper.analytics is set. */}
+		{paper.analytics && (
+			<script
+				is:inline
+				defer
+				src="https://static.cloudflareinsights.com/beacon.min.js"
+				data-cf-beacon={JSON.stringify({ token: paper.analytics })}
+			/>
+		)}
 		<slot name="head" />
 	</head>
 	<body>
@@ -110,6 +153,7 @@ const ld =
 					<li><a href="/places/">Places</a></li>
 					<li><a href="/search/">Search</a></li>
 					<li><a href="/rss.xml">RSS</a></li>
+					<li><a href="/feeds/">Feeds</a></li>
 				</ul>
 			</nav>
 			{paper.asks?.newsletter && <p>{paper.asks.newsletter} <a href="/rss.xml">RSS</a></p>}
