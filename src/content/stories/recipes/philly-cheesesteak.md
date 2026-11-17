@@ -12,8 +12,8 @@ ingredients:
     product: all-natural-shaved-beef-steak
   - item: TODO yellow onion
     product: jumbo-yellow-onions
-  - item: TODO portabella mushrooms
-    product: portabella-mushrooms
+  - item: TODO sliced baby bella mushrooms
+    product: organic-crimini-mushrooms
   - item: TODO slices provolone
     product: sliced-provolone-cheese
   - TODO hot sauce
