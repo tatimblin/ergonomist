@@ -24,9 +24,9 @@ ingredients:
   - item: 6 slices provolone
     product: sliced-provolone-cheese
     servings: 6
-  - item: 2 tablespoons hot sauce, ideally Frank's RedHot, but this one works too
-    product: jalapeno-sauce
-    servings: 1
+  - item: 2 tablespoons buffalo sauce, ideally Frank's RedHot, but this one works too
+    product: buffalo-sauce
+    servings: 2
   - item: 2 ciabatta demi-baguettes
     product: ciabatta-demi-baguette
     buy: 2
@@ -53,6 +53,6 @@ I used to live in Philadelphia, and I've had the best cheesesteaks there are. Da
 ### Steak
 
 1. Add the beef to the empty side of the pan in a single layer. Season with salt and pepper and cook, breaking it up with two spatulas, until no longer pink, 2 to 3 minutes.
-2. Chop the beef and vegetables together in the pan, then stir in the hot sauce.
+2. Chop the beef and vegetables together in the pan, then stir in the buffalo sauce.
 3. Divide the mixture into two piles the length of the bread. Lay 3 slices of provolone over each and cover the pan until the cheese melts, about 1 minute.
 4. Slide a spatula under each pile and turn it into a baguette. Eat right away.
