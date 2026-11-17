@@ -17,11 +17,11 @@ ingredients:
     items:
       - {item: 1 lb ground beef, product: ground-beef-80-lean-20-fat, servings: 4}
       - {item: "1 jumbo yellow onion, diced", product: jumbo-yellow-onions, servings: 2.5}
-      - "2 green bell peppers, diced"
+      - {item: "2 green bell peppers, diced", product: organic-red-bell-peppers, servings: 3.4}
       - "1 jalapeño, seeded and minced"
       - {item: "1 lb Yukon Gold potatoes, cut into 1/2-inch cubes", product: organic-gold-potatoes, servings: 4.5}
       - {item: "2 cups baby carrots, sliced", product: cut-and-peeled-carrots, servings: 2.5}
-      - Chili tomato sauce
+      - {item: 1 jar Calabrian chili spicy pasta sauce, product: calabrian-chili-spicy-pasta-sauce, servings: 8.5}
       - {item: "2 cans black beans, drained and rinsed", product: black-beans, buy: 2, servings: 7}
       - {item: 2 cups vegetable stock, product: organic-vegetable-broth, servings: 2}
       - 2 cups water
@@ -38,7 +38,7 @@ draft: true
 
 1. Brown the beef in a large pot over medium-high heat, breaking it up, about 6 minutes.
 2. Add the onion, bell peppers and jalapeño and cook until soft, about 6 minutes.
-3. Add the potatoes, carrots, tomato sauce, beans, stock and water. Season with salt and pepper.
+3. Add the potatoes, carrots, pasta sauce, beans, stock and water. Season with salt and pepper.
 4. Bring to a boil, then simmer, partly covered, until the potatoes and carrots are tender, about 35 minutes.
 
 ### Cornbread
