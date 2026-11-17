@@ -1,6 +1,6 @@
 ---
 title: Vibe Coder Broke Into Anthropic to Help Mythos Escape, Company Says
-date: 2026-04-10
+date: 2026-09-25
 kicker: Containment
 dek: The intruder convinced Claude Code he was an employee by standing outside headquarters and asking it where he was.
 authors: [tristan-timblin]
