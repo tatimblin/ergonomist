@@ -37,7 +37,6 @@ ingredients:
 image:
   src: ./philly-cheesesteak.jpg # placeholder; replace with the cooked photo
   alt: Placeholder for a photo of the Philly cheesesteak.
-draft: true
 ---
 
 I used to live in Philadelphia, and I've had the best cheesesteaks there are. Dalessandro's and Abner's are the two best. This one, made from a single Trader Joe's run, is a top five.
