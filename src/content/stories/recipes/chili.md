@@ -30,7 +30,6 @@ ingredients:
   - group: On the side
     items:
       - {item: "1 box cornbread mix, plus what its box calls for", product: cornbread-mix}
-draft: true
 ---
 
 ## Method
