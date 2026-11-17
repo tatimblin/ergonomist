@@ -75,12 +75,14 @@ for (const file of htmlFiles) {
 	const robots = select(tree, (el) => el.tagName === "meta" && attr(el, "name") === "robots");
 	if (robots.length > 1) fail(path, `${robots.length} robots metas`);
 	const content = robots[0] && attr(robots[0], "content");
-	if (robots[0] && content !== "noindex, follow") fail(path, `robots meta is "${content}", not "noindex, follow"`);
-	const noindex = robots[0] && attr(robots[0], "dataNoindex");
-	if (robots[0] && noindex !== "page" && noindex !== "paper") fail(path, `robots meta has no data-noindex of "page" or "paper"`);
+	// An indexed page's only says how large its image may preview.
+	const indexed = content === "max-image-preview:large";
+	if (robots[0] && !indexed && content !== "noindex, follow") fail(path, `robots meta is "${content}", not "noindex, follow" or "max-image-preview:large"`);
+	const noindex = robots[0] && !indexed ? attr(robots[0], "dataNoindex") : undefined;
+	if (robots[0] && !indexed && noindex !== "page" && noindex !== "paper") fail(path, `robots meta has no data-noindex of "page" or "paper"`);
 	pages.set(path, { canonical: canonicals[0], noindex });
 
-	if (!paper.index && !robots.length) fail(path, "no robots noindex, while paper.index is off");
+	if (!paper.index && !noindex) fail(path, "no robots noindex, while paper.index is off");
 	if (paper.index && noindex === "paper") fail(path, "noindex for the whole paper, while paper.index is on");
 	if (file === "404.html") {
 		if (canonicals.length) fail(path, "the 404 has a canonical link; it's served at every missing URL");

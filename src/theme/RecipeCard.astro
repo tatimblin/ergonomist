@@ -2,17 +2,25 @@
 /**
  * A recipe's card, between its headnote and its Method: the yield, times,
  * difficulty, course, cuisine, diet, equipment, calories and who tested it,
- * then the ingredients, a list per group, each with a checkbox to tick off.
+ * then the ingredients, a list per group, each with a checkbox to tick off
+ * and, when it names one, the product it's bought as (its image, on the
+ * store's site, and a link there). Then the shopping list: those products,
+ * how many of each, their size and price, and the total.
  * The page's "Jump to recipe" link lands here (#recipe).
  */
-import { formatDuration, ingredientGroups, recipeTimes, type Story } from "./paper";
+import { formatDate, formatDuration, ingredientGroups, recipeNutrition, recipeTimes, shoppingList, type Story } from "./paper";
 
 interface Props {
 	story: Extract<Story, { origin: "local" }>;
+	/** In a feed: no product images (the store turns away feed fetchers). */
+	feed?: boolean;
 }
 
 const { data } = Astro.props.story.entry;
+const { feed } = Astro.props;
 const times = recipeTimes(data);
+const nutrition = await recipeNutrition(data);
+const calories = data.calories ?? nutrition?.facts.find((f) => f.key === "calories")?.value;
 const facts: [string, string | undefined][] = [
 	["Yield", data.yield ?? `Serves ${data.serves}`],
 	["Prep", formatDuration(times.prep)],
@@ -24,10 +32,15 @@ const facts: [string, string | undefined][] = [
 	["Cuisine", data.cuisine],
 	["Diet", data.diet?.join(", ")],
 	["Equipment", data.equipment?.join(", ")],
-	["Calories", data.calories ? `${data.calories} per serving` : undefined],
+	["Calories", calories !== undefined ? `${calories} per serving` : undefined],
 	["Tested by", data.testedBy],
 ];
 const groups = ingredientGroups(data);
+const shopping = await shoppingList(data);
+const products = new Map(shopping.lines.map(({ product }) => [product.id, product]));
+const money = (n: number) => `$${n.toFixed(2)}`;
+const stores = [...new Set(shopping.lines.map(({ product }) => product.data.store))];
+const priced = shopping.lines.map(({ product }) => product.data.priced).sort((a, b) => a.getTime() - b.getTime())[0];
 ---
 
 <section id="recipe" aria-label="Recipe">
@@ -41,10 +54,64 @@ const groups = ingredientGroups(data);
 				<div>
 					{group && <h3>{group}</h3>}
 					<ul>
-						{items.map((item) => <li><label><input type="checkbox" /> {item}</label></li>)}
+						{items.map(({ text, product: id }) => {
+							const product = id ? products.get(id) : undefined;
+							return (
+								<li>
+									<label><input type="checkbox" /> {text}</label>
+									{product && (
+										<a href={product.data.url}>
+											{product.data.image && !feed && <img src={product.data.image} alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer" />}
+											{product.data.store} {product.data.name}
+										</a>
+									)}
+								</li>
+							);
+						})}
 					</ul>
 				</div>
 			))}
 		</div>
 	</section>
+	{shopping.lines.length > 0 && (
+		<section aria-labelledby="shopping-list">
+			<h2 id="shopping-list">Shopping list</h2>
+			<table>
+				<thead>
+					<tr><th scope="col">Product</th><th scope="col">Buy</th><th scope="col">Size</th><th scope="col">Price</th></tr>
+				</thead>
+				<tbody>
+					{shopping.lines.map(({ product, buy }) => (
+						<tr>
+							<td><a href={product.data.url}>{product.data.name}</a></td>
+							<td>{buy}</td>
+							<td>{product.data.size}</td>
+							<td>{product.data.price && money(product.data.price * buy)}</td>
+						</tr>
+					))}
+				</tbody>
+				<tfoot>
+					<tr><th scope="row" colspan="3">About</th><td>{money(shopping.total)}</td></tr>
+				</tfoot>
+			</table>
+			<p>At {stores.join(" and ")}, as of {formatDate(priced)}. Prices vary by store.</p>
+		</section>
+	)}
+	{nutrition && (
+		<section aria-labelledby="nutrition">
+			<h2 id="nutrition">Nutrition facts</h2>
+			<table>
+				<caption>Per serving{data.serves && data.serves > 1 ? `, of ${data.serves}` : ""}</caption>
+				<tbody>
+					{nutrition.facts.map(({ label, value, unit }) => (
+						<tr><th scope="row">{label}</th><td>{value}{unit}</td></tr>
+					))}
+				</tbody>
+			</table>
+			<p>
+				Estimated from the products' labels{nutrition.sources.length > 0 && <>, and from elsewhere for{" "}{nutrition.sources.map(({ name, url }, i) => <>{i > 0 && (i === nutrition.sources.length - 1 ? " and " : ", ")}<a href={url}>{name}</a></>)}</>}.
+				{nutrition.missing.length > 0 && <> Not counted: {nutrition.missing.join(", ")}.</>}
+			</p>
+		</section>
+	)}
 </section>

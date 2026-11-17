@@ -12,6 +12,8 @@
     "astro": "bunx astro",
     "deploy": "bun run build && wrangler deploy",
     "new": "bun scripts/new.ts",
+    "product": "bun scripts/product.ts",
+    "products": "bun scripts/products.ts",
     "test": "bun scripts/test.ts",
     "test:smoke": "bun scripts/smoke.ts",
     "test:html": "html-validate dist",
@@ -33,6 +35,7 @@
     "@types/mdast": "^4.0.4",
     "html-validate": "^11.21.1",
     "pagefind": "^1.6.0",
+    "playwright-core": "^1.65.1",
     "typescript": "5.9.3",
     "wrangler": "^4.162.0"
   }

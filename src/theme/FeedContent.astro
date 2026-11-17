@@ -2,7 +2,9 @@
 /**
  * One of the paper's own stories as a feed item carries it: the lead image,
  * caption and credit, then the body as its page prints it (Body, with the
- * dateline, and a recipe's headnote and card). Rendered on its own by
+ * dateline, and a recipe's headnote and card, without its products' images,
+ * which the store serves to browsers but not to feed readers' fetchers).
+ * Rendered on its own by
  * feeds.ts, through Astro's Container API, so its URLs are still relative.
  */
 import { Image } from "astro:assets";
@@ -30,4 +32,4 @@ const { image, kind } = story.entry.data;
 		)}
 	</figure>
 )}
-<Body story={story}>{kind === "recipe" && <RecipeCard story={story} />}</Body>
+<Body story={story}>{kind === "recipe" && <RecipeCard story={story} feed />}</Body>

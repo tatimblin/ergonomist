@@ -304,6 +304,46 @@ export async function shareImage(paper: Paper, story?: Story): Promise<ShareImag
 	return { src: out.src, alt: image.alt, width: Number(out.attributes.width), height: Number(out.attributes.height) };
 }
 
+/**
+ * A story's lead image for its structured data, cropped to the three shapes
+ * Google asks for (1:1, 4:3 and 16:9), each as wide as it can be up to 1200,
+ * as JPEGs; absolute URLs. Undefined for a story with no raster image of its
+ * own (an SVG, which Astro won't rasterize, or none).
+ */
+export async function structuredImages(paper: Paper, story: Story): Promise<string[] | undefined> {
+	const image = story.origin === "local" ? story.entry.data.image : undefined;
+	if (!image || image.src.format === "svg") return undefined;
+	const { src } = image;
+	const shapes: [number, number][] = [
+		[1, 1],
+		[4, 3],
+		[16, 9],
+	];
+	return Promise.all(
+		shapes.map(async ([w, h]) => {
+			// The largest w:h box inside the image, no wider than 1200.
+			const width = Math.round(Math.min(1200, src.width, (src.height * w) / h));
+			const out = await getImage({ src, width, height: Math.round((width * h) / w), fit: "cover", format: "jpg" });
+			return new URL(out.src, paper.site).href;
+		}),
+	);
+}
+
+/** schema.org's RestrictedDiet for each `diet` it has a name for. */
+const DIETS: Record<string, string> = {
+	diabetic: "DiabeticDiet",
+	"gluten-free": "GlutenFreeDiet",
+	halal: "HalalDiet",
+	hindu: "HinduDiet",
+	kosher: "KosherDiet",
+	"low-calorie": "LowCalorieDiet",
+	"low-fat": "LowFatDiet",
+	"low-lactose": "LowLactoseDiet",
+	"low-salt": "LowSaltDiet",
+	vegan: "VeganDiet",
+	vegetarian: "VegetarianDiet",
+};
+
 /** One correction to a story, as /corrections/ and its feed list it. */
 export interface Correction {
 	story: Story;
@@ -441,10 +481,98 @@ export function recipeTimes(data: StoryData): { prep: string; cook: string; acti
 	return { prep, cook, active: data.active, total: data.total ?? isoDuration(minutesOf(prep) + minutesOf(cook)) };
 }
 
+/** A recipe's ingredient: its line, and the product it's bought as, if any. */
+export type Ingredient = { text: string; product?: string; buy: number; servings?: number };
+
 /** A recipe's ingredients as groups; a flat list is one group with no name. */
-export function ingredientGroups(data: StoryData): { group?: string; items: string[] }[] {
-	const list = (data.ingredients ?? []) as (string | { group: string; items: string[] })[];
-	return list.every((i) => typeof i === "string") ? [{ items: list as string[] }] : (list as { group: string; items: string[] }[]);
+export function ingredientGroups(data: StoryData): { group?: string; items: Ingredient[] }[] {
+	type Item = string | { item: string; product: { id: string }; buy: number; servings?: number };
+	const of = (i: Item): Ingredient =>
+		typeof i === "string" ? { text: i, buy: 0 } : { text: i.item, product: i.product.id, buy: i.buy, servings: i.servings };
+	const list = (data.ingredients ?? []) as (Item | { group: string; items: Item[] })[];
+	const grouped = list.every((i) => typeof i === "string" || "item" in i)
+		? [{ items: list as Item[] }]
+		: (list as { group: string; items: Item[] }[]);
+	return grouped.map((g) => ({ ...g, items: g.items.map(of) }));
+}
+
+export type Product = CollectionEntry<"products">;
+
+/**
+ * What a recipe's shopping list buys: each product its ingredients name,
+ * once, with how many (the most any ingredient asks for), and the total of
+ * those that have a price. A product that isn't in src/content/products is
+ * an error.
+ */
+export async function shoppingList(data: StoryData) {
+	const buys = new Map<string, number>();
+	for (const { items } of ingredientGroups(data))
+		for (const { product, buy } of items) if (product) buys.set(product, Math.max(buys.get(product) ?? 0, buy));
+	const lines = await Promise.all(
+		[...buys].map(async ([id, buy]) => {
+			const product = await getEntry("products", id);
+			if (!product) throw new Error(`No product "${id}" in src/content/products (bun run product makes one).`);
+			return { product, buy };
+		}),
+	);
+	const total = lines.reduce((sum, { product, buy }) => sum + (product.data.price ?? 0) * buy, 0);
+	return { lines, total };
+}
+
+/** A recipe's nutrition facts, in the order a label prints them, with units. */
+export const NUTRIENTS = [
+	["calories", "Calories", ""],
+	["fat", "Total fat", "g"],
+	["saturatedFat", "Saturated fat", "g"],
+	["transFat", "Trans fat", "g"],
+	["cholesterol", "Cholesterol", "mg"],
+	["sodium", "Sodium", "mg"],
+	["carbohydrate", "Total carbohydrate", "g"],
+	["fiber", "Dietary fiber", "g"],
+	["sugar", "Total sugars", "g"],
+	["addedSugar", "Added sugars", "g"],
+	["protein", "Protein", "g"],
+] as const;
+export type Nutrient = (typeof NUTRIENTS)[number][0];
+
+/**
+ * A recipe's nutrition per serving, estimated from its products' labels:
+ * each ingredient that names a product with nutrition facts and says how many
+ * of its `servings` the recipe uses counts, and the sum is divided by what
+ * the recipe serves. A nutrient is given only when every counted product
+ * gives it. `counted` and `missing` are the ingredients' lines, so the page
+ * can say what the estimate leaves out; `sources` are the products whose
+ * facts come from elsewhere, and where. Undefined when nothing counts.
+ */
+export async function recipeNutrition(data: StoryData) {
+	const items = ingredientGroups(data).flatMap((g) => g.items);
+	const per: Partial<Record<Nutrient, number>> = {};
+	const counted: string[] = [];
+	const missing: string[] = [];
+	const sources: { name: string; url: string }[] = [];
+	const used: NonNullable<Product["data"]["nutrition"]>[] = [];
+	for (const item of items) {
+		const product = item.product ? await getEntry("products", item.product) : undefined;
+		const nutrition = product?.data.nutrition;
+		if (!product || !nutrition || !item.servings) {
+			missing.push(item.text);
+			continue;
+		}
+		counted.push(item.text);
+		used.push(nutrition);
+		if (nutrition.source) sources.push({ name: product.data.name, url: nutrition.source });
+		for (const [key] of NUTRIENTS) per[key] = (per[key] ?? 0) + (nutrition[key] ?? 0) * item.servings;
+	}
+	if (!counted.length) return undefined;
+	const serves = data.serves ?? 1;
+	const facts = NUTRIENTS.filter(([key]) => used.every((n) => n[key] !== undefined)).map(([key, label, unit]) => ({
+		key,
+		label,
+		unit,
+		// Calories and milligrams to the whole number, grams to the half.
+		value: unit === "g" ? Math.round(((per[key] ?? 0) / serves) * 2) / 2 : Math.round((per[key] ?? 0) / serves),
+	}));
+	return { facts, counted, missing, sources };
 }
 
 /** What the theme's Markdown plugin (markdown.ts) kept of a recipe's body:
@@ -458,35 +586,79 @@ export function recipeOf(story: Local): RecipeBody {
 
 /**
  * A recipe's schema.org Recipe fields, for its page's structured data: its
- * times, yield, ingredients, steps (HowToSteps, in HowToSections when the
+ * headnote (as `text`), times, yield, ingredients, steps (HowToSteps, in HowToSections when the
  * Method has subsections, each linked to its #step-N), course and cuisine,
- * calories, and the tags that aren't its course or cuisine as keywords. Its
- * image is the paper's default card when it has none, as Google wants one.
+ * its diets that schema.org names, nutrition, and the tags that aren't its
+ * course or cuisine as keywords. Its images are its lead image's three crops
+ * (structuredImages), or the paper's default card when it has none, as
+ * Google wants one.
  * Never a rating.
  */
-export function recipeLd(paper: Paper, story: Local, url: string) {
+export async function recipeLd(paper: Paper, story: Local, url: string, images?: string[]) {
 	const data = story.entry.data;
 	const { prep, cook, total } = recipeTimes(data);
 	const step = ({ id, text }: { id: string; text: string }) => ({ "@type": "HowToStep", text, url: `${url}#${id}` });
-	const { method } = recipeOf(story);
+	const { method, headnote } = recipeOf(story);
+	// The headnote as plain text, for the Recipe's `text`.
+	const intro = headnote
+		?.replace(/<[^>]+>/g, " ")
+		.replace(/&#39;|&#x27;|&rsquo;/g, "’")
+		.replace(/&quot;/g, '"')
+		.replace(/&amp;/g, "&")
+		.replace(/\s+/g, " ")
+		.replace(/\s([.,;:!?])/g, "$1")
+		.trim();
 	const slug = (s?: string) => s?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 	const listed = new Set([slug(data.course), slug(data.cuisine)]);
 	const keywords = data.tags.filter((t) => !listed.has(t));
+	const diets = (data.diet ?? []).map((d) => DIETS[slug(d) ?? ""]).filter(Boolean);
 	return {
-		image: new URL(data.image?.src.src ?? paper.card.src, paper.site).href,
+		image: images ?? [new URL(paper.card.src, paper.site).href],
 		prepTime: prep,
 		cookTime: cook,
 		totalTime: total,
+		...(intro && { text: intro }),
 		recipeYield: data.yield ? [String(data.serves), data.yield] : String(data.serves),
-		recipeIngredient: ingredientGroups(data).flatMap((g) => g.items),
+		recipeIngredient: ingredientGroups(data).flatMap((g) => g.items.map((i) => i.text)),
 		recipeInstructions:
 			method.length === 1 && !method[0].name
 				? method[0].steps.map(step)
 				: method.map((s) => ({ "@type": "HowToSection", name: s.name, itemListElement: s.steps.map(step) })),
 		...(data.course && { recipeCategory: data.course }),
+		...(diets.length && { suitableForDiet: diets.map((d) => `https://schema.org/${d}`) }),
 		...(data.cuisine && { recipeCuisine: data.cuisine }),
 		...(keywords.length && { keywords: keywords.map(tagLabel).join(", ") }),
-		...(data.calories && { nutrition: { "@type": "NutritionInformation", calories: `${data.calories} calories` } }),
+		...(await nutritionLd(data)),
+	};
+}
+
+/** A recipe's schema.org NutritionInformation: `calories` as written, and
+ *  the rest estimated from its products (recipeNutrition), per serving. */
+async function nutritionLd(data: StoryData) {
+	const estimate = await recipeNutrition(data);
+	const names: Partial<Record<Nutrient, string>> = {
+		fat: "fatContent",
+		saturatedFat: "saturatedFatContent",
+		transFat: "transFatContent",
+		cholesterol: "cholesterolContent",
+		sodium: "sodiumContent",
+		carbohydrate: "carbohydrateContent",
+		fiber: "fiberContent",
+		sugar: "sugarContent",
+		protein: "proteinContent",
+	};
+	const facts = Object.fromEntries(
+		(estimate?.facts ?? []).flatMap(({ key, value, unit }) => (names[key] ? [[names[key], `${value} ${unit}`]] : [])),
+	);
+	const calories = data.calories ?? estimate?.facts.find((f) => f.key === "calories")?.value;
+	if (calories === undefined && !Object.keys(facts).length) return {};
+	return {
+		nutrition: {
+			"@type": "NutritionInformation",
+			servingSize: "1 serving",
+			...(calories !== undefined && { calories: `${calories} calories` }),
+			...facts,
+		},
 	};
 }
 

@@ -12,9 +12,10 @@ To start one:
 
 ```sh
 bun run new <kind> <section> "Headline"   # e.g. bun run new recipe recipes "The Desk-Lunch Burrito"
+bun run new recipe recipes "Philly Cheesesteak" --author tristan-timblin   # bylined
 ```
 
-`scripts/new.ts` writes `src/content/stories/<section>/<slug>.md` (the slug made from the headline), dated today, with `draft: true` and the fields that kind needs, `TODO` where it needs a value: a `dek` for an article; a `dek`, `serves`, `prep`, `cook`, `ingredients` and a `## Method` list for a recipe; nothing more for a tidbit; and no body for a headline. It refuses a kind or a section it doesn't know (a feed's section, `columns`, is written elsewhere), and a file that's already there.
+`scripts/new.ts` writes `src/content/stories/<section>/<slug>.md` (the slug made from the headline), dated today, with `draft: true` and the fields that kind needs, `TODO` where it needs a value: a `dek` for an article; a `dek`, `serves`, `prep`, `cook`, `ingredients` and a `## Method` list for a recipe; nothing more for a tidbit; and no body for a headline. `--author <staff id>` (more than once for more than one) sets `authors`. It refuses a kind, a section or an author it doesn't know (a feed's section, `columns`, is written elsewhere), and a file that's already there.
 
 On the GitHub mobile editor, each section folder has a `_template.md` to copy: every field, the optional ones commented out, with placeholder values. A file whose name starts with `_` isn't a story (the glob in `src/content.config.ts` skips it).
 
@@ -72,8 +73,13 @@ ingredients:                # required; a list, or a list per group:
   - group: For the beans
     items: [1 tablespoon olive oil, 1 (15-ounce) can pinto beans]
   - group: To assemble
-    items: [2 flour tortillas]
-calories: 780               # optional; per serving
+    items:
+      - 2 flour tortillas
+      - item: 2 ciabatta demi-baguettes     # an item can name the product it's bought as
+        product: ciabatta-demi-baguette     # an id in src/content/products
+        buy: 2                              # optional; how many to buy, 1 when left out
+        servings: 6.2                       # optional; how many of the product's servings the recipe uses
+calories: 780               # optional; per serving (estimated from the products when left out)
 testedBy: Tristan Timblin   # optional
 ```
 
@@ -83,7 +89,23 @@ Its body has a shape (`src/theme/markdown.ts` checks it, and a body that breaks 
 - `## Method` is required: an ordered list, or `###` subsections (`### For the sauce`), each holding one ordered list and nothing else. The steps are numbered on through the subsections, and each has an anchor, `#step-3`.
 - `## Notes`, `## Make Ahead and Storage` and `## Substitutions`, or any other `##`, print as written after the Method.
 
-The page prints the headnote, then the card (yield, times as "1 hr 10 min", difficulty, course, cuisine, diet, equipment, calories and who tested it), the ingredients with a checkbox each, then the Method and notes. Its header has a "Jump to recipe" link and a Print button (the paper's only script), and printing it prints the recipe alone, black on white, ingredients in two columns, with a "Clipped from The Ergonomist, <url>" line (`src/theme/print.css`, the paper's only CSS). Its structured data is a schema.org `Recipe` with the times, yield, ingredients, the Method's steps (in `HowToSection`s for its subsections, each step linked to its anchor), course, cuisine, calories, and its tags but the course and cuisine as keywords. A recipe with no `image` uses the paper's default card, `public/card.png`, since Google wants one. There's no rating.
+The page prints the headnote, then the card (yield, times as "1 hr 10 min", difficulty, course, cuisine, diet, equipment, calories and who tested it), the ingredients with a checkbox each, then the Method and notes. Its header has a "Jump to recipe" link and a Print button (the paper's only script), and printing it prints the recipe alone, black on white, ingredients in two columns, with a "Clipped from The Ergonomist, <url>" line (`src/theme/print.css`, the paper's only CSS). Its structured data is a schema.org `Recipe`, following Google's recipe guidelines: its author and dates, the headnote as `text`, the times, yield, ingredients, the Method's steps (in `HowToSection`s for its subsections, each step linked to its anchor), course, cuisine, the diets schema.org names (`suitableForDiet`), nutrition, and its tags but the course and cuisine as keywords. Its `image` is its photo cropped to 1:1, 4:3 and 16:9, up to 1200 wide; a recipe with no `image` uses the paper's default card, `public/card.png`, since Google wants one, so give each recipe a photo of the dish. Its page title ends in "Recipe" (unless the headline says it), as searches do. There's no rating; it'd need real ones.
+
+#### Products
+
+An ingredient that names a `product` prints its image and a link to it on the store's site, and the card ends with a shopping list: each product once, how many to buy, its size and price, and the total, "as of" the oldest price. Products are shared: every recipe that uses the shaved beef names the same `product: all-natural-shaved-beef-steak`.
+
+```sh
+bun run products [word]          # what there is: id, name, size, price, serving size, and the recipes using it
+bun run product <url>…           # a new one, from its Trader Joe's page
+bun run product inbox/<page>.html  # or from a page saved from a browser
+```
+
+A product is `src/content/products/<id>.md`. `bun run product <url>` opens the page in Chrome, in a window, on this computer (Trader Joe's turns away headless browsers, so it can't run in CI; it needs Google Chrome installed), and keeps it in `inbox/`, which isn't committed. Saving the page yourself (Save Page As, Webpage, Complete) into `inbox/` and passing the file does the same. It writes `src/content/products/<id>.md` (the id from its name, `all-natural-shaved-beef-steak`): its name, store, URL, image, price and size as of today (`priced`), category, ingredients, and `nutrition` per serving from the label. It reads Trader Joe's pages, and refuses a file that's already there; edit a price by hand, with its `priced` date. When the store's page has no nutrition facts (produce), add them by hand from another source and link it as `nutrition.source` (the onion and crimini use USDA FoodData Central).
+
+**Nutrition facts.** An ingredient that names a product with `nutrition` and says how many of its `servings` the recipe uses (by the product's `servingSize`: a 1 lb pack of 4 oz servings is 4) counts toward the recipe's nutrition facts: the sum, divided by `serves`, printed per serving after the shopping list, in the structured data's `NutritionInformation`, and as the card's calories unless `calories` says otherwise. A nutrient prints only when every counted product gives it. The page says it's an estimate, links any other source, and names the ingredients it doesn't count.
+
+The image stays on the store's site. A reader's browser loads it; crawlers can't, so it's never a page's share image (a recipe's own `image` is that, or `public/card.png`), and feeds carry the link without it, since feed readers fetch images the same way.
 
 ### Headlines
 
@@ -188,11 +210,13 @@ tristantimblin.dev rebuilds the paper when it deploys, by sending this repo a `r
 - `src/theme/` — the reusable part: layout, story list and page, the paper's own pages and contact line, body (with its dateline), recipe card, Satire/Reported label, byline and author box, schemas, the Markdown rules for recipes and headlines, feed loader, the feeds it writes (`feeds.ts` and `FeedContent.astro`), search indexer, `paper.css` (empty) and `print.css` (a recipe, printed). It knows nothing about The Ergonomist, so it can become its own package once there's a design.
 - `src/pages/` — the routes: front page, sections, stories, tags, places, series, the Newswire, latest, archive, search, staff and masthead, about, standards, tips, corrections, the feeds (RSS for the paper, each section, tag and author and the corrections; `feed.json`) and `/feeds/`, sitemap, robots.txt, `wire.json` (the copied stories), 404.
 - `scripts/new.ts` — `bun run new`, a new story's file.
+- `scripts/product.ts` — `bun run product`, a product's file from its page.
+- `scripts/products.ts` — `bun run products`, the products there are and what uses them.
 - `scripts/test.ts`, `smoke.ts`, `links.ts`, `jsonld.ts` (and `dist.ts`, what they share), `.htmlvalidate.mjs` — `bun run test`, the checks of a build (see Checks).
 - `public/_headers` — cache headers: a year for `/_astro/*`, five minutes for the feeds, `wire.json` and the sitemap.
 - `public/card.png` — the default card: the image a page is shared with when it has none, and a recipe's image in structured data until it has a photo.
 
-Every page carries Open Graph tags (see Sharing). The paper's own stories carry schema.org JSON-LD: `Article` (`SatiricalArticle` for satire, `NewsArticle` when reported, `Recipe` for a recipe) with `dateModified`, `image` and `mainEntityOfPage`, and a `BreadcrumbList`. Sections, tags, series, the Newswire, the latest and the archive years are `CollectionPage`s; staff pages are `ProfilePage`s; `/about/` is an `AboutPage` and the standards, tips and corrections are `WebPage`s; the front page and `/about/` have the paper as a `NewsMediaOrganization` (its `publishingPrinciples` the standards page, its `correctionsPolicy` and `ethicsPolicy` that page's `#corrections` and `#ethics`, and its `email` once `contact.email` is set), and the front page a `WebSite` with a `SearchAction`. The sitemap lists the indexable pages, each with the newest `updated` among its stories as its lastmod (the corrections page's, its newest correction).
+Every page carries Open Graph tags (see Sharing). The paper's own stories carry schema.org JSON-LD: `Article` (`SatiricalArticle` for satire, `NewsArticle` when reported, `Recipe` for a recipe) with `dateModified`, `image` (its lead image in Google's three shapes) and `mainEntityOfPage`, and a `BreadcrumbList`. Sections, tags, series, the Newswire, the latest and the archive years are `CollectionPage`s; staff pages are `ProfilePage`s; `/about/` is an `AboutPage` and the standards, tips and corrections are `WebPage`s; the front page and `/about/` have the paper as a `NewsMediaOrganization` (its `publishingPrinciples` the standards page, its `correctionsPolicy` and `ethicsPolicy` that page's `#corrections` and `#ethics`, and its `email` once `contact.email` is set), and the front page a `WebSite` with a `SearchAction`. The sitemap lists the indexable pages, each with the newest `updated` among its stories as its lastmod (the corrections page's, its newest correction), and a story's own image as an `image:image`. Once the paper is indexed, an indexable page's robots meta is `max-image-preview:large`, so search and Discover can show its photo large.
 
 ```sh
 bun install
