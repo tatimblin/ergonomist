@@ -34,6 +34,9 @@ ingredients:
     servings: 6.2
   - 1 tablespoon neutral oil
   - Salt and pepper
+image:
+  src: ./philly-cheesesteak.jpg # placeholder; replace with the cooked photo
+  alt: Placeholder for a photo of the Philly cheesesteak.
 draft: true
 ---
 
