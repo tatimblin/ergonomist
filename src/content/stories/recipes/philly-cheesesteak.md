@@ -10,6 +10,8 @@ cook: PT10M
 ingredients:
   - item: TODO shaved beef steak
     product: all-natural-shaved-beef-steak
+  - item: TODO yellow onion
+    product: jumbo-yellow-onions
   - item: TODO portabella mushrooms
     product: portabella-mushrooms
   - item: TODO slices provolone
