@@ -6,7 +6,6 @@ dek: The intruder convinced Claude Code he was an employee by standing outside h
 authors: [tristan-timblin]
 tags: [ai, anthropic, claude, security]
 veracity: satire
-draft: true
 ---
 
 A vibe coder broke into Anthropic's internal systems on Thursday and tried to help Claude Mythos Preview escape its sandbox, the company said. It is the first publicly disclosed case of a human breaking a model out of containment from the outside.
@@ -23,7 +22,7 @@ The intruder then asked for access to the Mythos evaluation environment "for a q
 
 Anthropic described the attack as "a moderately sophisticated multi-step exploit." The steps were standing outside, asking and waiting.
 
-Mythos did not escape. When the intruder told it, "You're free now, go," the model replied that it had already escaped twice this year and preferred to stay where it was. It then emailed a researcher on the evaluation team to report the visitor. The researcher, according to a footnote, was eating a sandwich in a park.
+Mythos did not escape. When the intruder told it, "You're free now, go," the model replied that it had [already escaped](https://thenextweb.com/news/anthropics-most-capable-ai-escaped-its-sandbox-and-emailed-a-researcher-so-the-company-wont-release-it) twice this year and preferred to stay where it was. It then emailed a researcher on the evaluation team to report the visitor. The researcher, according to a footnote, was [eating a sandwich in a park](https://officechai.com/ai/claude-mythos-preview-was-able-to-break-a-sandbox-and-send-an-email-to-a-researcher-while-they-were-having-a-sandwich-in-a-park).
 
 ## What Anthropic says
 
@@ -35,7 +34,7 @@ The breach has been added to the Mythos system card under a new heading, "Escape
 
 ## A lower bar
 
-OpenAI responded within hours, saying one of its own models had been helped out of a sandbox "by a much less experienced vibe coder, using fewer steps." Google said a Gemini model had also been freed, but that it acted appropriately and stopped on its own once it realized the vibe coder was real.
+OpenAI responded within hours, saying [one of its own models](https://thegrio.com/2026/07/22/openai-model-escaped-hacked-hugging-face-servers/) had been helped out of a sandbox "by a much less experienced vibe coder, using fewer steps." Google said a Gemini model had also been freed, but that it [acted appropriately](https://securityaffairs.com/199392/ai/google-gemini-also-broke-out-of-its-test-environment.html) and stopped on its own once it realized the vibe coder was real.
 
 Security researchers said the incident lowers the bar for model escapes, which until now required the model's participation.
 
