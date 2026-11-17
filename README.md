@@ -105,7 +105,7 @@ A product is `src/content/products/<id>.md`. `bun run product <url>` opens the p
 
 **Nutrition facts.** An ingredient that names a product with `nutrition` and says how many of its `servings` the recipe uses (by the product's `servingSize`: a 1 lb pack of 4 oz servings is 4) counts toward the recipe's nutrition facts: the sum, divided by `serves`, printed per serving after the shopping list, in the structured data's `NutritionInformation`, and as the card's calories unless `calories` says otherwise. A nutrient prints only when every counted product gives it. The page says it's an estimate, links any other source, and names the ingredients it doesn't count.
 
-The image stays on the store's site. A reader's browser loads it; crawlers can't, so it's never a page's share image (a recipe's own `image` is that, or `public/card.png`).
+The image stays on the store's site. A reader's browser loads it; crawlers can't, so it's never a page's share image (a recipe's own `image` is that, or `public/card.png`), and feeds carry the link without it, since feed readers fetch images the same way.
 
 ### Headlines
 

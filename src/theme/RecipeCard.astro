@@ -12,9 +12,12 @@ import { formatDate, formatDuration, ingredientGroups, recipeNutrition, recipeTi
 
 interface Props {
 	story: Extract<Story, { origin: "local" }>;
+	/** In a feed: no product images (the store turns away feed fetchers). */
+	feed?: boolean;
 }
 
 const { data } = Astro.props.story.entry;
+const { feed } = Astro.props;
 const times = recipeTimes(data);
 const nutrition = await recipeNutrition(data);
 const calories = data.calories ?? nutrition?.facts.find((f) => f.key === "calories")?.value;
@@ -58,7 +61,7 @@ const priced = shopping.lines.map(({ product }) => product.data.priced).sort((a,
 									<label><input type="checkbox" /> {text}</label>
 									{product && (
 										<a href={product.data.url}>
-											{product.data.image && <img src={product.data.image} alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer" />}
+											{product.data.image && !feed && <img src={product.data.image} alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer" />}
 											{product.data.store} {product.data.name}
 										</a>
 									)}
@@ -106,7 +109,7 @@ const priced = shopping.lines.map(({ product }) => product.data.priced).sort((a,
 				</tbody>
 			</table>
 			<p>
-				Estimated from the products' labels{nutrition.sources.length > 0 && <>{" "}and the{" "}{nutrition.sources.map((s, i) => <>{i > 0 && ", "}<a href={s}>{new URL(s).host}</a></>)}</>}.
+				Estimated from the products' labels{nutrition.sources.length > 0 && <>, and from elsewhere for{" "}{nutrition.sources.map(({ name, url }, i) => <>{i > 0 && (i === nutrition.sources.length - 1 ? " and " : ", ")}<a href={url}>{name}</a></>)}</>}.
 				{nutrition.missing.length > 0 && <> Not counted: {nutrition.missing.join(", ")}.</>}
 			</p>
 		</section>

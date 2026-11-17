@@ -501,25 +501,26 @@ export type Nutrient = (typeof NUTRIENTS)[number][0];
  * of its `servings` the recipe uses counts, and the sum is divided by what
  * the recipe serves. A nutrient is given only when every counted product
  * gives it. `counted` and `missing` are the ingredients' lines, so the page
- * can say what the estimate leaves out; `sources` are the other sources
- * used. Undefined when nothing counts.
+ * can say what the estimate leaves out; `sources` are the products whose
+ * facts come from elsewhere, and where. Undefined when nothing counts.
  */
 export async function recipeNutrition(data: StoryData) {
 	const items = ingredientGroups(data).flatMap((g) => g.items);
 	const per: Partial<Record<Nutrient, number>> = {};
 	const counted: string[] = [];
 	const missing: string[] = [];
-	const sources = new Set<string>();
+	const sources: { name: string; url: string }[] = [];
 	const used: NonNullable<Product["data"]["nutrition"]>[] = [];
 	for (const item of items) {
-		const nutrition = item.product ? (await getEntry("products", item.product))?.data.nutrition : undefined;
-		if (!nutrition || !item.servings) {
+		const product = item.product ? await getEntry("products", item.product) : undefined;
+		const nutrition = product?.data.nutrition;
+		if (!product || !nutrition || !item.servings) {
 			missing.push(item.text);
 			continue;
 		}
 		counted.push(item.text);
 		used.push(nutrition);
-		if (nutrition.source) sources.add(nutrition.source);
+		if (nutrition.source) sources.push({ name: product.data.name, url: nutrition.source });
 		for (const [key] of NUTRIENTS) per[key] = (per[key] ?? 0) + (nutrition[key] ?? 0) * item.servings;
 	}
 	if (!counted.length) return undefined;
@@ -531,7 +532,7 @@ export async function recipeNutrition(data: StoryData) {
 		// Calories and milligrams to the whole number, grams to the half.
 		value: unit === "g" ? Math.round(((per[key] ?? 0) / serves) * 2) / 2 : Math.round((per[key] ?? 0) / serves),
 	}));
-	return { facts, counted, missing, sources: [...sources] };
+	return { facts, counted, missing, sources };
 }
 
 /** What the theme's Markdown plugin (markdown.ts) kept of a recipe's body:
