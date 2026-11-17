@@ -11,5 +11,6 @@ export default defineConfig({
 	trailingSlash: "always",
 	// Astro's own Markdown processor, with the theme's rules for a recipe's
 	// and a headline's body (src/theme/markdown.ts).
-	markdown: { processor: satteri({ mdastPlugins: [storyBodies] }) },
+	// No syntax highlighting: it writes inline styles, which the HTML check forbids.
+	markdown: { processor: satteri({ mdastPlugins: [storyBodies] }), syntaxHighlight: false },
 });
