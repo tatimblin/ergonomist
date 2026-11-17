@@ -442,12 +442,13 @@ export function recipeTimes(data: StoryData): { prep: string; cook: string; acti
 }
 
 /** A recipe's ingredient: its line, and the product it's bought as, if any. */
-export type Ingredient = { text: string; product?: string; buy: number };
+export type Ingredient = { text: string; product?: string; buy: number; servings?: number };
 
 /** A recipe's ingredients as groups; a flat list is one group with no name. */
 export function ingredientGroups(data: StoryData): { group?: string; items: Ingredient[] }[] {
-	type Item = string | { item: string; product: { id: string }; buy: number };
-	const of = (i: Item): Ingredient => (typeof i === "string" ? { text: i, buy: 0 } : { text: i.item, product: i.product.id, buy: i.buy });
+	type Item = string | { item: string; product: { id: string }; buy: number; servings?: number };
+	const of = (i: Item): Ingredient =>
+		typeof i === "string" ? { text: i, buy: 0 } : { text: i.item, product: i.product.id, buy: i.buy, servings: i.servings };
 	const list = (data.ingredients ?? []) as (Item | { group: string; items: Item[] })[];
 	const grouped = list.every((i) => typeof i === "string" || "item" in i)
 		? [{ items: list as Item[] }]
@@ -478,6 +479,61 @@ export async function shoppingList(data: StoryData) {
 	return { lines, total };
 }
 
+/** A recipe's nutrition facts, in the order a label prints them, with units. */
+export const NUTRIENTS = [
+	["calories", "Calories", ""],
+	["fat", "Total fat", "g"],
+	["saturatedFat", "Saturated fat", "g"],
+	["transFat", "Trans fat", "g"],
+	["cholesterol", "Cholesterol", "mg"],
+	["sodium", "Sodium", "mg"],
+	["carbohydrate", "Total carbohydrate", "g"],
+	["fiber", "Dietary fiber", "g"],
+	["sugar", "Total sugars", "g"],
+	["addedSugar", "Added sugars", "g"],
+	["protein", "Protein", "g"],
+] as const;
+export type Nutrient = (typeof NUTRIENTS)[number][0];
+
+/**
+ * A recipe's nutrition per serving, estimated from its products' labels:
+ * each ingredient that names a product with nutrition facts and says how many
+ * of its `servings` the recipe uses counts, and the sum is divided by what
+ * the recipe serves. A nutrient is given only when every counted product
+ * gives it. `counted` and `missing` are the ingredients' lines, so the page
+ * can say what the estimate leaves out; `sources` are the other sources
+ * used. Undefined when nothing counts.
+ */
+export async function recipeNutrition(data: StoryData) {
+	const items = ingredientGroups(data).flatMap((g) => g.items);
+	const per: Partial<Record<Nutrient, number>> = {};
+	const counted: string[] = [];
+	const missing: string[] = [];
+	const sources = new Set<string>();
+	const used: NonNullable<Product["data"]["nutrition"]>[] = [];
+	for (const item of items) {
+		const nutrition = item.product ? (await getEntry("products", item.product))?.data.nutrition : undefined;
+		if (!nutrition || !item.servings) {
+			missing.push(item.text);
+			continue;
+		}
+		counted.push(item.text);
+		used.push(nutrition);
+		if (nutrition.source) sources.add(nutrition.source);
+		for (const [key] of NUTRIENTS) per[key] = (per[key] ?? 0) + (nutrition[key] ?? 0) * item.servings;
+	}
+	if (!counted.length) return undefined;
+	const serves = data.serves ?? 1;
+	const facts = NUTRIENTS.filter(([key]) => used.every((n) => n[key] !== undefined)).map(([key, label, unit]) => ({
+		key,
+		label,
+		unit,
+		// Calories and milligrams to the whole number, grams to the half.
+		value: unit === "g" ? Math.round(((per[key] ?? 0) / serves) * 2) / 2 : Math.round((per[key] ?? 0) / serves),
+	}));
+	return { facts, counted, missing, sources: [...sources] };
+}
+
 /** What the theme's Markdown plugin (markdown.ts) kept of a recipe's body:
  *  its headnote and its Method's steps. */
 export function recipeOf(story: Local): RecipeBody {
@@ -495,7 +551,7 @@ export function recipeOf(story: Local): RecipeBody {
  * image is the paper's default card when it has none, as Google wants one.
  * Never a rating.
  */
-export function recipeLd(paper: Paper, story: Local, url: string) {
+export async function recipeLd(paper: Paper, story: Local, url: string) {
 	const data = story.entry.data;
 	const { prep, cook, total } = recipeTimes(data);
 	const step = ({ id, text }: { id: string; text: string }) => ({ "@type": "HowToStep", text, url: `${url}#${id}` });
@@ -517,7 +573,37 @@ export function recipeLd(paper: Paper, story: Local, url: string) {
 		...(data.course && { recipeCategory: data.course }),
 		...(data.cuisine && { recipeCuisine: data.cuisine }),
 		...(keywords.length && { keywords: keywords.map(tagLabel).join(", ") }),
-		...(data.calories && { nutrition: { "@type": "NutritionInformation", calories: `${data.calories} calories` } }),
+		...(await nutritionLd(data)),
+	};
+}
+
+/** A recipe's schema.org NutritionInformation: `calories` as written, and
+ *  the rest estimated from its products (recipeNutrition), per serving. */
+async function nutritionLd(data: StoryData) {
+	const estimate = await recipeNutrition(data);
+	const names: Partial<Record<Nutrient, string>> = {
+		fat: "fatContent",
+		saturatedFat: "saturatedFatContent",
+		transFat: "transFatContent",
+		cholesterol: "cholesterolContent",
+		sodium: "sodiumContent",
+		carbohydrate: "carbohydrateContent",
+		fiber: "fiberContent",
+		sugar: "sugarContent",
+		protein: "proteinContent",
+	};
+	const facts = Object.fromEntries(
+		(estimate?.facts ?? []).flatMap(({ key, value, unit }) => (names[key] ? [[names[key], `${value} ${unit}`]] : [])),
+	);
+	const calories = data.calories ?? estimate?.facts.find((f) => f.key === "calories")?.value;
+	if (calories === undefined && !Object.keys(facts).length) return {};
+	return {
+		nutrition: {
+			"@type": "NutritionInformation",
+			servingSize: "1 serving",
+			...(calories !== undefined && { calories: `${calories} calories` }),
+			...facts,
+		},
 	};
 }
 

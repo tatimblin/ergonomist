@@ -3,7 +3,7 @@
  * reads a Trader Joe's product page saved from a browser (into inbox/, which
  * isn't committed) and writes src/content/products/<id>.md: its name, link,
  * image (on their site), price and size as of today, category, ingredients,
- * serving size and calories. A file that's already there is refused, so a
+ * and nutrition facts per serving. A file that's already there is refused, so a
  * price is only ever updated by hand (or by deleting the file).
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -41,6 +41,33 @@ const characteristic = (html: string, title: string) => {
 		new RegExp(`Item_characteristics__title[^"]*">${title}</div><div class="Item_characteristics__text[^"]*">([\\s\\S]*?)</div>`, "i"),
 	);
 	return m ? decode(m[1]).replace(/\s*\(/, " (") : undefined;
+};
+
+/** The nutrition table's rows by our field name, per serving; grams, or
+ *  milligrams for cholesterol and sodium. "Less than 1 g" is 0.5. */
+const ROWS: [RegExp, string][] = [
+	[/^Total Fat/, "fat"],
+	[/^Saturated Fat/, "saturatedFat"],
+	[/^Trans Fat/, "transFat"],
+	[/^Cholesterol/, "cholesterol"],
+	[/^Sodium/, "sodium"],
+	[/^Total Carbohydrate/, "carbohydrate"],
+	[/^Dietary Fiber/, "fiber"],
+	[/^Total Sugars/, "sugar"],
+	[/Added Sugars/, "addedSugar"],
+	[/^Protein/, "protein"],
+];
+const nutrients = (html: string) => {
+	const table = html.match(/Item_table__body[\s\S]*?<\/tbody>/)?.[0] ?? "";
+	const found: [string, number][] = [];
+	for (const [, row] of table.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)) {
+		const cells = [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map((m) => decode(m[1]));
+		const text = cells.slice(0, 2).join(" ");
+		const field = ROWS.find(([re]) => re.test(cells[0]) || (re.source === "Added Sugars" && re.test(text)))?.[1];
+		const amount = text.match(/(less than\s*)?(\d+(?:\.\d+)?)\s*m?g/i);
+		if (field && amount && !found.some(([f]) => f === field)) found.push([field, amount[1] ? Number(amount[2]) / 2 : Number(amount[2])]);
+	}
+	return found;
 };
 
 // Today, in local time: the date the price was seen.
@@ -87,8 +114,14 @@ for (const file of files) {
 		`priced: ${today}`,
 		crumbs.length > 1 && `category: ${yaml(crumbs[crumbs.length - 1])}`,
 		ingredients.length && `ingredients: [${ingredients.map(yaml).join(", ")}]`,
-		servingSize && `servingSize: ${yaml(servingSize)}`,
-		calories && /^\d+$/.test(calories) && `calories: ${calories}`,
+		...(servingSize && calories && /^\d+$/.test(calories)
+			? [
+					"nutrition:          # per serving, from the label",
+					`  servingSize: ${yaml(servingSize)}`,
+					`  calories: ${calories}`,
+					...nutrients(html).map(([field, n]) => `  ${field}: ${n}`),
+				]
+			: []),
 		"---",
 		"",
 	].filter(Boolean);

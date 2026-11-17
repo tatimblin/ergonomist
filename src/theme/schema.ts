@@ -105,8 +105,9 @@ export const storySchema =
 				equipment: z.array(z.string()).optional(),
 				// A list, or a list per part of the dish: [{group: For the beans, items: [...]}].
 				// An item is a line ("1 lb shaved beef steak"), or the line and
-				// the product it's bought as, and how many to buy (1 when left
-				// out): {item: 1 lb shaved beef steak, product: all-natural-shaved-beef-steak}.
+				// the product it's bought as, how many to buy (1 when left out),
+				// and how many of its servings the recipe uses:
+				// {item: 1 lb shaved beef steak, product: all-natural-shaved-beef-steak, servings: 4}.
 				ingredients: z
 					.union([
 						z.array(ingredient).min(1),
@@ -155,7 +156,27 @@ export const storySchema =
 /** A product a recipe's ingredient is bought as, in
  *  src/content/products/<id>.md, written by `bun run product` from its saved
  *  page: its name, store and page there, its image (on the store's site), its
- *  price and size as of `priced`, and what its label says. */
+ *  price and size as of `priced`, and what its label says: its ingredients,
+ *  and its nutrition facts per serving (grams; cholesterol and sodium in
+ *  milligrams), or another `source`'s when the store gives none. */
+export const nutritionSchema = z
+	.object({
+		servingSize: z.string(),
+		calories: z.number().nonnegative(),
+		fat: z.number().nonnegative().optional(),
+		saturatedFat: z.number().nonnegative().optional(),
+		transFat: z.number().nonnegative().optional(),
+		cholesterol: z.number().nonnegative().optional(),
+		sodium: z.number().nonnegative().optional(),
+		carbohydrate: z.number().nonnegative().optional(),
+		fiber: z.number().nonnegative().optional(),
+		sugar: z.number().nonnegative().optional(),
+		addedSugar: z.number().nonnegative().optional(),
+		protein: z.number().nonnegative().optional(),
+		source: z.url().optional(),
+	})
+	.strict();
+
 export const productSchema = z
 	.object({
 		name: z.string(),
@@ -167,15 +188,23 @@ export const productSchema = z
 		priced: z.coerce.date(),
 		category: z.string().optional(),
 		ingredients: z.array(z.string()).optional(),
-		servingSize: z.string().optional(),
-		calories: z.number().nonnegative().optional(),
+		nutrition: nutritionSchema.optional(),
 	})
 	.strict();
 
-/** A recipe's ingredient: its line, or its line and the product it's bought as. */
+/** A recipe's ingredient: its line, or its line and the product it's bought
+ *  as, how many to buy, and how many of the product's servings (by its
+ *  nutrition's `servingSize`) the whole recipe uses, for its nutrition facts. */
 const ingredient = z.union([
 	z.string(),
-	z.object({ item: z.string(), product: reference("products"), buy: z.number().int().positive().default(1) }).strict(),
+	z
+		.object({
+			item: z.string(),
+			product: reference("products"),
+			buy: z.number().int().positive().default(1),
+			servings: z.number().positive().optional(),
+		})
+		.strict(),
 ]);
 
 /** A running bit, in src/content/series/<id>.md: every story naming it is

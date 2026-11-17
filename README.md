@@ -78,7 +78,8 @@ ingredients:                # required; a list, or a list per group:
       - item: 2 ciabatta demi-baguettes     # an item can name the product it's bought as
         product: ciabatta-demi-baguette     # an id in src/content/products
         buy: 2                              # optional; how many to buy, 1 when left out
-calories: 780               # optional; per serving
+        servings: 6.2                       # optional; how many of the product's servings the recipe uses
+calories: 780               # optional; per serving (estimated from the products when left out)
 testedBy: Tristan Timblin   # optional
 ```
 
@@ -95,7 +96,9 @@ The page prints the headnote, then the card (yield, times as "1 hr 10 min", diff
 An ingredient that names a `product` prints its image and a link to it on the store's site, and the card ends with a shopping list: each product once, how many to buy, its size and price, and the total, "as of" the oldest price. A product is `src/content/products/<id>.md`, written from its page:
 
 1. Open the product's page in a browser and save it (Save Page As, Webpage, Complete) into `inbox/`, which isn't committed.
-2. `bun run product inbox/<page>.html` writes `src/content/products/<id>.md` (the id from its URL, `all-natural-shaved-beef-steak`): its name, store, URL, image, price and size as of today (`priced`), category, ingredients, serving size and calories. It reads Trader Joe's pages, and refuses a file that's already there; edit a price by hand, with its `priced` date.
+2. `bun run product inbox/<page>.html` writes `src/content/products/<id>.md` (the id from its name, `all-natural-shaved-beef-steak`): its name, store, URL, image, price and size as of today (`priced`), category, ingredients, and `nutrition` per serving from the label. It reads Trader Joe's pages, and refuses a file that's already there; edit a price by hand, with its `priced` date. When the store's page has no nutrition facts (produce), add them by hand from another source and link it as `nutrition.source` (the onion and crimini use USDA FoodData Central).
+
+**Nutrition facts.** An ingredient that names a product with `nutrition` and says how many of its `servings` the recipe uses (by the product's `servingSize`: a 1 lb pack of 4 oz servings is 4) counts toward the recipe's nutrition facts: the sum, divided by `serves`, printed per serving after the shopping list, in the structured data's `NutritionInformation`, and as the card's calories unless `calories` says otherwise. A nutrient prints only when every counted product gives it. The page says it's an estimate, links any other source, and names the ingredients it doesn't count.
 
 The image stays on the store's site. A reader's browser loads it; crawlers can't, so it's never a page's share image (a recipe's own `image` is that, or `public/card.png`).
 

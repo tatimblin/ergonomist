@@ -8,7 +8,7 @@
  * how many of each, their size and price, and the total.
  * The page's "Jump to recipe" link lands here (#recipe).
  */
-import { formatDate, formatDuration, ingredientGroups, recipeTimes, shoppingList, type Story } from "./paper";
+import { formatDate, formatDuration, ingredientGroups, recipeNutrition, recipeTimes, shoppingList, type Story } from "./paper";
 
 interface Props {
 	story: Extract<Story, { origin: "local" }>;
@@ -16,6 +16,8 @@ interface Props {
 
 const { data } = Astro.props.story.entry;
 const times = recipeTimes(data);
+const nutrition = await recipeNutrition(data);
+const calories = data.calories ?? nutrition?.facts.find((f) => f.key === "calories")?.value;
 const facts: [string, string | undefined][] = [
 	["Yield", data.yield ?? `Serves ${data.serves}`],
 	["Prep", formatDuration(times.prep)],
@@ -27,7 +29,7 @@ const facts: [string, string | undefined][] = [
 	["Cuisine", data.cuisine],
 	["Diet", data.diet?.join(", ")],
 	["Equipment", data.equipment?.join(", ")],
-	["Calories", data.calories ? `${data.calories} per serving` : undefined],
+	["Calories", calories !== undefined ? `${calories} per serving` : undefined],
 	["Tested by", data.testedBy],
 ];
 const groups = ingredientGroups(data);
@@ -90,6 +92,23 @@ const priced = shopping.lines.map(({ product }) => product.data.priced).sort((a,
 				</tfoot>
 			</table>
 			<p>At {stores.join(" and ")}, as of {formatDate(priced)}. Prices vary by store.</p>
+		</section>
+	)}
+	{nutrition && (
+		<section aria-labelledby="nutrition">
+			<h2 id="nutrition">Nutrition facts</h2>
+			<table>
+				<caption>Per serving{data.serves && data.serves > 1 ? `, of ${data.serves}` : ""}</caption>
+				<tbody>
+					{nutrition.facts.map(({ label, value, unit }) => (
+						<tr><th scope="row">{label}</th><td>{value}{unit}</td></tr>
+					))}
+				</tbody>
+			</table>
+			<p>
+				Estimated from the products' labels{nutrition.sources.length > 0 && <>{" "}and the{" "}{nutrition.sources.map((s, i) => <>{i > 0 && ", "}<a href={s}>{new URL(s).host}</a></>)}</>}.
+				{nutrition.missing.length > 0 && <> Not counted: {nutrition.missing.join(", ")}.</>}
+			</p>
 		</section>
 	)}
 </section>

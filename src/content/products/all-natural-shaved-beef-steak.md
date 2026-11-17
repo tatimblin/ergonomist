@@ -8,6 +8,17 @@ size: "1 Lb"
 priced: 2026-11-16
 category: "Beef, Pork & Lamb"
 ingredients: ["BEEF"]
-servingSize: "4 oz (112g)"
-calories: 200
+nutrition:          # per serving, from the label
+  servingSize: "4 oz (112g)"
+  calories: 200
+  fat: 13
+  saturatedFat: 4.5
+  transFat: 0
+  cholesterol: 75
+  sodium: 85
+  carbohydrate: 0
+  fiber: 0
+  sugar: 0
+  addedSugar: 0
+  protein: 21
 ---

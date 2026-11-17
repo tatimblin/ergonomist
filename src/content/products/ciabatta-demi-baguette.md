@@ -8,6 +8,17 @@ size: "6.2 Oz"
 priced: 2026-11-16
 category: "Loaves, Rolls, Buns"
 ingredients: ["UNBLEACHED ENRICHED FLOUR (WHEAT FLOUR, NIACIN, REDUCED IRON, THIAMIN MONONITRATE, RIBOFLAVIN, FOLIC ACID)", "WATER", "SEA SALT", "YEAST", "MALTED BARLEY FLOUR"]
-servingSize: "2oz (56g/1/3 loaf)"
-calories: 140
+nutrition:          # per serving, from the label
+  servingSize: "2oz (56g/1/3 loaf)"
+  calories: 140
+  fat: 1
+  saturatedFat: 0
+  transFat: 0
+  cholesterol: 0
+  sodium: 300
+  carbohydrate: 27
+  fiber: 1
+  sugar: 0
+  addedSugar: 0
+  protein: 5
 ---

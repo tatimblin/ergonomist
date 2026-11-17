@@ -98,7 +98,7 @@ const jsonLd = local && [
 		author: authorLd(paper, story.authors),
 		publisher: organizationLd(paper),
 		// Its times, yield, ingredients and steps; and an image whether or not it has one.
-		...(recipe && recipeLd(paper, recipe, url)),
+		...(recipe && (await recipeLd(paper, recipe, url))),
 	},
 	breadcrumbLd(paper, [
 		[paper.name, "/"],

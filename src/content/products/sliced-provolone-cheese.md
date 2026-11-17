@@ -8,6 +8,17 @@ size: "12 Oz"
 priced: 2026-11-16
 category: "Slices, Shreds, Crumbles"
 ingredients: ["PASTEURIZED MILK", "CHEESE CULTURES", "SALT", "ANIMAL RENNET"]
-servingSize: "1 slice (28g)"
-calories: 100
+nutrition:          # per serving, from the label
+  servingSize: "1 slice (28g)"
+  calories: 100
+  fat: 8
+  saturatedFat: 4.5
+  transFat: 0
+  cholesterol: 20
+  sodium: 170
+  carbohydrate: 0.5
+  fiber: 0
+  sugar: 0
+  addedSugar: 0
+  protein: 6
 ---

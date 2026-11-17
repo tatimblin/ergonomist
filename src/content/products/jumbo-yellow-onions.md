@@ -7,4 +7,16 @@ price: 0.99
 size: "1 Each"
 priced: 2026-11-16
 category: "Veggies"
+nutrition:          # per serving; their page has none
+  servingSize: "100g"
+  calories: 40
+  fat: 0.1
+  saturatedFat: 0
+  cholesterol: 0
+  sodium: 4
+  carbohydrate: 9.3
+  fiber: 1.7
+  sugar: 4.2
+  protein: 1.1
+  source: https://fdc.nal.usda.gov/food-details/170000/nutrients
 ---

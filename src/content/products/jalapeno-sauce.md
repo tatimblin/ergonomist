@@ -7,6 +7,17 @@ price: 3.49
 size: "10 Oz"
 priced: 2026-11-16
 category: "Salsa & Hot Sauce"
-servingSize: "2 Tbsp. (28g)"
-calories: 90
+nutrition:          # per serving, from the label
+  servingSize: "2 Tbsp. (28g)"
+  calories: 90
+  fat: 10
+  saturatedFat: 0.5
+  transFat: 0
+  cholesterol: 0
+  sodium: 110
+  carbohydrate: 2
+  fiber: 0
+  sugar: 0.5
+  addedSugar: 0
+  protein: 0
 ---
