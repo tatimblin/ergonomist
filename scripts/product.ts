@@ -1,10 +1,14 @@
 /**
- * A product's file from its saved page: `bun run product inbox/<page>.html…`
- * reads a Trader Joe's product page saved from a browser (into inbox/, which
- * isn't committed) and writes src/content/products/<id>.md: its name, link,
- * image (on their site), price and size as of today, category, ingredients,
- * and nutrition facts per serving. A file that's already there is refused, so a
- * price is only ever updated by hand (or by deleting the file).
+ * A product's file from its page: `bun run product <url or saved page>…`
+ * writes src/content/products/<id>.md for each Trader Joe's product page:
+ * its name, link, image (on their site), price and size as of today,
+ * category, ingredients, and nutrition facts per serving.
+ *
+ * A URL is opened in Chrome, in a window, on this computer (their site turns
+ * away headless browsers, so this can't run in CI), and the page is kept in
+ * inbox/ (not committed). A page saved from a browser into inbox/ works too.
+ * A file that's already there is refused, so a price is only ever updated by
+ * hand (or by deleting the file).
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
@@ -13,8 +17,35 @@ const fail = (message: string): never => {
 	process.exit(1);
 };
 
-const files = process.argv.slice(2);
-if (!files.length) fail("Usage: bun run product inbox/<saved page>.html…");
+const args = process.argv.slice(2);
+if (!args.length) fail("Usage: bun run product <Trader Joe's product URL or inbox/<saved page>.html>…");
+
+/** Each URL's page, opened in one Chrome window and saved to inbox/. */
+async function open(urls: string[]): Promise<string[]> {
+	const { chromium } = await import("playwright-core");
+	const browser = await chromium.launch({ headless: false, channel: "chrome" }).catch((e: Error) =>
+		fail(`Couldn't open Chrome (${e.message.split("\n")[0]}); is Google Chrome installed?`),
+	);
+	const page = await browser.newPage();
+	mkdirSync("inbox", { recursive: true });
+	const saved: string[] = [];
+	for (const url of urls) {
+		const res = await page.goto(url, { waitUntil: "networkidle", timeout: 45_000 });
+		if (!res?.ok()) {
+			console.error(`${url}: ${res?.status() ?? "no response"}; skipped.`);
+			continue;
+		}
+		await page.waitForSelector('[class^="ProductDetails_main__title"]', { timeout: 15_000 }).catch(() => {});
+		const file = `inbox/${new URL(url).pathname.split("/").filter(Boolean).pop()}.html`;
+		writeFileSync(file, await page.content());
+		saved.push(file);
+	}
+	await browser.close();
+	return saved;
+}
+
+const urls = args.filter((a) => /^https?:\/\//.test(a));
+const files = [...args.filter((a) => !urls.includes(a)), ...(urls.length ? await open(urls) : [])];
 
 const decode = (s: string) =>
 	s

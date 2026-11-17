@@ -93,10 +93,15 @@ The page prints the headnote, then the card (yield, times as "1 hr 10 min", diff
 
 #### Products
 
-An ingredient that names a `product` prints its image and a link to it on the store's site, and the card ends with a shopping list: each product once, how many to buy, its size and price, and the total, "as of" the oldest price. A product is `src/content/products/<id>.md`, written from its page:
+An ingredient that names a `product` prints its image and a link to it on the store's site, and the card ends with a shopping list: each product once, how many to buy, its size and price, and the total, "as of" the oldest price. Products are shared: every recipe that uses the shaved beef names the same `product: all-natural-shaved-beef-steak`.
 
-1. Open the product's page in a browser and save it (Save Page As, Webpage, Complete) into `inbox/`, which isn't committed.
-2. `bun run product inbox/<page>.html` writes `src/content/products/<id>.md` (the id from its name, `all-natural-shaved-beef-steak`): its name, store, URL, image, price and size as of today (`priced`), category, ingredients, and `nutrition` per serving from the label. It reads Trader Joe's pages, and refuses a file that's already there; edit a price by hand, with its `priced` date. When the store's page has no nutrition facts (produce), add them by hand from another source and link it as `nutrition.source` (the onion and crimini use USDA FoodData Central).
+```sh
+bun run products [word]          # what there is: id, name, size, price, serving size, and the recipes using it
+bun run product <url>…           # a new one, from its Trader Joe's page
+bun run product inbox/<page>.html  # or from a page saved from a browser
+```
+
+A product is `src/content/products/<id>.md`. `bun run product <url>` opens the page in Chrome, in a window, on this computer (Trader Joe's turns away headless browsers, so it can't run in CI; it needs Google Chrome installed), and keeps it in `inbox/`, which isn't committed. Saving the page yourself (Save Page As, Webpage, Complete) into `inbox/` and passing the file does the same. It writes `src/content/products/<id>.md` (the id from its name, `all-natural-shaved-beef-steak`): its name, store, URL, image, price and size as of today (`priced`), category, ingredients, and `nutrition` per serving from the label. It reads Trader Joe's pages, and refuses a file that's already there; edit a price by hand, with its `priced` date. When the store's page has no nutrition facts (produce), add them by hand from another source and link it as `nutrition.source` (the onion and crimini use USDA FoodData Central).
 
 **Nutrition facts.** An ingredient that names a product with `nutrition` and says how many of its `servings` the recipe uses (by the product's `servingSize`: a 1 lb pack of 4 oz servings is 4) counts toward the recipe's nutrition facts: the sum, divided by `serves`, printed per serving after the shopping list, in the structured data's `NutritionInformation`, and as the card's calories unless `calories` says otherwise. A nutrient prints only when every counted product gives it. The page says it's an estimate, links any other source, and names the ingredients it doesn't count.
 
@@ -205,7 +210,8 @@ tristantimblin.dev rebuilds the paper when it deploys, by sending this repo a `r
 - `src/theme/` — the reusable part: layout, story list and page, the paper's own pages and contact line, body (with its dateline), recipe card, Satire/Reported label, byline and author box, schemas, the Markdown rules for recipes and headlines, feed loader, the feeds it writes (`feeds.ts` and `FeedContent.astro`), search indexer, `paper.css` (empty) and `print.css` (a recipe, printed). It knows nothing about The Ergonomist, so it can become its own package once there's a design.
 - `src/pages/` — the routes: front page, sections, stories, tags, places, series, the Newswire, latest, archive, search, staff and masthead, about, standards, tips, corrections, the feeds (RSS for the paper, each section, tag and author and the corrections; `feed.json`) and `/feeds/`, sitemap, robots.txt, `wire.json` (the copied stories), 404.
 - `scripts/new.ts` — `bun run new`, a new story's file.
-- `scripts/product.ts` — `bun run product`, a product's file from its saved page.
+- `scripts/product.ts` — `bun run product`, a product's file from its page.
+- `scripts/products.ts` — `bun run products`, the products there are and what uses them.
 - `scripts/test.ts`, `smoke.ts`, `links.ts`, `jsonld.ts` (and `dist.ts`, what they share), `.htmlvalidate.mjs` — `bun run test`, the checks of a build (see Checks).
 - `public/_headers` — cache headers: a year for `/_astro/*`, five minutes for the feeds, `wire.json` and the sitemap.
 - `public/card.png` — the default card: the image a page is shared with when it has none, and a recipe's image in structured data until it has a photo.
