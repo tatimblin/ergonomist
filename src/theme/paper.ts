@@ -545,7 +545,7 @@ export function recipeOf(story: Local): RecipeBody {
 
 /**
  * A recipe's schema.org Recipe fields, for its page's structured data: its
- * times, yield, ingredients, steps (HowToSteps, in HowToSections when the
+ * headnote (as `text`), times, yield, ingredients, steps (HowToSteps, in HowToSections when the
  * Method has subsections, each linked to its #step-N), course and cuisine,
  * calories, and the tags that aren't its course or cuisine as keywords. Its
  * image is the paper's default card when it has none, as Google wants one.
@@ -555,7 +555,16 @@ export async function recipeLd(paper: Paper, story: Local, url: string) {
 	const data = story.entry.data;
 	const { prep, cook, total } = recipeTimes(data);
 	const step = ({ id, text }: { id: string; text: string }) => ({ "@type": "HowToStep", text, url: `${url}#${id}` });
-	const { method } = recipeOf(story);
+	const { method, headnote } = recipeOf(story);
+	// The headnote as plain text, for the Recipe's `text`.
+	const intro = headnote
+		?.replace(/<[^>]+>/g, " ")
+		.replace(/&#39;|&#x27;|&rsquo;/g, "’")
+		.replace(/&quot;/g, '"')
+		.replace(/&amp;/g, "&")
+		.replace(/\s+/g, " ")
+		.replace(/\s([.,;:!?])/g, "$1")
+		.trim();
 	const slug = (s?: string) => s?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 	const listed = new Set([slug(data.course), slug(data.cuisine)]);
 	const keywords = data.tags.filter((t) => !listed.has(t));
@@ -564,6 +573,7 @@ export async function recipeLd(paper: Paper, story: Local, url: string) {
 		prepTime: prep,
 		cookTime: cook,
 		totalTime: total,
+		...(intro && { text: intro }),
 		recipeYield: data.yield ? [String(data.serves), data.yield] : String(data.serves),
 		recipeIngredient: ingredientGroups(data).flatMap((g) => g.items.map((i) => i.text)),
 		recipeInstructions:
