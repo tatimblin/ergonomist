@@ -46,6 +46,7 @@ import {
 	tagHref,
 	tagLabel,
 	tagsOf,
+	structuredImages,
 	veracityOf,
 	type Paper,
 	type Story,
@@ -82,6 +83,8 @@ const description = veracity === "satire" ? `Satire: ${data.dek ?? data.title}` 
 // Structured data for the paper's own stories (a copy's belongs to its
 // original): SatiricalArticle for satire, NewsArticle for reporting,
 // Article for the rest.
+// Its lead image in the three shapes Google asks for.
+const images = local ? await structuredImages(paper, story) : undefined;
 const jsonLd = local && [
 	{
 		"@type": recipe ? "Recipe" : veracity === "reported" ? "NewsArticle" : veracity === "satire" ? "SatiricalArticle" : "Article",
@@ -92,13 +95,13 @@ const jsonLd = local && [
 		dateModified: modifiedOf(story).toISOString(),
 		url,
 		mainEntityOfPage: url,
-		...(image && { image: new URL(image.src.src, paper.site).href }),
+		...(images && { image: images }),
 		...(tags.length && { keywords: tags }),
 		...(veracity === "reported" && { isBasedOn: source }),
 		author: authorLd(paper, story.authors),
 		publisher: organizationLd(paper),
 		// Its times, yield, ingredients and steps; and an image whether or not it has one.
-		...(recipe && (await recipeLd(paper, recipe, url))),
+		...(recipe && (await recipeLd(paper, recipe, url, images))),
 	},
 	breadcrumbLd(paper, [
 		[paper.name, "/"],
@@ -110,7 +113,7 @@ const jsonLd = local && [
 
 <Layout
 	paper={paper}
-	title={data.title}
+	title={recipe && !/\brecipe\b/i.test(data.title) ? `${data.title} Recipe` : data.title}
 	description={description}
 	canonical={copied?.canonical}
 	noindex={!!copied || tidbit}

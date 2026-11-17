@@ -15,6 +15,8 @@ import { filesIn, htmlFiles, jsonLdBlocks, paper, pathOf, report } from "./dist"
 const { fail, done } = report("jsonld");
 
 const url = z.url();
+// An image, or the same image in several shapes.
+const images = z.union([url, z.array(url).min(1)]);
 const date = z.iso.datetime();
 const duration = z.string().regex(/^P(?!$)(\d+D)?(T(?=\d)(\d+H)?(\d+M)?(\d+S)?)?$/, "an ISO 8601 duration");
 /** A nested node of one of these types (checked as a node itself). */
@@ -28,7 +30,7 @@ const article = z.object({
 	dateModified: date,
 	url,
 	mainEntityOfPage: url,
-	image: url.optional(),
+	image: images.optional(),
 	author: oneOrMore(node("Person", "NewsMediaOrganization")),
 	publisher: node("NewsMediaOrganization"),
 });
@@ -47,7 +49,7 @@ const shapes: Record<string, z.ZodType> = {
 	NewsArticle: article.extend({ isBasedOn: url }),
 	Recipe: article.extend({
 		name: z.string().min(1),
-		image: url,
+		image: images,
 		prepTime: duration,
 		cookTime: duration,
 		totalTime: duration,

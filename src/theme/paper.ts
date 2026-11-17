@@ -304,6 +304,46 @@ export async function shareImage(paper: Paper, story?: Story): Promise<ShareImag
 	return { src: out.src, alt: image.alt, width: Number(out.attributes.width), height: Number(out.attributes.height) };
 }
 
+/**
+ * A story's lead image for its structured data, cropped to the three shapes
+ * Google asks for (1:1, 4:3 and 16:9), each as wide as it can be up to 1200,
+ * as JPEGs; absolute URLs. Undefined for a story with no raster image of its
+ * own (an SVG, which Astro won't rasterize, or none).
+ */
+export async function structuredImages(paper: Paper, story: Story): Promise<string[] | undefined> {
+	const image = story.origin === "local" ? story.entry.data.image : undefined;
+	if (!image || image.src.format === "svg") return undefined;
+	const { src } = image;
+	const shapes: [number, number][] = [
+		[1, 1],
+		[4, 3],
+		[16, 9],
+	];
+	return Promise.all(
+		shapes.map(async ([w, h]) => {
+			// The largest w:h box inside the image, no wider than 1200.
+			const width = Math.round(Math.min(1200, src.width, (src.height * w) / h));
+			const out = await getImage({ src, width, height: Math.round((width * h) / w), fit: "cover", format: "jpg" });
+			return new URL(out.src, paper.site).href;
+		}),
+	);
+}
+
+/** schema.org's RestrictedDiet for each `diet` it has a name for. */
+const DIETS: Record<string, string> = {
+	diabetic: "DiabeticDiet",
+	"gluten-free": "GlutenFreeDiet",
+	halal: "HalalDiet",
+	hindu: "HinduDiet",
+	kosher: "KosherDiet",
+	"low-calorie": "LowCalorieDiet",
+	"low-fat": "LowFatDiet",
+	"low-lactose": "LowLactoseDiet",
+	"low-salt": "LowSaltDiet",
+	vegan: "VeganDiet",
+	vegetarian: "VegetarianDiet",
+};
+
 /** One correction to a story, as /corrections/ and its feed list it. */
 export interface Correction {
 	story: Story;
@@ -548,11 +588,13 @@ export function recipeOf(story: Local): RecipeBody {
  * A recipe's schema.org Recipe fields, for its page's structured data: its
  * headnote (as `text`), times, yield, ingredients, steps (HowToSteps, in HowToSections when the
  * Method has subsections, each linked to its #step-N), course and cuisine,
- * calories, and the tags that aren't its course or cuisine as keywords. Its
- * image is the paper's default card when it has none, as Google wants one.
+ * its diets that schema.org names, nutrition, and the tags that aren't its
+ * course or cuisine as keywords. Its images are its lead image's three crops
+ * (structuredImages), or the paper's default card when it has none, as
+ * Google wants one.
  * Never a rating.
  */
-export async function recipeLd(paper: Paper, story: Local, url: string) {
+export async function recipeLd(paper: Paper, story: Local, url: string, images?: string[]) {
 	const data = story.entry.data;
 	const { prep, cook, total } = recipeTimes(data);
 	const step = ({ id, text }: { id: string; text: string }) => ({ "@type": "HowToStep", text, url: `${url}#${id}` });
@@ -569,8 +611,9 @@ export async function recipeLd(paper: Paper, story: Local, url: string) {
 	const slug = (s?: string) => s?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 	const listed = new Set([slug(data.course), slug(data.cuisine)]);
 	const keywords = data.tags.filter((t) => !listed.has(t));
+	const diets = (data.diet ?? []).map((d) => DIETS[slug(d) ?? ""]).filter(Boolean);
 	return {
-		image: new URL(data.image?.src.src ?? paper.card.src, paper.site).href,
+		image: images ?? [new URL(paper.card.src, paper.site).href],
 		prepTime: prep,
 		cookTime: cook,
 		totalTime: total,
@@ -582,6 +625,7 @@ export async function recipeLd(paper: Paper, story: Local, url: string) {
 				? method[0].steps.map(step)
 				: method.map((s) => ({ "@type": "HowToSection", name: s.name, itemListElement: s.steps.map(step) })),
 		...(data.course && { recipeCategory: data.course }),
+		...(diets.length && { suitableForDiet: diets.map((d) => `https://schema.org/${d}`) }),
 		...(data.cuisine && { recipeCuisine: data.cuisine }),
 		...(keywords.length && { keywords: keywords.map(tagLabel).join(", ") }),
 		...(await nutritionLd(data)),

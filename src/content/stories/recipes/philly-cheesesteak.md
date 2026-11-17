@@ -11,6 +11,7 @@ difficulty: easy
 course: Dinner
 cuisine: American
 equipment: [Large skillet, Baking sheet]
+tags: [cheesesteak, sandwiches, philadelphia, trader-joes]
 ingredients:
   - item: 1 lb shaved beef steak
     product: all-natural-shaved-beef-steak

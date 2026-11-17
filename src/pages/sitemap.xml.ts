@@ -13,6 +13,7 @@ import {
 	MIN_INDEXED_TAG,
 	modifiedOf,
 	sectionHref,
+	shareImage,
 	seriesHref,
 	staffHref,
 	storyHref,
@@ -26,7 +27,10 @@ import {
 // MIN_INDEXED_TAG stories or more, its series, the Newswire, its own pages
 // (/about/, the standards, /tips/, and /corrections/ once there's one), the
 // latest, the archive and /feeds/. A copied story's canonical is elsewhere, so it isn't ours to list.
-// A page's lastmod is the newest change (`updated`) among its stories.
+// A page's lastmod is the newest change (`updated`) among its stories; a
+// story with an image of its own lists it, for Google Images.
+type Entry = { path: string; lastmod?: Date; image?: string };
+
 export const GET: APIRoute = async () => {
 	const all = await getStories(paper);
 	const stories = all.filter((s) => s.origin === "local");
@@ -34,16 +38,22 @@ export const GET: APIRoute = async () => {
 	const staff = await getStaff(paper);
 	const series = await getCollection("series");
 	const corrections = getCorrections(stories);
-	const list = (path: string, of: Story[]) => ({ path, lastmod: lastModified(of) });
+	const list = (path: string, of: Story[]): Entry => ({ path, lastmod: lastModified(of) });
 	const urls = [
 		list("/", all),
 		...paper.sections
 			.map((s) => ({ id: s.id, of: all.filter((t) => t.section === s.id) }))
 			.filter(({ of }) => of.length > 0)
 			.map(({ id, of }) => list(sectionHref(id), of)),
-		...stories
-			.filter((s) => s.origin === "local" && s.entry.data.kind !== "tidbit" && !isHeadline(s))
-			.map((s) => ({ path: storyHref(s), lastmod: modifiedOf(s) })),
+		...(await Promise.all(
+			stories
+				.filter((s) => s.origin === "local" && s.entry.data.kind !== "tidbit" && !isHeadline(s))
+				.map(async (s) => {
+					// Its own image, as shared (the card isn't its own).
+					const image = s.origin === "local" && s.entry.data.image ? (await shareImage(paper, s)).src : undefined;
+					return { path: storyHref(s), lastmod: modifiedOf(s), image: image === paper.card.src ? undefined : image };
+				}),
+		)),
 		...(headlines.length ? [list("/newswire/", headlines)] : []),
 		{ path: "/staff/", lastmod: undefined },
 		...staff.map((p) => list(staffHref(p.id), stories.filter((s) => s.authors.some((a) => a.id === p.id)))),
@@ -62,13 +72,14 @@ export const GET: APIRoute = async () => {
 		...[...getYears(all)].map(([year, of]) => list(archiveHref(year), of)),
 	];
 	const body = urls
-		.map(({ path, lastmod }) => {
+		.map(({ path, lastmod, image }: Entry) => {
 			const loc = `<loc>${new URL(path, paper.site).href}</loc>`;
-			return `<url>${loc}${lastmod ? `<lastmod>${lastmod.toISOString().slice(0, 10)}</lastmod>` : ""}</url>`;
+			const img = image ? `<image:image><image:loc>${new URL(image, paper.site).href}</image:loc></image:image>` : "";
+			return `<url>${loc}${lastmod ? `<lastmod>${lastmod.toISOString().slice(0, 10)}</lastmod>` : ""}${img}</url>`;
 		})
 		.join("");
 	return new Response(
-		`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${body}</urlset>`,
+		`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${body}</urlset>`,
 		{ headers: { "content-type": "application/xml" } },
 	);
 };
