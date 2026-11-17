@@ -202,11 +202,11 @@ export const kickerOf = (story: Story) => (story.origin === "local" ? story.entr
 export const tagsOf = (story: Story) => (story.origin === "local" ? story.entry.data.tags : []);
 
 /**
- * Whether a story is satire or reported, and what a reported one is based on.
- * A copy is a column: the real author's own post, neither a bit nor
+ * Whether a story is satire or reported (or neither, and unlabelled), and
+ * what a reported one is based on. A copy is a column: the real author's own post, neither a bit nor
  * reporting. Its source is the original.
  */
-export const veracityOf = (story: Story): { veracity: "satire" | "reported" | "column"; source?: string } =>
+export const veracityOf = (story: Story): { veracity?: "satire" | "reported" | "column"; source?: string } =>
 	story.origin === "local"
 		? { veracity: story.entry.data.veracity, source: story.entry.data.source }
 		: { veracity: "column", source: story.entry.data.canonical };

@@ -3,5 +3,6 @@ title: Mission Resident Describes Weather as "a Microclimate" for 14th Consecuti
 date: 2026-11-13
 kind: headline
 tags: [fog, mission-district]
+veracity: satire
 draft: true
 ---

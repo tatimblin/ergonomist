@@ -6,6 +6,7 @@ dateline: Mission District, S.F.
 tags: [fog, dolores-park, mission-district]
 series: fog-watch
 placement: featured
+veracity: satire
 draft: true
 ---
 

@@ -80,10 +80,11 @@ const atFoot = corrections.filter((c) => !c.significant);
 // A satire's description says so, wherever it's quoted out of the page.
 const description = veracity === "satire" ? `Satire: ${data.dek ?? data.title}` : data.dek;
 // Structured data for the paper's own stories (a copy's belongs to its
-// original). schema.org has a type for exactly this: SatiricalArticle.
+// original): SatiricalArticle for satire, NewsArticle for reporting,
+// Article for the rest.
 const jsonLd = local && [
 	{
-		"@type": recipe ? "Recipe" : veracity === "reported" ? "NewsArticle" : "SatiricalArticle",
+		"@type": recipe ? "Recipe" : veracity === "reported" ? "NewsArticle" : veracity === "satire" ? "SatiricalArticle" : "Article",
 		headline: local.title,
 		name: local.title,
 		description: local.dek,
@@ -132,7 +133,7 @@ const jsonLd = local && [
 				{updated && <> · Updated <time datetime={updated.toISOString()}>{formatDate(updated)}</time></>}
 				{" "}· {readingMinutes(story)} min read
 			</p>
-			<p><strong><Label story={story} source={!copied} /></strong></p>
+			{veracity && <p><strong><Label story={story} source={!copied} /></strong></p>}
 			{recipe && (
 				<p data-screen-only>
 					<a href="#recipe">Jump to recipe</a> · <button type="button" onclick="window.print()">Print</button>

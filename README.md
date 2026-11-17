@@ -36,7 +36,7 @@ updated: 2026-11-16 # optional; printed beside the date, and the sitemap's lastm
 updateNote: Adds a response from the fog.  # optional (needs `updated`), at the foot of the story
 tags: [fog, dolores-park, mission-district]  # optional; lowercase words joined by hyphens
 series: fog-watch   # optional; an id in src/content/series
-veracity: satire    # the default; or reported, which needs a `source`
+veracity: satire    # optional: satire, or reported, which needs a `source`; no label when left out
 source: https://example.com/the-real-story  # what a reported story is based on
 corrections:        # optional, at the foot of the story, and at /corrections/
   - date: 2026-11-16
@@ -100,7 +100,7 @@ tags: [fog, mission-district]
 
 It has no page of its own. The latest ten print in the front page's Newswire, and all of them at `/newswire/`, newest first, each at its anchor, `/newswire/#<slug>`; that's where the lists, the feeds and the search link to it. Two headlines with one slug, in any sections, fail the build.
 
-A story's page prints, top to bottom: kicker, headline, dek; byline and titles, the date (and update), reading time; **Satire** or **Reported** (with its source); any significant corrections; the lead image, caption and credit; the body; the update note and the other corrections; tags; the bio box; the membership ask (if `asks.membership` is set); up to three related stories (the rest of its series, then those sharing the most tags, then its section); and the previous and next stories in its section. Lists print the Satire or Reported label too, and a satire's description (`og:description` and all) starts "Satire: ". Copied stories are labelled **Column**: the author's own post, neither satire nor reporting.
+A story's page prints, top to bottom: kicker, headline, dek; byline and titles, the date (and update), reading time; its label, if it has one (**Satire**, or **Reported** with its source); any significant corrections; the lead image, caption and credit; the body; the update note and the other corrections; tags; the bio box; the membership ask (if `asks.membership` is set); up to three related stories (the rest of its series, then those sharing the most tags, then its section); and the previous and next stories in its section. Lists print the Satire or Reported label too, and a satire's description (`og:description` and all) starts "Satire: ". Copied stories are labelled **Column**: the author's own post, neither satire nor reporting.
 
 The front page leads with the newest `placement: lead` story, then the `featured` ones, then the **Newswire**'s latest headlines, then each section's latest (without the stories and headlines already printed above), then **Most Read**: the story ids, `<section>/<slug>`, in `mostRead` in `paper.config.ts`, picked by hand. An id that names no story fails the build.
 
@@ -192,7 +192,7 @@ tristantimblin.dev rebuilds the paper when it deploys, by sending this repo a `r
 - `public/_headers` — cache headers: a year for `/_astro/*`, five minutes for the feeds, `wire.json` and the sitemap.
 - `public/card.png` — the default card: the image a page is shared with when it has none, and a recipe's image in structured data until it has a photo.
 
-Every page carries Open Graph tags (see Sharing). The paper's own stories carry schema.org JSON-LD: `SatiricalArticle` (`NewsArticle` when reported, `Recipe` for a recipe) with `dateModified`, `image` and `mainEntityOfPage`, and a `BreadcrumbList`. Sections, tags, series, the Newswire, the latest and the archive years are `CollectionPage`s; staff pages are `ProfilePage`s; `/about/` is an `AboutPage` and the standards, tips and corrections are `WebPage`s; the front page and `/about/` have the paper as a `NewsMediaOrganization` (its `publishingPrinciples` the standards page, its `correctionsPolicy` and `ethicsPolicy` that page's `#corrections` and `#ethics`, and its `email` once `contact.email` is set), and the front page a `WebSite` with a `SearchAction`. The sitemap lists the indexable pages, each with the newest `updated` among its stories as its lastmod (the corrections page's, its newest correction).
+Every page carries Open Graph tags (see Sharing). The paper's own stories carry schema.org JSON-LD: `Article` (`SatiricalArticle` for satire, `NewsArticle` when reported, `Recipe` for a recipe) with `dateModified`, `image` and `mainEntityOfPage`, and a `BreadcrumbList`. Sections, tags, series, the Newswire, the latest and the archive years are `CollectionPage`s; staff pages are `ProfilePage`s; `/about/` is an `AboutPage` and the standards, tips and corrections are `WebPage`s; the front page and `/about/` have the paper as a `NewsMediaOrganization` (its `publishingPrinciples` the standards page, its `correctionsPolicy` and `ethicsPolicy` that page's `#corrections` and `#ethics`, and its `email` once `contact.email` is set), and the front page a `WebSite` with a `SearchAction`. The sitemap lists the indexable pages, each with the newest `updated` among its stories as its lastmod (the corrections page's, its newest correction).
 
 ```sh
 bun install
