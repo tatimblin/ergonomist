@@ -49,8 +49,8 @@ const PAGE_FIELDS = ["kicker", "dek", "dateline", "image", "updated", "updateNot
  *              page: it prints in the Newswire, on the front page and at
  *              /newswire/.
  * `authors` are staff ids; a story that names none is the paper's `byline`.
- * Everything is satire unless it says `veracity: reported`, and then it must
- * link its `source`.
+ * A story is labelled only when it says so: `veracity: satire`, or
+ * `veracity: reported`, which must link its `source`.
  */
 export const storySchema =
 	(paper: Paper) =>
@@ -78,7 +78,7 @@ export const storySchema =
 				updateNote: z.string().optional(),
 				tags: z.array(z.string().regex(TAG, 'Tags are lowercase words joined by hyphens: "24th-street".')).default([]),
 				series: reference("series").optional(),
-				veracity: z.enum(["satire", "reported"]).default("satire"),
+				veracity: z.enum(["satire", "reported"]).optional(),
 				// What a reported story is based on.
 				source: z.url().optional(),
 				// At the foot of the story, or the top when `significant`; all

@@ -4,7 +4,7 @@
  * with, structured data, and the analytics beacon once paper.analytics is
  * set), the masthead, the section nav and the footer (the
  * paper's own pages, the lists and feeds, the newsletter ask, the
- * disclaimer, and the line that says what's satire). Bare
+ * disclaimer, and the line that says how satire is marked). Bare
  * HTML on purpose — paper.css is empty until there is enough in the paper to
  * design around; the markup is written so a stylesheet is all a design needs.
  */
@@ -159,7 +159,7 @@ const ld =
 			</nav>
 			{paper.asks?.newsletter && <p>{paper.asks.newsletter} <a href="/rss.xml">RSS</a></p>}
 			<p>{paper.disclaimer}</p>
-			<p><a href={paper.standards}>Satire unless marked Reported.</a></p>
+			<p><a href={paper.standards}>Satire is marked Satire.</a></p>
 			<p>© {new Date().getFullYear()} {paper.name}.</p>
 		</footer>
 	</body>

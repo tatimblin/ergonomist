@@ -16,6 +16,7 @@ updateNote: The owner was asked his own height. He declined to give it.
 corrections:
   - date: 2026-11-16
     text: An earlier version of this story gave the desk's height in feet. It was in inches.
+veracity: satire
 draft: true
 ---
 

@@ -40,6 +40,7 @@ const listItems = <T extends z.ZodRawShape>(item: T) =>
 		.refine((items) => items.every((i, n) => (i as { position: number }).position === n + 1), "positions run 1, 2, 3… in order");
 
 const shapes: Record<string, z.ZodType> = {
+	Article: article,
 	SatiricalArticle: article,
 	OpinionNewsArticle: article,
 	// A reported story says what it's based on.

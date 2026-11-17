@@ -5,7 +5,7 @@ description: The Ergonomist's satire, ethics, corrections and takedown policies.
 
 ## Satire
 
-- Stories are satire unless labelled **Reported**.
+- Satire is labelled **Satire**.
 - No invented crimes, health violations, closures, sexual conduct or drug use about a real named business or private person.
 
 ## Ethics

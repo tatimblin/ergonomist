@@ -1,8 +1,9 @@
 ---
 /**
  * What kind of story it is, printed wherever it is: "Satire"; "Reported"
- * and, with `source`, a link to what it's based on; or "Column", a copied
- * post (its page says where it was first published).
+ * and, with `source`, a link to what it's based on; "Column", a copied
+ * post (its page says where it was first published); or nothing. `after`
+ * is the separator to print after it, so none is left when there's no label.
  */
 import { veracityOf, type Story } from "./paper";
 
@@ -10,16 +11,17 @@ interface Props {
 	story: Story;
 	/** Link a reported story's source (on its own page). */
 	source?: boolean;
+	after?: string;
 }
 
-const { story, source: withSource } = Astro.props;
+const { story, source: withSource, after = "" } = Astro.props;
 const { veracity, source } = veracityOf(story);
 ---
 
 {veracity === "reported" ? (
-	<>Reported{withSource && source && <> · Source: <a href={source}>{new URL(source).host}</a></>}</>
+	<>Reported{withSource && source && <> · Source: <a href={source}>{new URL(source).host}</a></>}{after}</>
 ) : veracity === "column" ? (
-	<>Column</>
-) : (
-	<>Satire</>
-)}
+	<>Column{after}</>
+) : veracity === "satire" ? (
+	<>Satire{after}</>
+) : null}

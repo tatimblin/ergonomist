@@ -34,7 +34,7 @@ const H = `h${level}`;
 					{images && local?.image && <Image src={local.image.src} alt={local.image.alt} width={800} />}
 					{kicker && <p>{kicker}</p>}
 					<H><a href={storyHref(story)}>{data.title}</a></H>
-					<p><Label story={story} /> · By <Byline authors={story.authors} /> · <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time></p>
+					<p><Label story={story} after=" · " />By <Byline authors={story.authors} /> · <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time></p>
 					{local?.kind === "tidbit" ? <Body story={story} /> : data.dek && <p>{data.dek}</p>}
 				</article>
 			</li>

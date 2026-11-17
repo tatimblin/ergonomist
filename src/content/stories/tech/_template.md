@@ -13,7 +13,7 @@ dek: Dek # article only
 #   credit: Credit
 # tags: [tag]
 # series: series-id
-# veracity: reported
+# veracity: satire # or reported, with a source
 # source: https://example.com
 # updated: 2026-01-02
 # updateNote: Update note

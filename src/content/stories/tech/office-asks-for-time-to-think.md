@@ -3,5 +3,6 @@ title: Company Calls Everyone Back to Office; Office Asks for Time to Think Abou
 date: 2026-11-14
 kind: headline
 tags: [office, return-to-office]
+veracity: satire
 draft: true
 ---
