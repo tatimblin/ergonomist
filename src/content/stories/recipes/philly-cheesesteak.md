@@ -16,7 +16,8 @@ ingredients:
     product: organic-crimini-mushrooms
   - item: TODO slices provolone
     product: sliced-provolone-cheese
-  - TODO hot sauce
+  - item: TODO hot sauce, ideally Frank's RedHot, but this one works too
+    product: jalapeno-sauce
   - item: 2 ciabatta demi-baguettes
     product: ciabatta-demi-baguette
     buy: 2

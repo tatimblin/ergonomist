@@ -67,8 +67,14 @@ for (const file of files) {
 	const servingSize = characteristic(html, "serving size");
 	const calories = characteristic(html, "calories per serving");
 
-	// all-natural-shaved-beef-steak-057721 → all-natural-shaved-beef-steak.
-	const id = url!.split("/").pop()!.replace(/-\d+$/, "");
+	// From the name, as their URL's slug is (all-natural-shaved-beef-steak),
+	// but keeping an accented letter's letter: their "Jalapeño" is "jalapeo".
+	const id = name
+		.toLowerCase()
+		.normalize("NFKD")
+		.replace(/[̀-ͯ'’"“”]/g, "")
+		.replace(/[^a-z0-9]+/g, "-")
+		.replace(/^-|-$/g, "");
 	const yaml = (s: string) => JSON.stringify(s);
 	const lines = [
 		"---",
