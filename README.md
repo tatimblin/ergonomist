@@ -12,9 +12,10 @@ To start one:
 
 ```sh
 bun run new <kind> <section> "Headline"   # e.g. bun run new recipe recipes "The Desk-Lunch Burrito"
+bun run new recipe recipes "Philly Cheesesteak" --author tristan-timblin   # bylined
 ```
 
-`scripts/new.ts` writes `src/content/stories/<section>/<slug>.md` (the slug made from the headline), dated today, with `draft: true` and the fields that kind needs, `TODO` where it needs a value: a `dek` for an article; a `dek`, `serves`, `prep`, `cook`, `ingredients` and a `## Method` list for a recipe; nothing more for a tidbit; and no body for a headline. It refuses a kind or a section it doesn't know (a feed's section, `columns`, is written elsewhere), and a file that's already there.
+`scripts/new.ts` writes `src/content/stories/<section>/<slug>.md` (the slug made from the headline), dated today, with `draft: true` and the fields that kind needs, `TODO` where it needs a value: a `dek` for an article; a `dek`, `serves`, `prep`, `cook`, `ingredients` and a `## Method` list for a recipe; nothing more for a tidbit; and no body for a headline. `--author <staff id>` (more than once for more than one) sets `authors`. It refuses a kind, a section or an author it doesn't know (a feed's section, `columns`, is written elsewhere), and a file that's already there.
 
 On the GitHub mobile editor, each section folder has a `_template.md` to copy: every field, the optional ones commented out, with placeholder values. A file whose name starts with `_` isn't a story (the glob in `src/content.config.ts` skips it).
 
@@ -72,7 +73,11 @@ ingredients:                # required; a list, or a list per group:
   - group: For the beans
     items: [1 tablespoon olive oil, 1 (15-ounce) can pinto beans]
   - group: To assemble
-    items: [2 flour tortillas]
+    items:
+      - 2 flour tortillas
+      - item: 2 ciabatta demi-baguettes     # an item can name the product it's bought as
+        product: ciabatta-demi-baguette     # an id in src/content/products
+        buy: 2                              # optional; how many to buy, 1 when left out
 calories: 780               # optional; per serving
 testedBy: Tristan Timblin   # optional
 ```
@@ -84,6 +89,15 @@ Its body has a shape (`src/theme/markdown.ts` checks it, and a body that breaks 
 - `## Notes`, `## Make Ahead and Storage` and `## Substitutions`, or any other `##`, print as written after the Method.
 
 The page prints the headnote, then the card (yield, times as "1 hr 10 min", difficulty, course, cuisine, diet, equipment, calories and who tested it), the ingredients with a checkbox each, then the Method and notes. Its header has a "Jump to recipe" link and a Print button (the paper's only script), and printing it prints the recipe alone, black on white, ingredients in two columns, with a "Clipped from The Ergonomist, <url>" line (`src/theme/print.css`, the paper's only CSS). Its structured data is a schema.org `Recipe` with the times, yield, ingredients, the Method's steps (in `HowToSection`s for its subsections, each step linked to its anchor), course, cuisine, calories, and its tags but the course and cuisine as keywords. A recipe with no `image` uses the paper's default card, `public/card.png`, since Google wants one. There's no rating.
+
+#### Products
+
+An ingredient that names a `product` prints its image and a link to it on the store's site, and the card ends with a shopping list: each product once, how many to buy, its size and price, and the total, "as of" the oldest price. A product is `src/content/products/<id>.md`, written from its page:
+
+1. Open the product's page in a browser and save it (Save Page As, Webpage, Complete) into `inbox/`, which isn't committed.
+2. `bun run product inbox/<page>.html` writes `src/content/products/<id>.md` (the id from its URL, `all-natural-shaved-beef-steak`): its name, store, URL, image, price and size as of today (`priced`), category, ingredients, serving size and calories. It reads Trader Joe's pages, and refuses a file that's already there; edit a price by hand, with its `priced` date.
+
+The image stays on the store's site. A reader's browser loads it; crawlers can't, so it's never a page's share image (a recipe's own `image` is that, or `public/card.png`).
 
 ### Headlines
 
@@ -188,6 +202,7 @@ tristantimblin.dev rebuilds the paper when it deploys, by sending this repo a `r
 - `src/theme/` — the reusable part: layout, story list and page, the paper's own pages and contact line, body (with its dateline), recipe card, Satire/Reported label, byline and author box, schemas, the Markdown rules for recipes and headlines, feed loader, the feeds it writes (`feeds.ts` and `FeedContent.astro`), search indexer, `paper.css` (empty) and `print.css` (a recipe, printed). It knows nothing about The Ergonomist, so it can become its own package once there's a design.
 - `src/pages/` — the routes: front page, sections, stories, tags, places, series, the Newswire, latest, archive, search, staff and masthead, about, standards, tips, corrections, the feeds (RSS for the paper, each section, tag and author and the corrections; `feed.json`) and `/feeds/`, sitemap, robots.txt, `wire.json` (the copied stories), 404.
 - `scripts/new.ts` — `bun run new`, a new story's file.
+- `scripts/product.ts` — `bun run product`, a product's file from its saved page.
 - `scripts/test.ts`, `smoke.ts`, `links.ts`, `jsonld.ts` (and `dist.ts`, what they share), `.htmlvalidate.mjs` — `bun run test`, the checks of a build (see Checks).
 - `public/_headers` — cache headers: a year for `/_astro/*`, five minutes for the feeds, `wire.json` and the sitemap.
 - `public/card.png` — the default card: the image a page is shared with when it has none, and a recipe's image in structured data until it has a photo.

@@ -2,10 +2,13 @@
 /**
  * A recipe's card, between its headnote and its Method: the yield, times,
  * difficulty, course, cuisine, diet, equipment, calories and who tested it,
- * then the ingredients, a list per group, each with a checkbox to tick off.
+ * then the ingredients, a list per group, each with a checkbox to tick off
+ * and, when it names one, the product it's bought as (its image, on the
+ * store's site, and a link there). Then the shopping list: those products,
+ * how many of each, their size and price, and the total.
  * The page's "Jump to recipe" link lands here (#recipe).
  */
-import { formatDuration, ingredientGroups, recipeTimes, type Story } from "./paper";
+import { formatDate, formatDuration, ingredientGroups, recipeTimes, shoppingList, type Story } from "./paper";
 
 interface Props {
 	story: Extract<Story, { origin: "local" }>;
@@ -28,6 +31,11 @@ const facts: [string, string | undefined][] = [
 	["Tested by", data.testedBy],
 ];
 const groups = ingredientGroups(data);
+const shopping = await shoppingList(data);
+const products = new Map(shopping.lines.map(({ product }) => [product.id, product]));
+const money = (n: number) => `$${n.toFixed(2)}`;
+const stores = [...new Set(shopping.lines.map(({ product }) => product.data.store))];
+const priced = shopping.lines.map(({ product }) => product.data.priced).sort((a, b) => a.getTime() - b.getTime())[0];
 ---
 
 <section id="recipe" aria-label="Recipe">
@@ -41,10 +49,47 @@ const groups = ingredientGroups(data);
 				<div>
 					{group && <h3>{group}</h3>}
 					<ul>
-						{items.map((item) => <li><label><input type="checkbox" /> {item}</label></li>)}
+						{items.map(({ text, product: id }) => {
+							const product = id ? products.get(id) : undefined;
+							return (
+								<li>
+									<label><input type="checkbox" /> {text}</label>
+									{product && (
+										<a href={product.data.url}>
+											{product.data.image && <img src={product.data.image} alt="" width="64" height="64" loading="lazy" referrerpolicy="no-referrer" />}
+											{product.data.store} {product.data.name}
+										</a>
+									)}
+								</li>
+							);
+						})}
 					</ul>
 				</div>
 			))}
 		</div>
 	</section>
+	{shopping.lines.length > 0 && (
+		<section aria-labelledby="shopping-list">
+			<h2 id="shopping-list">Shopping list</h2>
+			<table>
+				<thead>
+					<tr><th scope="col">Product</th><th scope="col">Buy</th><th scope="col">Size</th><th scope="col">Price</th></tr>
+				</thead>
+				<tbody>
+					{shopping.lines.map(({ product, buy }) => (
+						<tr>
+							<td><a href={product.data.url}>{product.data.name}</a></td>
+							<td>{buy}</td>
+							<td>{product.data.size}</td>
+							<td>{product.data.price && money(product.data.price * buy)}</td>
+						</tr>
+					))}
+				</tbody>
+				<tfoot>
+					<tr><th scope="row" colspan="3">About</th><td>{money(shopping.total)}</td></tr>
+				</tfoot>
+			</table>
+			<p>At {stores.join(" and ")}, as of {formatDate(priced)}. Prices vary by store.</p>
+		</section>
+	)}
 </section>

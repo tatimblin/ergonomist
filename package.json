@@ -12,6 +12,7 @@
     "astro": "bunx astro",
     "deploy": "bun run build && wrangler deploy",
     "new": "bun scripts/new.ts",
+    "product": "bun scripts/product.ts",
     "test": "bun scripts/test.ts",
     "test:smoke": "bun scripts/smoke.ts",
     "test:html": "html-validate dist",

@@ -441,10 +441,41 @@ export function recipeTimes(data: StoryData): { prep: string; cook: string; acti
 	return { prep, cook, active: data.active, total: data.total ?? isoDuration(minutesOf(prep) + minutesOf(cook)) };
 }
 
+/** A recipe's ingredient: its line, and the product it's bought as, if any. */
+export type Ingredient = { text: string; product?: string; buy: number };
+
 /** A recipe's ingredients as groups; a flat list is one group with no name. */
-export function ingredientGroups(data: StoryData): { group?: string; items: string[] }[] {
-	const list = (data.ingredients ?? []) as (string | { group: string; items: string[] })[];
-	return list.every((i) => typeof i === "string") ? [{ items: list as string[] }] : (list as { group: string; items: string[] }[]);
+export function ingredientGroups(data: StoryData): { group?: string; items: Ingredient[] }[] {
+	type Item = string | { item: string; product: { id: string }; buy: number };
+	const of = (i: Item): Ingredient => (typeof i === "string" ? { text: i, buy: 0 } : { text: i.item, product: i.product.id, buy: i.buy });
+	const list = (data.ingredients ?? []) as (Item | { group: string; items: Item[] })[];
+	const grouped = list.every((i) => typeof i === "string" || "item" in i)
+		? [{ items: list as Item[] }]
+		: (list as { group: string; items: Item[] }[]);
+	return grouped.map((g) => ({ ...g, items: g.items.map(of) }));
+}
+
+export type Product = CollectionEntry<"products">;
+
+/**
+ * What a recipe's shopping list buys: each product its ingredients name,
+ * once, with how many (the most any ingredient asks for), and the total of
+ * those that have a price. A product that isn't in src/content/products is
+ * an error.
+ */
+export async function shoppingList(data: StoryData) {
+	const buys = new Map<string, number>();
+	for (const { items } of ingredientGroups(data))
+		for (const { product, buy } of items) if (product) buys.set(product, Math.max(buys.get(product) ?? 0, buy));
+	const lines = await Promise.all(
+		[...buys].map(async ([id, buy]) => {
+			const product = await getEntry("products", id);
+			if (!product) throw new Error(`No product "${id}" in src/content/products (bun run product makes one).`);
+			return { product, buy };
+		}),
+	);
+	const total = lines.reduce((sum, { product, buy }) => sum + (product.data.price ?? 0) * buy, 0);
+	return { lines, total };
 }
 
 /** What the theme's Markdown plugin (markdown.ts) kept of a recipe's body:
@@ -478,7 +509,7 @@ export function recipeLd(paper: Paper, story: Local, url: string) {
 		cookTime: cook,
 		totalTime: total,
 		recipeYield: data.yield ? [String(data.serves), data.yield] : String(data.serves),
-		recipeIngredient: ingredientGroups(data).flatMap((g) => g.items),
+		recipeIngredient: ingredientGroups(data).flatMap((g) => g.items.map((i) => i.text)),
 		recipeInstructions:
 			method.length === 1 && !method[0].name
 				? method[0].steps.map(step)

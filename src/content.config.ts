@@ -2,7 +2,7 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import paper from "../paper.config";
 import { feedLoader } from "./theme/feed-loader";
-import { pageSchema, seriesSchema, staffSchema, storySchema, wireSchema } from "./theme/schema";
+import { pageSchema, productSchema, seriesSchema, staffSchema, storySchema, wireSchema } from "./theme/schema";
 
 // Stories written here: src/content/stories/<section>/<slug>.md. A file whose
 // name starts with "_" (each section's _template.md) isn't a story.
@@ -36,4 +36,11 @@ const pages = defineCollection({
 	schema: pageSchema,
 });
 
-export const collections = { stories, wire, staff, series, pages };
+// What recipes' ingredients are bought as: src/content/products/<id>.md,
+// written by `bun run product` from a saved product page.
+const products = defineCollection({
+	loader: glob({ pattern: "*.md", base: "./src/content/products" }),
+	schema: productSchema,
+});
+
+export const collections = { stories, wire, staff, series, pages, products };

@@ -104,10 +104,13 @@ export const storySchema =
 				diet: z.array(z.string()).optional(),
 				equipment: z.array(z.string()).optional(),
 				// A list, or a list per part of the dish: [{group: For the beans, items: [...]}].
+				// An item is a line ("1 lb shaved beef steak"), or the line and
+				// the product it's bought as, and how many to buy (1 when left
+				// out): {item: 1 lb shaved beef steak, product: all-natural-shaved-beef-steak}.
 				ingredients: z
 					.union([
-						z.array(z.string()).min(1),
-						z.array(z.object({ group: z.string(), items: z.array(z.string()).min(1) }).strict()).min(1),
+						z.array(ingredient).min(1),
+						z.array(z.object({ group: z.string(), items: z.array(ingredient).min(1) }).strict()).min(1),
 					])
 					.optional(),
 				// Per serving.
@@ -148,6 +151,32 @@ export const storySchema =
 					ctx.addIssue({ code: "custom", path: ["updated"], message: "A story can't be updated before it's published." });
 				}
 			});
+
+/** A product a recipe's ingredient is bought as, in
+ *  src/content/products/<id>.md, written by `bun run product` from its saved
+ *  page: its name, store and page there, its image (on the store's site), its
+ *  price and size as of `priced`, and what its label says. */
+export const productSchema = z
+	.object({
+		name: z.string(),
+		store: z.string(),
+		url: z.url(),
+		image: z.url().optional(),
+		price: z.number().positive().optional(),
+		size: z.string().optional(),
+		priced: z.coerce.date(),
+		category: z.string().optional(),
+		ingredients: z.array(z.string()).optional(),
+		servingSize: z.string().optional(),
+		calories: z.number().nonnegative().optional(),
+	})
+	.strict();
+
+/** A recipe's ingredient: its line, or its line and the product it's bought as. */
+const ingredient = z.union([
+	z.string(),
+	z.object({ item: z.string(), product: reference("products"), buy: z.number().int().positive().default(1) }).strict(),
+]);
 
 /** A running bit, in src/content/series/<id>.md: every story naming it is
  *  listed at /series/<id>/. */
