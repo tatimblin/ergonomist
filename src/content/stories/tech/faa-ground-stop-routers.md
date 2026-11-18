@@ -1,5 +1,5 @@
 ---
-title: "'Working as Configured': What Copper Did That Fiber Has to Be Told To"
+title: "'Working as Configured': The 2026 FAA Network Grounding"
 date: 2026-11-16
 kind: article
 dek: HPE says its routers behind Friday's FAA ground stop were working as configured. Moving from copper circuits to an IP network changes what a configuration has to cover.
