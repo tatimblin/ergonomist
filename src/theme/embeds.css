@@ -1,0 +1,13 @@
+/*
+ * Social embeds (markdown.ts's socialEmbeds) must fit a phone: no indent on
+ * the figure, and the frame never wider than the column. Not design, so it
+ * lives outside paper.css.
+ */
+figure[data-embed] {
+	margin-inline: 0;
+}
+
+figure[data-embed] iframe {
+	box-sizing: border-box;
+	max-width: 100%;
+}
