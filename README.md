@@ -126,6 +126,14 @@ A story's page prints, top to bottom: kicker, headline, dek; byline and titles, 
 
 The front page leads with the newest `placement: lead` story, then the `featured` ones, then the **Newswire**'s latest headlines, then each section's latest (without the stories and headlines already printed above), then **Most Read**: the story ids, `<section>/<slug>`, in `mostRead` in `paper.config.ts`, picked by hand. An id that names no story fails the build.
 
+### Embeds
+
+A paragraph holding nothing but a link to an Instagram post or reel prints the post in Instagram's own embed frame, with a "Watch on Instagram" link under it for readers and feeds that don't load the frame (`socialEmbeds` in `src/theme/markdown.ts`). Paste the URL on a line of its own; tracking parameters are dropped. The paper loads no script of Instagram's. A link inside a sentence stays a link.
+
+```md
+https://www.instagram.com/reel/Df5J0IxqHv8/
+```
+
 ## Tags, places, series and the archive
 
 - `/tags/<tag>/` lists a tag's stories, with its feed at `/tags/<tag>/rss.xml`. Until a tag has 5 stories its page is `noindex` and out of the sitemap.

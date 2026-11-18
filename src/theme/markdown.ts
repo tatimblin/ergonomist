@@ -108,3 +108,48 @@ function headnoteHtml(
 	if (start === undefined || end === undefined) return fail("the headnote's position is unknown.");
 	return markdownToHtml(ctx.source.slice(start, end), { features: factory.features }).html;
 }
+
+/**
+ * Social embeds, in any story's body: a paragraph holding nothing but a link
+ * to an Instagram post or reel prints the post in an iframe, with a link to it
+ * underneath for readers (and feeds) that don't load the frame. Paste the URL
+ * on a line of its own:
+ *
+ *     https://www.instagram.com/reel/Df5J0IxqHv8/
+ *
+ * Tracking parameters are dropped from the link. The frame is Instagram's own
+ * embed page, so the paper loads no script of Instagram's.
+ */
+const INSTAGRAM = /^https?:\/\/(?:www\.)?instagram\.com\/(p|reel|tv)\/([A-Za-z0-9_-]+)\/?(?:[?#].*)?$/;
+
+const escape = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+
+/** The embed's HTML for a URL, or undefined if it isn't one the paper embeds. */
+export function embedHtml(url: string): string | undefined {
+	const match = INSTAGRAM.exec(url.trim());
+	if (!match) return undefined;
+	const [, type, id] = match;
+	const link = `https://www.instagram.com/${type}/${id}/`;
+	const what = type === "p" ? "post" : "reel";
+	return [
+		`<figure data-embed="instagram">`,
+		`<iframe src="${escape(link)}embed/" title="Instagram ${what}" width="400" height="710" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+		`<figcaption><a href="${escape(link)}">Watch on Instagram</a></figcaption>`,
+		`</figure>`,
+	].join("");
+}
+
+export const socialEmbeds = (factory: PluginFactoryContext) => {
+	const astro = factory.data.astro as Astro | undefined;
+	if (astro?.frontmatter.kind === "headline") return null;
+	return defineMdastPlugin({
+		name: "ergonomist-embeds",
+		paragraph(node, ctx) {
+			const [only, ...rest] = node.children;
+			if (rest.length || only?.type !== "link") return;
+			if (ctx.textContent(only).trim() !== only.url.trim()) return;
+			const html = embedHtml(only.url);
+			if (html) return { type: "html", value: html };
+		},
+	});
+};
