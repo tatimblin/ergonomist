@@ -8,7 +8,7 @@
  * This file is the shared logic: reading the companies' public job feeds,
  * comparing a capture against the last one, and grouping the changes into
  * days, weeks and months with a line on what each period was about.
- * scripts/jobs.ts runs it every hour (.github/workflows/jobs.yml) and writes
+ * scripts/jobs.ts runs it three times each weekday (.github/workflows/jobs.yml) and writes
  * src/data/jobs/, which lives on the jobs-data branch (scripts/jobs-data.ts);
  * src/pages/jobs/ prints it.
  */
