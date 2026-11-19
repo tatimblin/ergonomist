@@ -116,9 +116,11 @@ async function writeLine(label: string, teams: Record<string, ReturnType<typeof 
 				},
 			}),
 		});
-		const body = (await res.json()) as { success?: boolean; result?: { response?: unknown } };
-		const response = body.result?.response;
-		const parsed = typeof response === "string" ? JSON.parse(response) : response;
+		// Older models answer in result.response; newer ones in OpenAI's shape, result.choices.
+		const body = (await res.json()) as { success?: boolean; result?: { response?: unknown; choices?: { message?: { content?: unknown } }[] } };
+		const response = body.result?.response ?? body.result?.choices?.[0]?.message?.content;
+		const text = typeof response === "string" ? response.replace(/^```(?:json)?\s*|\s*```$/g, "") : undefined;
+		const parsed = text !== undefined ? JSON.parse(text) : response;
 		const line = String((parsed as { headline?: string })?.headline ?? "").trim().replace(/\.$/, "");
 		if (!body.success || !line || line.length > 70) throw new Error("no usable headline");
 		return line;
