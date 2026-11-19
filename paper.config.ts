@@ -48,6 +48,8 @@ export default {
 	// The asks every paper makes (`membership` at the foot of every story,
 	// `newsletter` in the footer). None yet.
 	asks: {},
+	// The Jobs desk (src/jobs/): AI-lab hiring in San Francisco, as activity.
+	pages: [{ label: "Jobs", href: "/jobs/" }],
 	// The default card, in public/: the image a page is shared with when it has
 	// no image of its own, and a recipe's with no photo yet, since Google wants
 	// one in a Recipe's structured data. Its size is the file's.

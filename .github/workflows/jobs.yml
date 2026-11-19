@@ -1,0 +1,73 @@
+name: Jobs capture
+
+# The Jobs desk (src/jobs/, scripts/jobs.ts): every hour, reads the AI labs'
+# public job boards (COMPANIES in src/jobs/jobs.ts) and commits any change to src/data/jobs/.
+# A commit made here with the workflow's own token doesn't start other
+# workflows, so this one asks "Check and deploy" to run when it commits, and
+# once a day after midnight Pacific even without a change, so "Today" turns
+# over.
+#
+# Optional, for the one-line themes written by a Workers AI model (otherwise
+# they come from the counts): the repository variable JOBS_MODEL, the model's
+# ID. The call reuses the deploy's CLOUDFLARE_ACCOUNT_ID and
+# CLOUDFLARE_API_TOKEN, so that token needs Workers AI access; without it the
+# capture logs a warning and keeps the lines from the counts.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: jobs-capture
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: .bun-version
+
+      - run: bun install --frozen-lockfile
+
+      - run: bun run jobs
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_AI_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          JOBS_MODEL: ${{ vars.JOBS_MODEL }}
+
+      - name: Commit changes
+        id: commit
+        run: |
+          git config user.name "Ergonomist Jobs"
+          git config user.email "jobs@users.noreply.github.com"
+          git add src/data/jobs
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Jobs: capture $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase origin main
+            git push origin HEAD:main
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Rebuild the page when something changed, when run by hand, and on the
+      # first run after midnight Pacific even without a change.
+      - name: Deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CHANGED: ${{ steps.commit.outputs.changed }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$CHANGED" = "true" ] || [ "$EVENT" = "workflow_dispatch" ] || [ "$(TZ=America/Los_Angeles date +%H)" = "00" ]; then
+            gh workflow run deploy.yml --ref main
+          else
+            echo "No change; not deploying."
+          fi

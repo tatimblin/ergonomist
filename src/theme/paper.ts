@@ -80,6 +80,8 @@ export interface Paper {
 	 *  written: `membership` at the foot of every story, `newsletter` in the
 	 *  footer beside a link to the RSS feed. Either, or both, can be left out. */
 	asks?: { membership?: string; newsletter?: string };
+	/** The paper's own pages beyond the stories (a jobs desk, say), listed after the sections at the top of every page. */
+	pages?: { label: string; href: string }[];
 }
 
 export type Staff = CollectionEntry<"staff">;

@@ -130,6 +130,13 @@ const ld =
 							</a>
 						</li>
 					))}
+					{paper.pages?.map((p) => (
+						<li>
+							<a href={p.href} aria-current={Astro.url.pathname === p.href ? "page" : Astro.url.pathname.startsWith(p.href) ? "true" : undefined}>
+								{p.label}
+							</a>
+						</li>
+					))}
 				</ul>
 			</nav>
 			<form role="search" action="/search/">

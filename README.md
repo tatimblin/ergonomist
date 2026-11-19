@@ -182,6 +182,18 @@ The contact line is `contact` in `paper.config.ts`: its `email` once it's set, a
 
 Every page's footer links About, Staff, Standards, Corrections and Tips; then the Newswire, Latest, Archive, Places, Search, RSS and Feeds; then the newsletter line, the disclaimer, and "Satire unless marked Reported.", linked to the standards.
 
+## Jobs
+
+`/jobs/` is the Jobs desk: what Anthropic, OpenAI and Thinking Machines are hiring for in San Francisco, as activity. A role shows up when it opens, changes (title, team, locations or pay range) or closes, and drops off after 30 days with no change; for every open role, readers go to the companies' own careers pages. Today's changes are listed one by one, the rest of the past week by day, earlier weeks by week, and every finished month as one line that stays for good. Each day, week and month leads with what the labs were hiring for, like "OpenAI hires for Go To Market", with its counts under it. Each team has its own page and feed (`/jobs/<team>/`), and `/jobs/rss.xml` has every change. Jobs is listed after the sections at the top of every page (`pages` in `paper.config.ts`).
+
+- **Capture.** `.github/workflows/jobs.yml` runs `bun run jobs` (`scripts/jobs.ts`) every hour. It reads each company's public job board (Anthropic's on Greenhouse, OpenAI's and Thinking Machines' on Ashby), keeps the roles that list San Francisco, compares them with the last capture and commits any change to `src/data/jobs/`: `state.json` (the roles as last seen), `events.json` (70 days of changes), `months.json` (the finished months, kept for good) and `lines.json` (the model's lines for open days and weeks). An hour with no change makes no commit. Since the workflow's own commits don't start other workflows, it starts "Check and deploy" itself when it commits, and once a day after midnight Pacific so "Today" turns over.
+- **The first capture is a starting point.** The roles already posted then are recorded, not reported; the page says when watching began.
+- **A bad hour is skipped.** A board that can't be read, or that lists less than half the roles it did last time, is left alone that hour rather than read as mass closures.
+- **The lines.** Without a model, each period's line comes from its counts (`themeOf` in `src/jobs/jobs.ts`): the company and team that opened the most roles, if they stand out. With the repository variable `JOBS_MODEL` set (a Workers AI model with structured output), the model writes each line from the same counts, and only when they change. It reuses the deploy's `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`, so that token needs Workers AI access; if it hasn't, the capture logs a warning and keeps the lines from the counts.
+- **Adding a company.** Add it to `COMPANIES` in `src/jobs/jobs.ts`, with its board (`greenhouse` or `ashby`) and its slug there.
+
+`bun run jobs --dry` runs a capture and writes nothing.
+
 ## Feeds
 
 `src/theme/feeds.ts` writes them all:

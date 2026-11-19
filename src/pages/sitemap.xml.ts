@@ -69,6 +69,8 @@ export const GET: APIRoute = async () => {
 		list("/latest/", all),
 		list("/archive/", all),
 		{ path: "/feeds/", lastmod: undefined },
+		// The paper's own pages beyond the stories (paper.pages).
+		...(paper.pages ?? []).map((p) => ({ path: p.href, lastmod: undefined })),
 		...[...getYears(all)].map(([year, of]) => list(archiveHref(year), of)),
 	];
 	const body = urls
