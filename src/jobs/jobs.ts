@@ -9,7 +9,8 @@
  * comparing a capture against the last one, and grouping the changes into
  * days, weeks and months with a line on what each period was about.
  * scripts/jobs.ts runs it every hour (.github/workflows/jobs.yml) and writes
- * src/data/jobs/; src/pages/jobs/ prints it.
+ * src/data/jobs/, which lives on the jobs-data branch (scripts/jobs-data.ts);
+ * src/pages/jobs/ prints it.
  */
 
 export const TIME_ZONE = "America/Los_Angeles";

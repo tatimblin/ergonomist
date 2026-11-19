@@ -5,3 +5,6 @@ dist/
 
 # Saved pages to read from (product pages for `bun run product`), never committed.
 inbox/
+
+# The Jobs desk's data, from the jobs-data branch (scripts/jobs-data.ts).
+src/data/jobs/
