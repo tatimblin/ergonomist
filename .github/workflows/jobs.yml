@@ -8,9 +8,10 @@ name: Jobs capture
 # over.
 #
 # Optional, for the one-line themes written by a Workers AI model (otherwise
-# they come from the counts): the secrets CLOUDFLARE_ACCOUNT_ID and
-# CLOUDFLARE_AI_TOKEN (a token with Workers AI read access), and the
-# repository variable JOBS_MODEL, the model's ID.
+# they come from the counts): the repository variable JOBS_MODEL, the model's
+# ID. The call reuses the deploy's CLOUDFLARE_ACCOUNT_ID and
+# CLOUDFLARE_API_TOKEN, so that token needs Workers AI access; without it the
+# capture logs a warning and keeps the lines from the counts.
 on:
   schedule:
     - cron: "17 * * * *"
@@ -39,7 +40,7 @@ jobs:
       - run: bun run jobs
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_AI_TOKEN: ${{ secrets.CLOUDFLARE_AI_TOKEN }}
+          CLOUDFLARE_AI_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           JOBS_MODEL: ${{ vars.JOBS_MODEL }}
 
       - name: Commit changes
