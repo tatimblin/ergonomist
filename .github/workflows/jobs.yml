@@ -1,7 +1,7 @@
 name: Jobs capture
 
-# The Jobs desk (src/jobs/, scripts/jobs.ts): every hour, reads Anthropic's
-# and OpenAI's public job boards and commits any change to src/data/jobs/.
+# The Jobs desk (src/jobs/, scripts/jobs.ts): every hour, reads the AI labs'
+# public job boards (COMPANIES in src/jobs/jobs.ts) and commits any change to src/data/jobs/.
 # A commit made here with the workflow's own token doesn't start other
 # workflows, so this one asks "Check and deploy" to run when it commits, and
 # once a day after midnight Pacific even without a change, so "Today" turns

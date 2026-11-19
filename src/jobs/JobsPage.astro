@@ -7,7 +7,7 @@
  */
 import paper from "../../paper.config";
 import Layout from "../theme/Layout.astro";
-import { companyName, countsLine, describeChange, formatMonth, formatTime, QUIET_DAYS, teamSlug, viewOf, type JobEvent, type JobsData } from "./jobs";
+import { COMPANIES, companyList, companyName, countsLine, describeChange, formatMonth, formatTime, QUIET_DAYS, teamSlug, viewOf, type JobEvent, type JobsData } from "./jobs";
 import state from "../data/jobs/state.json";
 import events from "../data/jobs/events.json";
 import months from "../data/jobs/months.json";
@@ -34,13 +34,19 @@ const meta = (e: JobEvent) => [companyName(e.company), team ? undefined : e.team
 <Layout
 	paper={paper}
 	title={title}
-	description={`What Anthropic and OpenAI are hiring for in San Francisco: roles as they open, change and close.`}
+	description={`What ${companyList()} are hiring for in San Francisco: roles as they open, change and close.`}
 	feed={{ title: `${title} — ${paper.name}`, href: `${href}rss.xml` }}
 >
 	<p>Jobs</p>
 	<h1>{title}</h1>
 	<p>
-		What {team ? `the ${teamName} teams at` : ""} Anthropic and OpenAI are hiring for in the city, checked every hour. A role shows up here when it opens, changes or closes, and leaves after {QUIET_DAYS} days with no change. Each month stays as a one-line summary. For every open role, see <a href="https://www.anthropic.com/careers">Anthropic's</a> and <a href="https://openai.com/careers">OpenAI's</a> careers pages.
+		What {team ? `the ${teamName} teams at` : ""} {companyList()} are hiring for in the city, checked every hour. A role shows up here when it opens, changes or closes, and leaves after {QUIET_DAYS} days with no change. Each month stays as a one-line summary. For every open role, see the companies' own careers pages:{" "}
+		{COMPANIES.map((c, i) => (
+			<>
+				{i > 0 && (i === COMPANIES.length - 1 ? " and " : ", ")}
+				<a href={c.careers}>{c.name}</a>
+			</>
+		))}.
 	</p>
 	{team && <p><a href="/jobs/">All teams</a></p>}
 

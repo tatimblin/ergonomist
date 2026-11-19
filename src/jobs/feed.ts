@@ -1,7 +1,7 @@
 import rss from "@astrojs/rss";
 import paper from "../../paper.config";
 import events from "../data/jobs/events.json";
-import { companyName, describeChange, localDate, daysBetween, QUIET_DAYS, teamSlug, type JobEvent } from "./jobs";
+import { companyList, companyName, describeChange, localDate, daysBetween, QUIET_DAYS, teamSlug, type JobEvent } from "./jobs";
 
 /** The Jobs desk's feed: every change in the last QUIET_DAYS, newest first; with `team`, that team's. */
 export function jobsFeed(team?: { slug: string; name: string }) {
@@ -30,7 +30,7 @@ export function jobsFeed(team?: { slug: string; name: string }) {
 	const href = team ? `/jobs/${team.slug}/` : "/jobs/";
 	return rss({
 		title: `${team ? `${team.name} jobs` : "AI lab jobs"} in San Francisco — ${paper.name}`,
-		description: "Roles at Anthropic and OpenAI in San Francisco as they open, change and close.",
+		description: `Roles at ${companyList()} in San Francisco as they open, change and close.`,
 		site: new URL(href, paper.site).href,
 		items,
 	});

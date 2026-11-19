@@ -18,11 +18,12 @@ export const QUIET_DAYS = 30;
 /** Changes are kept this long, so a month can be summed up once it ends. */
 export const KEEP_DAYS = 70;
 
-export type Company = { id: string; name: string; board: "greenhouse" | "ashby"; slug: string };
+export type Company = { id: string; name: string; board: "greenhouse" | "ashby"; slug: string; careers: string };
 
 export const COMPANIES: Company[] = [
-	{ id: "anthropic", name: "Anthropic", board: "greenhouse", slug: "anthropic" },
-	{ id: "openai", name: "OpenAI", board: "ashby", slug: "openai" },
+	{ id: "anthropic", name: "Anthropic", board: "greenhouse", slug: "anthropic", careers: "https://www.anthropic.com/careers" },
+	{ id: "openai", name: "OpenAI", board: "ashby", slug: "openai", careers: "https://openai.com/careers" },
+	{ id: "thinkingmachines", name: "Thinking Machines", board: "ashby", slug: "thinkingmachines", careers: "https://thinkingmachines.ai/careers" },
 ];
 
 /** One role as the paper tracks it: only what a change is measured on. */
@@ -299,7 +300,7 @@ export function themeOf(teams: Record<string, Counts>, unit: "day" | "week" | "m
 	const ranked = Object.entries(teams).sort((a, b) => b[1].opened - a[1].opened);
 	const [topKey, top] = ranked[0];
 	const [company, team] = topKey.split(/\/(.*)/s);
-	// The same team at both labs, summed.
+	// The same team across labs, summed.
 	const acrossLabs = new Map<string, number>();
 	for (const [k, c] of ranked) {
 		const t = k.split(/\/(.*)/s)[1];
@@ -311,12 +312,16 @@ export function themeOf(teams: Record<string, Counts>, unit: "day" | "week" | "m
 		return { line: `${companyName(company)} hires for ${team}`, detail: top.opened < total ? `${top.opened} of ${plural(total, "new role")}` : undefined };
 	}
 	if (total >= 3 && sharedCount / total >= 0.3) {
-		return { line: `${sharedTeam}, at both labs`, detail: sharedCount < total ? `${sharedCount} of ${plural(total, "new role")}` : undefined };
+		return { line: `${sharedTeam}, across labs`, detail: sharedCount < total ? `${sharedCount} of ${plural(total, "new role")}` : undefined };
 	}
 	if (closed > total * 1.5 && closed >= 3) return { line: "More roles closed than opened" };
 	if (total + closed < 3) return { line: `A quiet ${unit}` };
 	return { line: "Hiring across teams" };
 }
+
+/** The companies by name, as prose: "Anthropic, OpenAI and Thinking Machines". */
+export const companyList = (names = COMPANIES.map((c) => c.name)) =>
+	names.length < 3 ? names.join(" and ") : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`;
 
 /** A short hash of a period's counts, so its line is only rewritten when they change. */
 export function hashOf(value: unknown): string {
