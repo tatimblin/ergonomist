@@ -14,6 +14,7 @@
     "new": "bun scripts/new.ts",
     "product": "bun scripts/product.ts",
     "products": "bun scripts/products.ts",
+    "jobs": "bun scripts/jobs.ts",
     "test": "bun scripts/test.ts",
     "test:smoke": "bun scripts/smoke.ts",
     "test:html": "html-validate dist",

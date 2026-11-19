@@ -1,0 +1,17 @@
+---
+// One team's page, for every team with a change on record.
+import type { GetStaticPaths } from "astro";
+import events from "../../../data/jobs/events.json";
+import { teamSlug, type JobEvent } from "../../../jobs/jobs";
+import JobsPage from "../../../jobs/JobsPage.astro";
+
+export const getStaticPaths = (() => {
+	const teams = new Map<string, string>();
+	for (const e of events as JobEvent[]) teams.set(teamSlug(e.team), e.team);
+	return [...teams].map(([team, teamName]) => ({ params: { team }, props: { team, teamName } }));
+}) satisfies GetStaticPaths;
+
+const { team, teamName } = Astro.props;
+---
+
+<JobsPage team={team} teamName={teamName} />

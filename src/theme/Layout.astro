@@ -153,6 +153,7 @@ const ld =
 			<nav aria-label="Everything else">
 				<ul>
 					<li><a href="/newswire/">Newswire</a></li>
+					{paper.pages?.map((p) => <li><a href={p.href}>{p.label}</a></li>)}
 					<li><a href="/latest/">Latest</a></li>
 					<li><a href="/archive/">Archive</a></li>
 					<li><a href="/places/">Places</a></li>

@@ -1,0 +1,163 @@
+---
+/**
+ * The Jobs page (/jobs/), or one team's (/jobs/<team>/): today's changes one
+ * by one, the rest of the past week by day, earlier weeks by week, and every
+ * finished month as a line. Each day and week opens (a <details>, no script)
+ * to its changes. Only activity: a role with no change in QUIET_DAYS is gone.
+ */
+import paper from "../../paper.config";
+import Layout from "../theme/Layout.astro";
+import { companyName, countsLine, describeChange, formatMonth, formatTime, QUIET_DAYS, teamSlug, viewOf, type JobEvent, type JobsData } from "./jobs";
+import state from "../data/jobs/state.json";
+import events from "../data/jobs/events.json";
+import months from "../data/jobs/months.json";
+import lines from "../data/jobs/lines.json";
+
+interface Props {
+	/** A team's slug, for its page. */
+	team?: string;
+	teamName?: string;
+}
+
+const { team, teamName } = Astro.props;
+const data = { state, events, months, lines } as unknown as JobsData;
+const now = new Date().toISOString();
+const view = viewOf(data, now, team);
+const href = team ? `/jobs/${team}/` : "/jobs/";
+const title = team ? `${teamName} jobs in San Francisco` : "AI lab jobs in San Francisco";
+const since = data.state.since ? new Date(data.state.since).toLocaleDateString("en-US", { timeZone: "America/Los_Angeles", month: "long", day: "numeric", year: "numeric" }) : undefined;
+const allTeams = [...new Set(data.events.map((e) => e.team))].sort();
+const nothingYet = !view.today.opened.length && !view.today.changed.length && !view.today.closed.length && !view.days.length && !view.weeks.length && !view.months.length;
+const meta = (e: JobEvent) => [companyName(e.company), team ? undefined : e.team, formatTime(e.at)].filter(Boolean).join(" · ");
+---
+
+<Layout
+	paper={paper}
+	title={title}
+	description={`What Anthropic and OpenAI are hiring for in San Francisco: roles as they open, change and close.`}
+	feed={{ title: `${title} — ${paper.name}`, href: `${href}rss.xml` }}
+>
+	<p>Jobs</p>
+	<h1>{title}</h1>
+	<p>
+		What {team ? `the ${teamName} teams at` : ""} Anthropic and OpenAI are hiring for in the city, checked every hour. A role shows up here when it opens, changes or closes, and leaves after {QUIET_DAYS} days with no change. Each month stays as a one-line summary. For every open role, see <a href="https://www.anthropic.com/careers">Anthropic's</a> and <a href="https://openai.com/careers">OpenAI's</a> careers pages.
+	</p>
+	{team && <p><a href="/jobs/">All teams</a></p>}
+
+	<ul>
+		{view.companies.map((c) => (
+			<li>
+				<strong>{c.name}</strong>: {c.month.opened} new and {c.month.closed} closed this month; {c.today.opened} new today.
+			</li>
+		))}
+	</ul>
+
+	{!team && allTeams.length > 0 && (
+		<nav aria-label="Teams">
+			<p>
+				Teams:{" "}
+				{allTeams.map((t, i) => (
+					<>
+						{i > 0 && " · "}
+						<a href={`/jobs/${teamSlug(t)}/`}>{t}</a>
+					</>
+				))}
+			</p>
+		</nav>
+	)}
+
+	{nothingYet ? (
+		<p>Watching since {since ?? "today"}. The roles already posted then are the starting point, not news; changes will appear here as they happen.</p>
+	) : (
+		<>
+			<h2>Today</h2>
+			{view.today.opened.length + view.today.changed.length + view.today.closed.length === 0 && <p>No changes yet today.</p>}
+			{view.today.opened.length > 0 && (
+				<>
+					<h3>New</h3>
+					<ul>
+						{view.today.opened.map((e) => (
+							<li>
+								<a href={e.url}>{e.title}</a> · {meta(e)}
+							</li>
+						))}
+					</ul>
+				</>
+			)}
+			{view.today.changed.length > 0 && (
+				<>
+					<h3>Changed</h3>
+					<ul>
+						{view.today.changed.map((e) => (
+							<li>
+								<a href={e.url}>{e.title}</a> · {companyName(e.company)}: {describeChange(e)}
+							</li>
+						))}
+					</ul>
+				</>
+			)}
+			{view.today.closed.length > 0 && (
+				<>
+					<h3>Closed</h3>
+					<ul>
+						{view.today.closed.map((e) => (
+							<li>
+								<del>{e.title}</del> · {companyName(e.company)}{e.openDays !== undefined && ` · open ${e.openDays} days`}
+							</li>
+						))}
+					</ul>
+				</>
+			)}
+
+			{[
+				{ heading: "This week", unit: "by day", periods: view.days },
+				{ heading: "Earlier weeks", unit: "by week", periods: view.weeks },
+			].map(
+				(section) =>
+					section.periods.length > 0 && (
+						<>
+							<h2>{section.heading}</h2>
+							{section.periods.map((p) => (
+								<details>
+									<summary>
+										<strong>{p.label}: {p.line}</strong>
+										<br />
+										<small>{[p.detail, countsLine(p.counts)].filter(Boolean).join(" · ")}</small>
+									</summary>
+									<ul>
+										{p.events.map((e) => (
+											<li>
+												{e.type === "closed" ? <del>{e.title}</del> : <a href={e.url}>{e.title}</a>} · {e.type === "opened" ? "new" : e.type === "closed" ? "closed" : describeChange(e)} · {companyName(e.company)}
+												{!team && ` · ${e.team}`}
+											</li>
+										))}
+									</ul>
+								</details>
+							))}
+						</>
+					),
+			)}
+
+			{view.months.length > 0 && (
+				<>
+					<h2>Earlier</h2>
+					<ul>
+						{view.months.map((m) => (
+							<li>
+								<strong>{formatMonth(m.month)}: {m.line}</strong>
+								<br />
+								<small>{[m.detail, countsLine(m.counts)].filter(Boolean).join(" · ")}</small>
+							</li>
+						))}
+					</ul>
+				</>
+			)}
+		</>
+	)}
+
+	<h2>Follow along</h2>
+	<p>
+		<a href={`${href}rss.xml`}>RSS feed</a> of every change{team ? ` on ${teamName} teams` : ""}.{!team && " Each team has its own feed on its page."}
+	</p>
+	<p><small>San Francisco roles only, from each company's public job board. Page built {formatTime(now)} Pacific{since ? `; watching since ${since}` : ""}.</small></p>
+</Layout>
