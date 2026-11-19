@@ -12,10 +12,21 @@ name: Jobs capture
 # ID. The call reuses the deploy's CLOUDFLARE_ACCOUNT_ID and
 # CLOUDFLARE_API_TOKEN, so that token needs Workers AI access; without it the
 # capture logs a warning and keeps the lines from the counts.
+#
+# The hourly clock is the homelab (roles/gh-cron in the homelab repo), which
+# dispatches this at :17 UTC: GitHub's `schedule:` is best-effort and ran this
+# once in its first 17 hours. The schedule below, at :47, is only a fallback for
+# when the homelab is down; the concurrency group serializes the two, and a
+# capture with no change commits nothing.
 on:
   schedule:
-    - cron: "17 * * * *"
+    - cron: "47 * * * *"
   workflow_dispatch:
+    inputs:
+      deploy:
+        description: Deploy even if nothing changed
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -58,15 +69,16 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      # Rebuild the page when something changed, when run by hand, and on the
-      # first run after midnight Pacific even without a change.
+      # Rebuild the page when something changed, when asked to (the `deploy`
+      # input), and on the first runs after midnight Pacific even without a
+      # change. A plain dispatch, like the homelab's hourly one, doesn't deploy.
       - name: Deploy
         env:
           GH_TOKEN: ${{ github.token }}
           CHANGED: ${{ steps.commit.outputs.changed }}
-          EVENT: ${{ github.event_name }}
+          FORCE: ${{ inputs.deploy }}
         run: |
-          if [ "$CHANGED" = "true" ] || [ "$EVENT" = "workflow_dispatch" ] || [ "$(TZ=America/Los_Angeles date +%H)" = "00" ]; then
+          if [ "$CHANGED" = "true" ] || [ "$FORCE" = "true" ] || [ "$(TZ=America/Los_Angeles date +%H)" = "00" ]; then
             gh workflow run deploy.yml --ref main
           else
             echo "No change; not deploying."
