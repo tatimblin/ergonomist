@@ -1,0 +1,312 @@
+[
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "changed",
+		"company": "anthropic",
+		"id": "5013366008",
+		"title": "Engineering Manager, Safeguards Review Tooling",
+		"team": "Safeguards (Trust & Safety)",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5013366008",
+		"changes": {
+			"location": [
+				"San Francisco, CA",
+				"New York City, NY; San Francisco, CA"
+			]
+		}
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5456315008",
+		"title": "Head of Community Relations, Compute",
+		"team": "Compute",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5456315008"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "changed",
+		"company": "anthropic",
+		"id": "5274117008",
+		"title": "Legal Program Manager, Compute & Infrastructure",
+		"team": "Legal",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5274117008",
+		"changes": {
+			"pay": [
+				"$285K – $340K",
+				"$220K – $285K"
+			]
+		}
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5250091008",
+		"title": "Staff+ Software Engineer, GRC Platform",
+		"team": "Security",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5250091008"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5138549008",
+		"title": "Strategic Account Executive, Tech",
+		"team": "Sales",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5138549008"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5108111008",
+		"title": "Strategic Account Executive, Tech",
+		"team": "Sales",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5108111008",
+		"openDays": 0
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5430743008",
+		"title": "IP Counsel, Transactions",
+		"team": "Legal",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5430743008",
+		"openDays": 0
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5441936008",
+		"title": "Director, Financial Reporting - Special Projects",
+		"team": "Finance",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5441936008",
+		"openDays": 0
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5443900008",
+		"title": "US Public Sector Compliance, Security GRC",
+		"team": "Security",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5443900008",
+		"openDays": 0
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5455627008",
+		"title": "Applied AI Architect, Public Sector (Federal Civilan)",
+		"team": "Applied AI",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5455627008",
+		"openDays": 0
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "20f525b7-f958-4c95-a055-f914ab3adb95",
+		"title": "Embedded Systems Software Engineer, Linux Kernel & BSP | Consumer Devices",
+		"team": "Consumer Devices",
+		"url": "https://jobs.ashbyhq.com/openai/20f525b7-f958-4c95-a055-f914ab3adb95",
+		"changes": {
+			"title": [
+				"System Software Engineer, Consumer Devices",
+				"Embedded Systems Software Engineer, Linux Kernel & BSP | Consumer Devices"
+			]
+		}
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "08e8d03a-df94-46af-8664-cd9aab1af445",
+		"title": "Forward Deployment Strategy and Operations",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/08e8d03a-df94-46af-8664-cd9aab1af445",
+		"changes": {
+			"title": [
+				"GTM Strategy & Operations, Professional Services",
+				"Forward Deployment Strategy and Operations"
+			]
+		}
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "2b5587bf-9df9-4606-920b-a988e392a2d2",
+		"title": "Art Director, Business Marketing",
+		"team": "Marketing",
+		"url": "https://jobs.ashbyhq.com/openai/2b5587bf-9df9-4606-920b-a988e392a2d2"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "efae0a22-24d6-4562-834c-1110c5e7677b",
+		"title": "Product Manager, Frontier Risks Safety",
+		"team": "Research",
+		"url": "https://jobs.ashbyhq.com/openai/efae0a22-24d6-4562-834c-1110c5e7677b"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "4885f56d-9f59-4c40-81d8-c33a167cb26c",
+		"title": "Product Designer, Education",
+		"team": "Product Design",
+		"url": "https://jobs.ashbyhq.com/openai/4885f56d-9f59-4c40-81d8-c33a167cb26c",
+		"changes": {
+			"title": [
+				"Product Designer, Higher Education",
+				"Product Designer, Education"
+			]
+		}
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "72bbf10a-5300-4aa6-8bf9-38cb2a60811a",
+		"title": "Senior Technical Recruiter",
+		"team": "People",
+		"url": "https://jobs.ashbyhq.com/openai/72bbf10a-5300-4aa6-8bf9-38cb2a60811a",
+		"changes": {
+			"location": [
+				"US - Remote | Seattle | San Francisco",
+				"San Francisco | New York City | Seattle | Washington, DC"
+			]
+		}
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "9b2ea00e-f5ef-4542-b4cf-9f85a2930a1f",
+		"title": "Client Partner, Ads Solutions – Scaled",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/9b2ea00e-f5ef-4542-b4cf-9f85a2930a1f"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "8a5a2dc0-adeb-40e3-a669-daa385dff393",
+		"title": "Client Partner, New Business - Ads Solutions",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/8a5a2dc0-adeb-40e3-a669-daa385dff393"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "a1f5372d-a912-479d-8d12-7fc22298083d",
+		"title": "Manager, Delivery Leads - San Francisco",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/a1f5372d-a912-479d-8d12-7fc22298083d"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "513e213c-2cb1-40d2-950d-3919ff5a68b5",
+		"title": "GTM Strategy & Operations, Sales Programs",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/513e213c-2cb1-40d2-950d-3919ff5a68b5",
+		"changes": {
+			"title": [
+				"GTM Strategy & Operations, Strategic Programs",
+				"GTM Strategy & Operations, Sales Programs"
+			]
+		}
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "145f2801-4c59-4e90-a847-32085d20511c",
+		"title": "Data Science Leader, B2B Marketing & Demand Generation",
+		"team": "Applied AI",
+		"url": "https://jobs.ashbyhq.com/openai/145f2801-4c59-4e90-a847-32085d20511c"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "72a513ec-d75c-48d5-9fa5-7eac3d7d12b2",
+		"title": "Risk & Fraud Analyst",
+		"team": "User Operations",
+		"url": "https://jobs.ashbyhq.com/openai/72a513ec-d75c-48d5-9fa5-7eac3d7d12b2"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "2d286e1b-1d57-4ef9-a121-4e781c5b3896",
+		"title": "Certification Assessment Specialist",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/2d286e1b-1d57-4ef9-a121-4e781c5b3896"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "3ee8aeab-aef0-44f7-918f-a0d6ca2fa928",
+		"title": "Technical Certification Lead",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/3ee8aeab-aef0-44f7-918f-a0d6ca2fa928"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "4311ea62-f628-4689-bec5-de886bb1f191",
+		"title": "Certification Operations and Policy Program Manager",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/4311ea62-f628-4689-bec5-de886bb1f191"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "3ae2f8d2-b687-493e-a963-e175fdbd17b9",
+		"title": "Brand Data Infrastructure Lead",
+		"team": "Marketing",
+		"url": "https://jobs.ashbyhq.com/openai/3ae2f8d2-b687-493e-a963-e175fdbd17b9"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "919b3666-14c2-4c70-b28c-7a49fedc418e",
+		"title": "Product Designer, Advertiser Experiences",
+		"team": "Product Design",
+		"url": "https://jobs.ashbyhq.com/openai/919b3666-14c2-4c70-b28c-7a49fedc418e"
+	},
+	{
+		"at": "2026-11-19T23:03:39.087Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "7ffa2a14-fa9c-46cb-a30a-1f7a35ae904a",
+		"title": "Product Manager, API Infrastructure",
+		"team": "Product Management",
+		"url": "https://jobs.ashbyhq.com/openai/7ffa2a14-fa9c-46cb-a30a-1f7a35ae904a",
+		"openDays": 0
+	},
+	{
+		"at": "2026-11-19T23:17:13.209Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "9878a31f-423b-43cc-b169-8bb7e55b8fc7",
+		"title": "Land and Data Center Development",
+		"team": "Scaling",
+		"url": "https://jobs.ashbyhq.com/openai/9878a31f-423b-43cc-b169-8bb7e55b8fc7",
+		"openDays": 0
+	}
+]
