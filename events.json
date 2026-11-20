@@ -473,5 +473,95 @@
 		"title": "B2B Partnerships Lead, Business Development",
 		"team": "Product Partnerships",
 		"url": "https://jobs.ashbyhq.com/openai/1566f1cb-dd46-4753-a8e3-7890c55882a3"
+	},
+	{
+		"at": "2026-11-20T17:00:12.904Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5485188008",
+		"title": "Research Engineer, Beneficial Deployments",
+		"team": "AI Research & Engineering",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5485188008"
+	},
+	{
+		"at": "2026-11-20T17:00:12.904Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5480875008",
+		"title": "Strategic Account Executive, Financial Services",
+		"team": "Sales",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5480875008"
+	},
+	{
+		"at": "2026-11-20T17:00:12.904Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5480893008",
+		"title": "Strategic Account Executive, HCLS",
+		"team": "Sales",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5480893008"
+	},
+	{
+		"at": "2026-11-20T17:00:12.904Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5098092008",
+		"title": "Software Engineering Manager, Network Security",
+		"team": "Security",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5098092008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T17:00:12.904Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "f6cada21-0f54-4d8a-884e-e3c64edd4789",
+		"title": "Data Scientist, Integrity",
+		"team": "Data Science",
+		"url": "https://jobs.ashbyhq.com/openai/f6cada21-0f54-4d8a-884e-e3c64edd4789"
+	},
+	{
+		"at": "2026-11-20T17:00:12.904Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "13ade8a3-701f-4449-85f7-62319ce0f3ec",
+		"title": "Protection Scientist Engineer, Integrity",
+		"team": "Applied AI",
+		"url": "https://jobs.ashbyhq.com/openai/13ade8a3-701f-4449-85f7-62319ce0f3ec"
+	},
+	{
+		"at": "2026-11-20T17:00:12.904Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "1566f1cb-dd46-4753-a8e3-7890c55882a3",
+		"title": "B2B Partnerships, Business Development",
+		"team": "Product Partnerships",
+		"url": "https://jobs.ashbyhq.com/openai/1566f1cb-dd46-4753-a8e3-7890c55882a3",
+		"changes": {
+			"title": [
+				"B2B Partnerships Lead, Business Development",
+				"B2B Partnerships, Business Development"
+			]
+		}
+	},
+	{
+		"at": "2026-11-20T17:00:12.904Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "ca7e4019-bf93-42fd-8f15-fac59c6e237c",
+		"title": "Applied AI Engineer, Codex",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/ca7e4019-bf93-42fd-8f15-fac59c6e237c",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T17:00:12.904Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "db31bc85-f5ea-4703-ab78-46fcd67ac3a1",
+		"title": "Motion Design Producer",
+		"team": "Marketing",
+		"url": "https://jobs.ashbyhq.com/openai/db31bc85-f5ea-4703-ab78-46fcd67ac3a1",
+		"openDays": 1
 	}
 ]
