@@ -1358,16 +1358,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5305631008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5310731008": {
-			"company": "anthropic",
-			"id": "5310731008",
-			"title": "Staff+ Software Engineer, Capacity Engineering",
-			"team": "Software Engineering - Infrastructure",
-			"location": "San Francisco, CA | New York City, NY | Seattle, WA",
-			"pay": "$320K – $485K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5310731008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5311149008": {
 			"company": "anthropic",
 			"id": "5311149008",
@@ -1881,7 +1871,7 @@
 		"anthropic/5389305008": {
 			"company": "anthropic",
 			"id": "5389305008",
-			"title": "Software Engineer, Education",
+			"title": "Senior Product Engineer, Education",
 			"team": "Technical Education",
 			"location": "San Francisco, CA",
 			"pay": "$320K – $405K",
@@ -1926,16 +1916,6 @@
 			"location": "San Francisco, CA | New York City, NY | Seattle, WA",
 			"pay": "$190K – $270K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5390952008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"anthropic/5390956008": {
-			"company": "anthropic",
-			"id": "5390956008",
-			"title": "GTM Strategy & Operations - AMER Enterprise Tech",
-			"team": "Sales",
-			"location": "San Francisco, CA | New York City, NY",
-			"pay": "$270K – $310K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5390956008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"anthropic/5390960008": {
@@ -2688,16 +2668,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5427893008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5427938008": {
-			"company": "anthropic",
-			"id": "5427938008",
-			"title": "GTM Strategy & Operations, FDE",
-			"team": "Sales",
-			"location": "San Francisco, CA | New York City, NY",
-			"pay": "$270K – $310K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5427938008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5428014008": {
 			"company": "anthropic",
 			"id": "5428014008",
@@ -3036,16 +3006,6 @@
 			"location": "San Francisco, CA | New York City, NY | Seattle, WA",
 			"pay": "$320K – $485K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5440477008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"anthropic/5440535008": {
-			"company": "anthropic",
-			"id": "5440535008",
-			"title": "Program Manager, Safeguards Policy, Enforcement, and Threat Intelligence",
-			"team": "Safeguards (Trust & Safety)",
-			"location": "San Francisco, CA",
-			"pay": "$285K – $330K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5440535008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"anthropic/5440636008": {
@@ -3546,16 +3506,6 @@
 			"location": "Boston, MA; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY; Washington, DC",
 			"pay": "$325K – $360K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5456018008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"anthropic/5456039008": {
-			"company": "anthropic",
-			"id": "5456039008",
-			"title": "Principal Engineer Capacity/Compute",
-			"team": "Software Engineering - Infrastructure",
-			"location": "San Francisco, CA",
-			"pay": "$320K – $485K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5456039008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"anthropic/5456315008": {
@@ -4225,16 +4175,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5475240008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5475321008": {
-			"company": "anthropic",
-			"id": "5475321008",
-			"title": "Brand Strategy Lead, Brand Architecture & Naming",
-			"team": "Marketing & Brand",
-			"location": "San Francisco, CA | New York City, NY",
-			"pay": "$255K – $320K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5475321008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5475830008": {
 			"company": "anthropic",
 			"id": "5475830008",
@@ -4455,16 +4395,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5482310008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5483359008": {
-			"company": "anthropic",
-			"id": "5483359008",
-			"title": "GTM Activations Strategy Lead",
-			"team": "Sales",
-			"location": "San Francisco, CA | New York City, NY",
-			"pay": "$190K – $270K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5483359008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5483403008": {
 			"company": "anthropic",
 			"id": "5483403008",
@@ -4515,6 +4445,16 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5485582008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
+		"anthropic/5485591008": {
+			"company": "anthropic",
+			"id": "5485591008",
+			"title": "GTM Strategy & Operations Business Partner",
+			"team": "Sales",
+			"location": "San Francisco, CA | New York City, NY | Washington, DC",
+			"pay": "$270K – $310K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5485591008",
+			"firstSeen": "2026-11-20T21:00:13.364Z"
+		},
 		"anthropic/5489564008": {
 			"company": "anthropic",
 			"id": "5489564008",
@@ -4528,12 +4468,42 @@
 		"anthropic/5490122008": {
 			"company": "anthropic",
 			"id": "5490122008",
-			"title": "[P] Engineering Manager, Privacy Infrastructure",
+			"title": "Engineering Manager, Privacy Infrastructure",
 			"team": "Software Engineering - Infrastructure",
 			"location": "San Francisco, CA | New York City, NY",
 			"pay": "$405K – $485K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490122008",
 			"firstSeen": "2026-11-20T09:12:56.597Z"
+		},
+		"anthropic/5490950008": {
+			"company": "anthropic",
+			"id": "5490950008",
+			"title": "Commercial Counsel, GTM Strategic Alliances",
+			"team": "Legal",
+			"location": "San Francisco, CA | New York City, NY | Seattle, WA",
+			"pay": "$335K – $385K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490950008",
+			"firstSeen": "2026-11-20T21:00:13.364Z"
+		},
+		"anthropic/5490974008": {
+			"company": "anthropic",
+			"id": "5490974008",
+			"title": "Principal Engineer Capacity/Compute",
+			"team": "Software Engineering - Infrastructure",
+			"location": "San Francisco, CA",
+			"pay": "$320K – $485K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490974008",
+			"firstSeen": "2026-11-20T21:00:13.364Z"
+		},
+		"anthropic/5490979008": {
+			"company": "anthropic",
+			"id": "5490979008",
+			"title": "Staff+ Software Engineer, Capacity Engineering",
+			"team": "Software Engineering - Infrastructure",
+			"location": "San Francisco, CA | New York City, NY | Seattle, WA",
+			"pay": "$320K – $485K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490979008",
+			"firstSeen": "2026-11-20T21:00:13.364Z"
 		},
 		"openai/00207abc-49b7-465c-a219-f7c1140f8047": {
 			"company": "openai",
@@ -4554,6 +4524,16 @@
 			"pay": "$251K – $278K",
 			"url": "https://jobs.ashbyhq.com/openai/01091aed-427d-4e10-8cdb-fb500cf55bb9",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/019170f9-ae56-49fc-8450-f505d39180bb": {
+			"company": "openai",
+			"id": "019170f9-ae56-49fc-8450-f505d39180bb",
+			"title": "Manager, Data Engineering, Trust & Safety",
+			"team": "XYZ - Exec",
+			"location": "San Francisco",
+			"pay": "$459K – $536K",
+			"url": "https://jobs.ashbyhq.com/openai/019170f9-ae56-49fc-8450-f505d39180bb",
+			"firstSeen": "2026-11-20T21:00:13.364Z"
 		},
 		"openai/01a6da0a-ae9c-43c2-8134-56109ea3d439": {
 			"company": "openai",
@@ -4601,7 +4581,7 @@
 			"title": "Robotics Test Engineer",
 			"team": "Robotics",
 			"location": "San Francisco",
-			"pay": "$225K – $318K",
+			"pay": "$287K – $381K",
 			"url": "https://jobs.ashbyhq.com/openai/0369bd4b-bfb1-4c36-90cb-4e3a24365150",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
@@ -4683,16 +4663,6 @@
 			"location": "San Francisco | New York City",
 			"pay": "$239K – $325K",
 			"url": "https://jobs.ashbyhq.com/openai/079ba35a-b4fa-42a3-92bb-dc31de99d9e3",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/07fb9365-8e80-48fe-86df-08d60dd46f43": {
-			"company": "openai",
-			"id": "07fb9365-8e80-48fe-86df-08d60dd46f43",
-			"title": "Account Director, Digital Native New Business",
-			"team": "Go To Market",
-			"location": "San Francisco | New York City | Seattle | US - Remote",
-			"pay": "$189K – $221K",
-			"url": "https://jobs.ashbyhq.com/openai/07fb9365-8e80-48fe-86df-08d60dd46f43",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/082f4d82-499f-4150-892f-0b0d1105fffe": {
@@ -5173,16 +5143,6 @@
 			"location": "San Francisco",
 			"pay": "$230K – $385K",
 			"url": "https://jobs.ashbyhq.com/openai/1c48f39f-60ea-4636-87ed-8b4b4f5243e5",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/1c516e9f-c97d-4a40-8529-9871dac615a5": {
-			"company": "openai",
-			"id": "1c516e9f-c97d-4a40-8529-9871dac615a5",
-			"title": "Research Engineer / Research Scientist- Post Training",
-			"team": "Research",
-			"location": "San Francisco",
-			"pay": "$380K – $500K",
-			"url": "https://jobs.ashbyhq.com/openai/1c516e9f-c97d-4a40-8529-9871dac615a5",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/1d386acc-5fe0-44ed-b288-a6b1b891c9a8": {
@@ -5688,7 +5648,7 @@
 		"openai/2d1901e0-e5ad-4c2e-88f8-dd9d21257f62": {
 			"company": "openai",
 			"id": "2d1901e0-e5ad-4c2e-88f8-dd9d21257f62",
-			"title": "Data Engineering Manager, Devices",
+			"title": "Data Engineering Manager, IO/Devices",
 			"team": "XYZ - Exec",
 			"location": "San Francisco",
 			"pay": "$459K – $536K",
@@ -5905,16 +5865,6 @@
 			"url": "https://jobs.ashbyhq.com/openai/35e6355f-52fd-405e-b5b6-98b275666d39",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"openai/35f99494-1700-4b81-9363-aaead13ea477": {
-			"company": "openai",
-			"id": "35f99494-1700-4b81-9363-aaead13ea477",
-			"title": "Counsel, Commercial",
-			"team": "Legal",
-			"location": "San Francisco",
-			"pay": "$252K – $280K",
-			"url": "https://jobs.ashbyhq.com/openai/35f99494-1700-4b81-9363-aaead13ea477",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"openai/3813977e-5940-456d-bf5a-16efcdc3a6dc": {
 			"company": "openai",
 			"id": "3813977e-5940-456d-bf5a-16efcdc3a6dc",
@@ -5944,6 +5894,16 @@
 			"pay": "$230K – $385K",
 			"url": "https://jobs.ashbyhq.com/openai/3874db80-f3ec-4dd1-8d56-6441e8f7299d",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/38b069ad-857c-485e-b201-3bd7c0b91da4": {
+			"company": "openai",
+			"id": "38b069ad-857c-485e-b201-3bd7c0b91da4",
+			"title": "Model Policy Manager, Emerging AI Misuse",
+			"team": "Research",
+			"location": "San Francisco",
+			"pay": "$207K – $335K",
+			"url": "https://jobs.ashbyhq.com/openai/38b069ad-857c-485e-b201-3bd7c0b91da4",
+			"firstSeen": "2026-11-20T21:00:13.364Z"
 		},
 		"openai/38ddaa2c-a490-427a-8457-0e92bf00138c": {
 			"company": "openai",
@@ -6268,7 +6228,7 @@
 		"openai/4acc3515-887f-4bc9-8c2a-00f36ae480c3": {
 			"company": "openai",
 			"id": "4acc3515-887f-4bc9-8c2a-00f36ae480c3",
-			"title": "Agent Post-Training Research",
+			"title": "Research Engineer/Research Scientist-Post Training",
 			"team": "Research",
 			"location": "San Francisco",
 			"pay": "$380K – $500K",
@@ -7038,7 +6998,7 @@
 		"openai/681d205f-5b03-4d4d-a024-5ae7815bfde5": {
 			"company": "openai",
 			"id": "681d205f-5b03-4d4d-a024-5ae7815bfde5",
-			"title": "Project Manager, Compute Transformation",
+			"title": "Project Manager, Infrastructure Transformation",
 			"team": "Finance",
 			"location": "San Francisco",
 			"pay": "$278K – $308K",
@@ -7174,6 +7134,16 @@
 			"pay": "$295K – $536K",
 			"url": "https://jobs.ashbyhq.com/openai/70aaaafa-fe2f-4409-9a72-c0faf50d7d01",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/70cfa7de-bf97-41e3-9784-8e123439a1d8": {
+			"company": "openai",
+			"id": "70cfa7de-bf97-41e3-9784-8e123439a1d8",
+			"title": "Engineering Manager, Robotics Embedded Systems",
+			"team": "Robotics",
+			"location": "San Francisco",
+			"pay": "$385K – $445K",
+			"url": "https://jobs.ashbyhq.com/openai/70cfa7de-bf97-41e3-9784-8e123439a1d8",
+			"firstSeen": "2026-11-20T21:00:13.364Z"
 		},
 		"openai/71004494-9a55-4ed5-b458-2ff475f0d881": {
 			"company": "openai",
@@ -7685,6 +7655,16 @@
 			"url": "https://jobs.ashbyhq.com/openai/88e65467-7e19-4164-a1de-1d49d3f2dd52",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
+		"openai/894ba35c-c6b6-4cf0-9451-f996aa695e49": {
+			"company": "openai",
+			"id": "894ba35c-c6b6-4cf0-9451-f996aa695e49",
+			"title": "Product Marketing Manager, SMB, Verticals & Partner Ecosystem",
+			"team": "Marketing",
+			"location": "San Francisco",
+			"pay": "$225K – $252K",
+			"url": "https://jobs.ashbyhq.com/openai/894ba35c-c6b6-4cf0-9451-f996aa695e49",
+			"firstSeen": "2026-11-20T21:00:13.364Z"
+		},
 		"openai/8960d7b6-b345-478f-a5ad-67beaa32f425": {
 			"company": "openai",
 			"id": "8960d7b6-b345-478f-a5ad-67beaa32f425",
@@ -8005,16 +7985,6 @@
 			"url": "https://jobs.ashbyhq.com/openai/95d078d9-fd33-494c-8ba0-22fbb8b193ad",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"openai/961d2951-ff59-494f-971e-fe25414c234c": {
-			"company": "openai",
-			"id": "961d2951-ff59-494f-971e-fe25414c234c",
-			"title": "Head of Data Science, Strategic Finance",
-			"team": "XYZ - Exec",
-			"location": "San Francisco",
-			"pay": "$459K – $536K",
-			"url": "https://jobs.ashbyhq.com/openai/961d2951-ff59-494f-971e-fe25414c234c",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"openai/9635775d-18fa-47bb-9ede-9a4137618de0": {
 			"company": "openai",
 			"id": "9635775d-18fa-47bb-9ede-9a4137618de0",
@@ -8054,6 +8024,16 @@
 			"pay": "$333K – $370K",
 			"url": "https://jobs.ashbyhq.com/openai/96f3c3a6-9951-4db7-8125-8c0f16e8af62",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/970e547c-5eda-4ab3-8a4d-c080a18eb4ac": {
+			"company": "openai",
+			"id": "970e547c-5eda-4ab3-8a4d-c080a18eb4ac",
+			"title": "GTM Operations & Agentic Workflows",
+			"team": "Go To Market",
+			"location": "San Francisco",
+			"pay": "$239K – $265K",
+			"url": "https://jobs.ashbyhq.com/openai/970e547c-5eda-4ab3-8a4d-c080a18eb4ac",
+			"firstSeen": "2026-11-20T21:00:13.364Z"
 		},
 		"openai/9747412d-a23d-48ba-bddd-ad1247c360f5": {
 			"company": "openai",
@@ -8585,16 +8565,6 @@
 			"url": "https://jobs.ashbyhq.com/openai/ac442f1f-c0d2-4608-a155-bfc89190e01c",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"openai/acbf80cd-20a7-47fe-aaf9-3e9224d1570c": {
-			"company": "openai",
-			"id": "acbf80cd-20a7-47fe-aaf9-3e9224d1570c",
-			"title": "Data Engineering Manager, Growth & Revenue",
-			"team": "XYZ - Exec",
-			"location": "San Francisco",
-			"pay": "$459K – $536K",
-			"url": "https://jobs.ashbyhq.com/openai/acbf80cd-20a7-47fe-aaf9-3e9224d1570c",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"openai/ace42c6d-8663-4b30-9337-ec70cf071d73": {
 			"company": "openai",
 			"id": "ace42c6d-8663-4b30-9337-ec70cf071d73",
@@ -8748,7 +8718,7 @@
 		"openai/b82699a2-5819-4276-a402-fd88f56f9246": {
 			"company": "openai",
 			"id": "b82699a2-5819-4276-a402-fd88f56f9246",
-			"title": "Data Scientist, Cloud Distribution & Growth",
+			"title": "Lead Data Scientist, Cloud Distribution & Growth",
 			"team": "Data Science",
 			"location": "San Francisco | Seattle",
 			"pay": "$347K – $445K",
@@ -9590,7 +9560,7 @@
 			"title": "Growth Product Marketing Manager, SMB & B2B Self-Serve",
 			"team": "Marketing",
 			"location": "San Francisco",
-			"pay": "$225K – $250K",
+			"pay": "$225K – $252K",
 			"url": "https://jobs.ashbyhq.com/openai/db94a680-af5e-49e9-923c-149bc2c81879",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
@@ -9813,6 +9783,16 @@
 			"pay": "$226K – $445K",
 			"url": "https://jobs.ashbyhq.com/openai/e4ef18a1-f2f7-4920-a53c-aeadd184d124",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/e586578c-2489-4214-92c4-d9639339fe59": {
+			"company": "openai",
+			"id": "e586578c-2489-4214-92c4-d9639339fe59",
+			"title": "Account Director, Mid-Market Enterprise",
+			"team": "Go To Market",
+			"location": "San Francisco",
+			"pay": "$365K – $365K",
+			"url": "https://jobs.ashbyhq.com/openai/e586578c-2489-4214-92c4-d9639339fe59",
+			"firstSeen": "2026-11-20T21:00:13.364Z"
 		},
 		"openai/e6981259-c1d0-46de-8376-56bde28cfb10": {
 			"company": "openai",

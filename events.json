@@ -563,5 +563,335 @@
 		"team": "Marketing",
 		"url": "https://jobs.ashbyhq.com/openai/db31bc85-f5ea-4703-ab78-46fcd67ac3a1",
 		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5490950008",
+		"title": "Commercial Counsel, GTM Strategic Alliances",
+		"team": "Legal",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490950008"
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "changed",
+		"company": "anthropic",
+		"id": "5490122008",
+		"title": "Engineering Manager, Privacy Infrastructure",
+		"team": "Software Engineering - Infrastructure",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490122008",
+		"changes": {
+			"title": [
+				"[P] Engineering Manager, Privacy Infrastructure",
+				"Engineering Manager, Privacy Infrastructure"
+			]
+		}
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5485591008",
+		"title": "GTM Strategy & Operations Business Partner",
+		"team": "Sales",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5485591008"
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5490974008",
+		"title": "Principal Engineer Capacity/Compute",
+		"team": "Software Engineering - Infrastructure",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490974008"
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "changed",
+		"company": "anthropic",
+		"id": "5389305008",
+		"title": "Senior Product Engineer, Education",
+		"team": "Technical Education",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5389305008",
+		"changes": {
+			"title": [
+				"Software Engineer, Education",
+				"Senior Product Engineer, Education"
+			]
+		}
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5490979008",
+		"title": "Staff+ Software Engineer, Capacity Engineering",
+		"team": "Software Engineering - Infrastructure",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490979008"
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5310731008",
+		"title": "Staff+ Software Engineer, Capacity Engineering",
+		"team": "Software Engineering - Infrastructure",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5310731008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5390956008",
+		"title": "GTM Strategy & Operations - AMER Enterprise Tech",
+		"team": "Sales",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5390956008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5427938008",
+		"title": "GTM Strategy & Operations, FDE",
+		"team": "Sales",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5427938008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5440535008",
+		"title": "Program Manager, Safeguards Policy, Enforcement, and Threat Intelligence",
+		"team": "Safeguards (Trust & Safety)",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5440535008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5456039008",
+		"title": "Principal Engineer Capacity/Compute",
+		"team": "Software Engineering - Infrastructure",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5456039008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5475321008",
+		"title": "Brand Strategy Lead, Brand Architecture & Naming",
+		"team": "Marketing & Brand",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5475321008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5483359008",
+		"title": "GTM Activations Strategy Lead",
+		"team": "Sales",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5483359008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "2d1901e0-e5ad-4c2e-88f8-dd9d21257f62",
+		"title": "Data Engineering Manager, IO/Devices",
+		"team": "XYZ - Exec",
+		"url": "https://jobs.ashbyhq.com/openai/2d1901e0-e5ad-4c2e-88f8-dd9d21257f62",
+		"changes": {
+			"title": [
+				"Data Engineering Manager, Devices",
+				"Data Engineering Manager, IO/Devices"
+			]
+		}
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "019170f9-ae56-49fc-8450-f505d39180bb",
+		"title": "Manager, Data Engineering, Trust & Safety",
+		"team": "XYZ - Exec",
+		"url": "https://jobs.ashbyhq.com/openai/019170f9-ae56-49fc-8450-f505d39180bb"
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "4acc3515-887f-4bc9-8c2a-00f36ae480c3",
+		"title": "Research Engineer/Research Scientist-Post Training",
+		"team": "Research",
+		"url": "https://jobs.ashbyhq.com/openai/4acc3515-887f-4bc9-8c2a-00f36ae480c3",
+		"changes": {
+			"title": [
+				"Agent Post-Training Research",
+				"Research Engineer/Research Scientist-Post Training"
+			]
+		}
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "894ba35c-c6b6-4cf0-9451-f996aa695e49",
+		"title": "Product Marketing Manager, SMB, Verticals & Partner Ecosystem",
+		"team": "Marketing",
+		"url": "https://jobs.ashbyhq.com/openai/894ba35c-c6b6-4cf0-9451-f996aa695e49"
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "0369bd4b-bfb1-4c36-90cb-4e3a24365150",
+		"title": "Robotics Test Engineer",
+		"team": "Robotics",
+		"url": "https://jobs.ashbyhq.com/openai/0369bd4b-bfb1-4c36-90cb-4e3a24365150",
+		"changes": {
+			"pay": [
+				"$225K – $318K",
+				"$287K – $381K"
+			]
+		}
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "b82699a2-5819-4276-a402-fd88f56f9246",
+		"title": "Lead Data Scientist, Cloud Distribution & Growth",
+		"team": "Data Science",
+		"url": "https://jobs.ashbyhq.com/openai/b82699a2-5819-4276-a402-fd88f56f9246",
+		"changes": {
+			"title": [
+				"Data Scientist, Cloud Distribution & Growth",
+				"Lead Data Scientist, Cloud Distribution & Growth"
+			]
+		}
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "db94a680-af5e-49e9-923c-149bc2c81879",
+		"title": "Growth Product Marketing Manager, SMB & B2B Self-Serve",
+		"team": "Marketing",
+		"url": "https://jobs.ashbyhq.com/openai/db94a680-af5e-49e9-923c-149bc2c81879",
+		"changes": {
+			"pay": [
+				"$225K – $250K",
+				"$225K – $252K"
+			]
+		}
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "e586578c-2489-4214-92c4-d9639339fe59",
+		"title": "Account Director, Mid-Market Enterprise",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/e586578c-2489-4214-92c4-d9639339fe59"
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "681d205f-5b03-4d4d-a024-5ae7815bfde5",
+		"title": "Project Manager, Infrastructure Transformation",
+		"team": "Finance",
+		"url": "https://jobs.ashbyhq.com/openai/681d205f-5b03-4d4d-a024-5ae7815bfde5",
+		"changes": {
+			"title": [
+				"Project Manager, Compute Transformation",
+				"Project Manager, Infrastructure Transformation"
+			]
+		}
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "38b069ad-857c-485e-b201-3bd7c0b91da4",
+		"title": "Model Policy Manager, Emerging AI Misuse",
+		"team": "Research",
+		"url": "https://jobs.ashbyhq.com/openai/38b069ad-857c-485e-b201-3bd7c0b91da4"
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "970e547c-5eda-4ab3-8a4d-c080a18eb4ac",
+		"title": "GTM Operations & Agentic Workflows",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/970e547c-5eda-4ab3-8a4d-c080a18eb4ac"
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "70cfa7de-bf97-41e3-9784-8e123439a1d8",
+		"title": "Engineering Manager, Robotics Embedded Systems",
+		"team": "Robotics",
+		"url": "https://jobs.ashbyhq.com/openai/70cfa7de-bf97-41e3-9784-8e123439a1d8"
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "07fb9365-8e80-48fe-86df-08d60dd46f43",
+		"title": "Account Director, Digital Native New Business",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/07fb9365-8e80-48fe-86df-08d60dd46f43",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "1c516e9f-c97d-4a40-8529-9871dac615a5",
+		"title": "Research Engineer / Research Scientist- Post Training",
+		"team": "Research",
+		"url": "https://jobs.ashbyhq.com/openai/1c516e9f-c97d-4a40-8529-9871dac615a5",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "35f99494-1700-4b81-9363-aaead13ea477",
+		"title": "Counsel, Commercial",
+		"team": "Legal",
+		"url": "https://jobs.ashbyhq.com/openai/35f99494-1700-4b81-9363-aaead13ea477",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "961d2951-ff59-494f-971e-fe25414c234c",
+		"title": "Head of Data Science, Strategic Finance",
+		"team": "XYZ - Exec",
+		"url": "https://jobs.ashbyhq.com/openai/961d2951-ff59-494f-971e-fe25414c234c",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T21:00:13.364Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "acbf80cd-20a7-47fe-aaf9-3e9224d1570c",
+		"title": "Data Engineering Manager, Growth & Revenue",
+		"team": "XYZ - Exec",
+		"url": "https://jobs.ashbyhq.com/openai/acbf80cd-20a7-47fe-aaf9-3e9224d1570c",
+		"openDays": 1
 	}
 ]
