@@ -1338,16 +1338,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5301958008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5305476008": {
-			"company": "anthropic",
-			"id": "5305476008",
-			"title": "Threat Intel Manager, Model Exploitation & Fraud",
-			"team": "Safeguards (Trust & Safety)",
-			"location": "San Francisco, CA",
-			"pay": "$375K – $455K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5305476008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5305631008": {
 			"company": "anthropic",
 			"id": "5305631008",
@@ -1366,16 +1356,6 @@
 			"location": "San Francisco, CA | New York City, NY | Washington, DC",
 			"pay": "$285K – $330K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5311149008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"anthropic/5311463008": {
-			"company": "anthropic",
-			"id": "5311463008",
-			"title": "Staff+ Application Security Engineer  - M&A",
-			"team": "Security",
-			"location": "Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
-			"pay": "$320K – $485K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5311463008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"anthropic/5311465008": {
@@ -1556,16 +1536,6 @@
 			"location": "San Francisco, CA",
 			"pay": "$325K – $425K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5358110008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"anthropic/5358122008": {
-			"company": "anthropic",
-			"id": "5358122008",
-			"title": "Tax Director, Provision & Compliance",
-			"team": "Finance",
-			"location": "San Francisco, CA | New York City, NY | Seattle, WA",
-			"pay": "$230K – $300K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5358122008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"anthropic/5358138008": {
@@ -2416,16 +2386,6 @@
 			"location": "San Francisco, CA | New York City, NY",
 			"pay": "$385K – $460K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5415822008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"anthropic/5415864008": {
-			"company": "anthropic",
-			"id": "5415864008",
-			"title": "Head of Security Controls Assurance - SOX",
-			"team": "Security",
-			"location": "San Francisco, CA | Seattle, WA | New York City, NY | Washington, DC",
-			"pay": "$410K – $510K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5415864008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"anthropic/5416020008": {
@@ -4701,7 +4661,7 @@
 			"title": "Strategic Finance Lead, OpenAI for Inference",
 			"team": "Strategic Finance",
 			"location": "San Francisco",
-			"pay": "$293K – $325K",
+			"pay": "$234K – $260K",
 			"url": "https://jobs.ashbyhq.com/openai/096be63b-69cf-4295-9d29-d2e740058ea4",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
@@ -9494,16 +9454,6 @@
 			"url": "https://jobs.ashbyhq.com/openai/d8b894e3-c399-4303-a708-3cef8ff5c1a2",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"openai/d97380fa-d935-43ec-ad4f-6a7f810b21f2": {
-			"company": "openai",
-			"id": "d97380fa-d935-43ec-ad4f-6a7f810b21f2",
-			"title": "Hardware Systems Planning Lead (1P)",
-			"team": "Scaling",
-			"location": "San Francisco",
-			"pay": "$257K – $344K",
-			"url": "https://jobs.ashbyhq.com/openai/d97380fa-d935-43ec-ad4f-6a7f810b21f2",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"openai/d990222d-ecf1-417f-a248-6e962b5a18e0": {
 			"company": "openai",
 			"id": "d990222d-ecf1-417f-a248-6e962b5a18e0",
@@ -9924,6 +9874,16 @@
 			"url": "https://jobs.ashbyhq.com/openai/ebc65e7d-d86a-4066-aa82-3a7758d97bb6",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
+		"openai/ebe31cd6-0b6a-4214-b3c1-7dd7074753d6": {
+			"company": "openai",
+			"id": "ebe31cd6-0b6a-4214-b3c1-7dd7074753d6",
+			"title": "Mechanical Design Engineer, Battery Pack",
+			"team": "Robotics",
+			"location": "San Francisco",
+			"pay": "$287K – $423K",
+			"url": "https://jobs.ashbyhq.com/openai/ebe31cd6-0b6a-4214-b3c1-7dd7074753d6",
+			"firstSeen": "2026-11-20T23:21:46.484Z"
+		},
 		"openai/ec317080-e2d2-4a73-93e6-e0a9ae6fdf96": {
 			"company": "openai",
 			"id": "ec317080-e2d2-4a73-93e6-e0a9ae6fdf96",
@@ -10084,6 +10044,16 @@
 			"url": "https://jobs.ashbyhq.com/openai/f23e6564-d8a4-403c-87ac-5c77c810bf3d",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
+		"openai/f26bd8f0-5440-46bd-b6c0-8b7465f8e6dc": {
+			"company": "openai",
+			"id": "f26bd8f0-5440-46bd-b6c0-8b7465f8e6dc",
+			"title": "Treasury, Trade Finance & Cash Flow Forecasting",
+			"team": "Finance",
+			"location": "San Francisco | New York City | Seattle",
+			"pay": "$216K – $240K",
+			"url": "https://jobs.ashbyhq.com/openai/f26bd8f0-5440-46bd-b6c0-8b7465f8e6dc",
+			"firstSeen": "2026-11-20T23:21:46.484Z"
+		},
 		"openai/f2d8ed04-3c2f-4298-832b-dda7e1644c1b": {
 			"company": "openai",
 			"id": "f2d8ed04-3c2f-4298-832b-dda7e1644c1b",
@@ -10102,16 +10072,6 @@
 			"location": "San Francisco",
 			"pay": "$325K – $405K",
 			"url": "https://jobs.ashbyhq.com/openai/f363932f-2820-4056-9786-14cb697f4a93",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/f386b209-1259-4b79-bf5a-aa97fc7ce77b": {
-			"company": "openai",
-			"id": "f386b209-1259-4b79-bf5a-aa97fc7ce77b",
-			"title": "Software Engineer, Accelerators",
-			"team": "Scaling",
-			"location": "San Francisco",
-			"pay": "$295K – $380K",
-			"url": "https://jobs.ashbyhq.com/openai/f386b209-1259-4b79-bf5a-aa97fc7ce77b",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/f3ddd41c-541f-485e-90d6-86c26e018e9f": {
