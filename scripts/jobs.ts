@@ -1,14 +1,14 @@
 /**
- * The Jobs desk's hourly capture (`bun run jobs`, run by
+ * The Jobs desk's capture (`bun run jobs`, run by
  * .github/workflows/jobs.yml): reads each company's public job board, keeps
  * its San Francisco roles, compares them with the last capture, and writes
  * the changes to src/data/jobs/. A file is only rewritten when something in
- * it changed, so an hour with no news makes no commit.
+ * it changed, so a capture with no news makes no commit.
  *
  * - The first capture of a company is a starting point: its roles are
  *   recorded, none is news.
  * - A board that can't be read, or that suddenly lists far fewer roles than
- *   last time, is skipped this hour rather than read as mass closures.
+ *   last time, is skipped this time rather than read as mass closures.
  * - Changes are kept KEEP_DAYS; a month that has ended is summed up into
  *   months.json, which keeps it for good.
  * - With CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_AI_TOKEN and JOBS_MODEL set, a
@@ -64,11 +64,11 @@ for (const company of COMPANIES) {
 	try {
 		captured = await fetchRoles(company, now);
 	} catch (err) {
-		console.warn(`${company.name}: skipped this hour (${(err as Error).message})`);
+		console.warn(`${company.name}: skipped this time (${(err as Error).message})`);
 		continue;
 	}
 	if (previous >= 20 && captured.length < previous * 0.5) {
-		console.warn(`${company.name}: skipped this hour (${captured.length} roles, down from ${previous}; likely a feed glitch)`);
+		console.warn(`${company.name}: skipped this time (${captured.length} roles, down from ${previous}; likely a feed glitch)`);
 		continue;
 	}
 	const result = compare(data.state, company.id, captured, now);

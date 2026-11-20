@@ -40,7 +40,7 @@ const meta = (e: JobEvent) => [companyName(e.company), team ? undefined : e.team
 	<p>Jobs</p>
 	<h1>{title}</h1>
 	<p>
-		What {team ? `the ${teamName} teams at` : ""} {companyList()} are hiring for in the city, checked every hour. A role shows up here when it opens, changes or closes, and leaves after {QUIET_DAYS} days with no change. Each month stays as a one-line summary. For every open role, see the companies' own careers pages:{" "}
+		What {team ? `the ${teamName} teams at` : ""} {companyList()} are hiring for in the city, checked three times each weekday. A role shows up here when it opens, changes or closes, and leaves after {QUIET_DAYS} days with no change. Each month stays as a one-line summary. For every open role, see the companies' own careers pages:{" "}
 		{COMPANIES.map((c, i) => (
 			<>
 				{i > 0 && (i === COMPANIES.length - 1 ? " and " : ", ")}

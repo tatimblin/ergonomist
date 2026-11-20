@@ -1,21 +1,41 @@
 name: Jobs capture
 
-# The Jobs desk (src/jobs/, scripts/jobs.ts): every hour, reads the AI labs'
-# public job boards (COMPANIES in src/jobs/jobs.ts) and commits any change to src/data/jobs/.
+# The Jobs desk (src/jobs/, scripts/jobs.ts): three times each weekday, at the
+# start, middle and end of the San Francisco work day (9 a.m., 1 p.m. and 5
+# p.m. Pacific), reads the AI labs' public job boards (COMPANIES in
+# src/jobs/jobs.ts) and commits any change to the jobs-data branch, which holds
+# only src/data/jobs/'s files, so main's history stays free of captures
+# (scripts/jobs-data.ts puts them back for a build). A capture with no change
+# commits nothing.
+#
+# The clock is the homelab (roles/gh-cron in the homelab repo), which
+# dispatches this workflow, and dispatches "Check and deploy" just after
+# midnight Pacific so "Today" turns over: GitHub's own `schedule:` is
+# best-effort and ran an hourly version of this once in 17 hours. The schedule
+# below is only a fallback for when the homelab is down, 47 minutes after each
+# capture in Pacific Standard Time (UTC has no DST, so it drifts an hour in
+# summer); the concurrency group serializes the two, and the second finds no
+# change.
+#
 # A commit made here with the workflow's own token doesn't start other
-# workflows, so this one asks "Check and deploy" to run when it commits, and
-# once a day after midnight Pacific even without a change, so "Today" turns
-# over.
+# workflows, so this one asks "Check and deploy" to run when it commits.
 #
 # Optional, for the one-line themes written by a Workers AI model (otherwise
 # they come from the counts): the repository variable JOBS_MODEL, the model's
 # ID. The call reuses the deploy's CLOUDFLARE_ACCOUNT_ID and
 # CLOUDFLARE_API_TOKEN, so that token needs Workers AI access; without it the
 # capture logs a warning and keeps the lines from the counts.
+
 on:
   schedule:
-    - cron: "17 * * * *"
+    - cron: "47 17,21 * * 1-5"
+    - cron: "47 1 * * 2-6"
   workflow_dispatch:
+    inputs:
+      deploy:
+        description: Deploy even if nothing changed
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -37,36 +57,44 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
+      # The last capture, from the jobs-data branch.
+      - run: bun run jobs:data
+
       - run: bun run jobs
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_AI_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           JOBS_MODEL: ${{ vars.JOBS_MODEL }}
 
+      # Into a worktree of jobs-data, so main's checkout is untouched. The
+      # concurrency group makes this the branch's only writer.
       - name: Commit changes
         id: commit
         run: |
+          git fetch --quiet --depth=1 origin jobs-data
+          git worktree add --quiet --detach "$RUNNER_TEMP/jobs-data" FETCH_HEAD
+          cp src/data/jobs/*.json "$RUNNER_TEMP/jobs-data/"
+          cd "$RUNNER_TEMP/jobs-data"
           git config user.name "Ergonomist Jobs"
           git config user.email "jobs@users.noreply.github.com"
-          git add src/data/jobs
+          git add -A
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            git commit -m "Jobs: capture $(date -u +%Y-%m-%dT%H:%MZ)"
-            git pull --rebase origin main
-            git push origin HEAD:main
+            git commit --quiet -m "Jobs: capture $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push --quiet origin HEAD:jobs-data
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      # Rebuild the page when something changed, when run by hand, and on the
-      # first run after midnight Pacific even without a change.
+      # Rebuild the page when something changed, or when asked to (the
+      # `deploy` input). A plain dispatch, like the homelab's, doesn't deploy.
       - name: Deploy
         env:
           GH_TOKEN: ${{ github.token }}
           CHANGED: ${{ steps.commit.outputs.changed }}
-          EVENT: ${{ github.event_name }}
+          FORCE: ${{ inputs.deploy }}
         run: |
-          if [ "$CHANGED" = "true" ] || [ "$EVENT" = "workflow_dispatch" ] || [ "$(TZ=America/Los_Angeles date +%H)" = "00" ]; then
+          if [ "$CHANGED" = "true" ] || [ "$FORCE" = "true" ]; then
             gh workflow run deploy.yml --ref main
           else
             echo "No change; not deploying."
