@@ -407,5 +407,71 @@
 				"XYZ - Exec"
 			]
 		}
+	},
+	{
+		"at": "2026-11-20T09:12:56.597Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5489564008",
+		"title": "Corporate Network Engineer",
+		"team": "Security",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5489564008"
+	},
+	{
+		"at": "2026-11-20T09:12:56.597Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5490122008",
+		"title": "[P] Engineering Manager, Privacy Infrastructure",
+		"team": "Software Engineering - Infrastructure",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490122008"
+	},
+	{
+		"at": "2026-11-20T09:12:56.597Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5410006008",
+		"title": "Safeguards Enforcement Analyst, Conventional Weapons",
+		"team": "Safeguards (Trust & Safety)",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5410006008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T09:12:56.597Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5453573008",
+		"title": "Policy Design Manager, Integrity and Authenticity",
+		"team": "Safeguards (Trust & Safety)",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5453573008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T09:12:56.597Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5481671008",
+		"title": "GTM Narrative Lead",
+		"team": "Marketing & Brand",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5481671008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-20T09:12:56.597Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "43d75302-2eef-46b6-b991-611e705f9fb1",
+		"title": "Product Manager, Native Learning and Credentials",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/43d75302-2eef-46b6-b991-611e705f9fb1"
+	},
+	{
+		"at": "2026-11-20T09:12:56.597Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "1566f1cb-dd46-4753-a8e3-7890c55882a3",
+		"title": "B2B Partnerships Lead, Business Development",
+		"team": "Product Partnerships",
+		"url": "https://jobs.ashbyhq.com/openai/1566f1cb-dd46-4753-a8e3-7890c55882a3"
 	}
 ]

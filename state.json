@@ -2338,16 +2338,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5410004008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5410006008": {
-			"company": "anthropic",
-			"id": "5410006008",
-			"title": "Safeguards Enforcement Analyst, Conventional Weapons",
-			"team": "Safeguards (Trust & Safety)",
-			"location": "San Francisco, CA | New York City, NY | Washington, DC",
-			"pay": "$245K – $285K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5410006008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5411267008": {
 			"company": "anthropic",
 			"id": "5411267008",
@@ -3458,16 +3448,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5453569008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5453573008": {
-			"company": "anthropic",
-			"id": "5453573008",
-			"title": "Policy Design Manager, Integrity and Authenticity",
-			"team": "Safeguards (Trust & Safety)",
-			"location": "San Francisco, CA | New York City, NY | Washington, DC",
-			"pay": "$245K – $285K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5453573008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5454142008": {
 			"company": "anthropic",
 			"id": "5454142008",
@@ -4425,16 +4405,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5481096008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5481671008": {
-			"company": "anthropic",
-			"id": "5481671008",
-			"title": "GTM Narrative Lead",
-			"team": "Marketing & Brand",
-			"location": "San Francisco, CA | New York City, NY",
-			"pay": "$400K – $570K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5481671008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5481842008": {
 			"company": "anthropic",
 			"id": "5481842008",
@@ -4524,6 +4494,26 @@
 			"pay": "$290K – $320K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5485582008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"anthropic/5489564008": {
+			"company": "anthropic",
+			"id": "5489564008",
+			"title": "Corporate Network Engineer",
+			"team": "Security",
+			"location": "Remote-Friendly (Travel Required) | San Francisco, CA",
+			"pay": "$325K – $360K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5489564008",
+			"firstSeen": "2026-11-20T09:12:56.597Z"
+		},
+		"anthropic/5490122008": {
+			"company": "anthropic",
+			"id": "5490122008",
+			"title": "[P] Engineering Manager, Privacy Infrastructure",
+			"team": "Software Engineering - Infrastructure",
+			"location": "San Francisco, CA | New York City, NY",
+			"pay": "$405K – $485K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490122008",
+			"firstSeen": "2026-11-20T09:12:56.597Z"
 		},
 		"openai/00207abc-49b7-465c-a219-f7c1140f8047": {
 			"company": "openai",
@@ -4994,6 +4984,16 @@
 			"pay": "$459K – $536K",
 			"url": "https://jobs.ashbyhq.com/openai/145f2801-4c59-4e90-a847-32085d20511c",
 			"firstSeen": "2026-11-19T23:03:39.087Z"
+		},
+		"openai/1566f1cb-dd46-4753-a8e3-7890c55882a3": {
+			"company": "openai",
+			"id": "1566f1cb-dd46-4753-a8e3-7890c55882a3",
+			"title": "B2B Partnerships Lead, Business Development",
+			"team": "Product Partnerships",
+			"location": "San Francisco | New York City",
+			"pay": "$221K – $295K",
+			"url": "https://jobs.ashbyhq.com/openai/1566f1cb-dd46-4753-a8e3-7890c55882a3",
+			"firstSeen": "2026-11-20T09:12:56.597Z"
 		},
 		"openai/167e2ee5-7280-4153-9490-5e7a8372e1dc": {
 			"company": "openai",
@@ -6134,6 +6134,16 @@
 			"pay": "$207K – $230K",
 			"url": "https://jobs.ashbyhq.com/openai/4311ea62-f628-4689-bec5-de886bb1f191",
 			"firstSeen": "2026-11-19T23:03:39.087Z"
+		},
+		"openai/43d75302-2eef-46b6-b991-611e705f9fb1": {
+			"company": "openai",
+			"id": "43d75302-2eef-46b6-b991-611e705f9fb1",
+			"title": "Product Manager, Native Learning and Credentials",
+			"team": "Go To Market",
+			"location": "San Francisco",
+			"pay": "$347K – $445K",
+			"url": "https://jobs.ashbyhq.com/openai/43d75302-2eef-46b6-b991-611e705f9fb1",
+			"firstSeen": "2026-11-20T09:12:56.597Z"
 		},
 		"openai/4444d839-3f58-4369-a241-985acbbbf2f9": {
 			"company": "openai",
