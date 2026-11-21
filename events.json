@@ -986,5 +986,114 @@
 		"team": "Scaling",
 		"url": "https://jobs.ashbyhq.com/openai/f386b209-1259-4b79-bf5a-aa97fc7ce77b",
 		"openDays": 1
+	},
+	{
+		"at": "2026-11-21T01:00:14.462Z",
+		"type": "changed",
+		"company": "anthropic",
+		"id": "5477753008",
+		"title": "Principal Engineer, Privacy",
+		"team": "Software Engineering - Infrastructure",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5477753008",
+		"changes": {
+			"location": [
+				"Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
+				"London, UK; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY"
+			]
+		}
+	},
+	{
+		"at": "2026-11-21T01:00:14.462Z",
+		"type": "changed",
+		"company": "anthropic",
+		"id": "5383114008",
+		"title": "Staff+ Software Engineer, Privacy",
+		"team": "Software Engineering - Infrastructure",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5383114008",
+		"changes": {
+			"location": [
+				"Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
+				"London, UK; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY"
+			]
+		}
+	},
+	{
+		"at": "2026-11-21T01:00:14.462Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5358096008",
+		"title": "Product Finance & Strategy, Claude Platform, Forecasting & Rhythms",
+		"team": "Finance",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5358096008",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-21T01:00:14.462Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "30a1d941-f12c-4589-a7a0-dad116b9aa33",
+		"title": "Advanced Manufacturing Technology Lead",
+		"team": "Scaling",
+		"url": "https://jobs.ashbyhq.com/openai/30a1d941-f12c-4589-a7a0-dad116b9aa33",
+		"changes": {
+			"title": [
+				"Product Reliability Engineer",
+				"Advanced Manufacturing Technology Lead"
+			]
+		}
+	},
+	{
+		"at": "2026-11-21T01:00:14.462Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "0503a31f-5550-44e8-bec3-99b493532000",
+		"title": "Researcher, Cyber Safety Training",
+		"team": "Research",
+		"url": "https://jobs.ashbyhq.com/openai/0503a31f-5550-44e8-bec3-99b493532000"
+	},
+	{
+		"at": "2026-11-21T01:00:14.462Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "1aa89889-9323-44eb-a3fb-042c68c45252",
+		"title": "Marketplace Lead",
+		"team": "Partnerships",
+		"url": "https://jobs.ashbyhq.com/openai/1aa89889-9323-44eb-a3fb-042c68c45252",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-21T01:00:14.462Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "3a415c1d-4f66-4578-8eb3-8b15ef0ab52b",
+		"title": "Design Verification Engineer",
+		"team": "Scaling",
+		"url": "https://jobs.ashbyhq.com/openai/3a415c1d-4f66-4578-8eb3-8b15ef0ab52b",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-21T01:00:14.462Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "9d9d9fba-e955-4c4d-8e6f-e7fc80d7a919",
+		"title": "Audience & Content Growth Lead, SMB Ads",
+		"team": "Marketing",
+		"url": "https://jobs.ashbyhq.com/openai/9d9d9fba-e955-4c4d-8e6f-e7fc80d7a919",
+		"openDays": 1
+	},
+	{
+		"at": "2026-11-21T01:00:14.462Z",
+		"type": "changed",
+		"company": "thinkingmachines",
+		"id": "9ab3e86f-b636-4a75-867c-4ffd04d7b87d",
+		"title": "Brand Designer",
+		"team": "Design",
+		"url": "https://jobs.ashbyhq.com/ThinkingMachines/9ab3e86f-b636-4a75-867c-4ffd04d7b87d",
+		"changes": {
+			"team": [
+				"Core Engineering",
+				"Design"
+			]
+		}
 	}
 ]

@@ -1508,16 +1508,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5358090008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5358096008": {
-			"company": "anthropic",
-			"id": "5358096008",
-			"title": "Product Finance & Strategy, Claude Platform, Forecasting & Rhythms",
-			"team": "Finance",
-			"location": "San Francisco, CA",
-			"pay": "$240K – $325K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5358096008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5358098008": {
 			"company": "anthropic",
 			"id": "5358098008",
@@ -1743,7 +1733,7 @@
 			"id": "5383114008",
 			"title": "Staff+ Software Engineer, Privacy",
 			"team": "Software Engineering - Infrastructure",
-			"location": "Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
+			"location": "London, UK; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
 			"pay": "$405K – $485K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5383114008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
@@ -4230,7 +4220,7 @@
 			"id": "5477753008",
 			"title": "Principal Engineer, Privacy",
 			"team": "Software Engineering - Infrastructure",
-			"location": "Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
+			"location": "London, UK; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
 			"pay": "$485K – $625K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5477753008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
@@ -4554,6 +4544,16 @@
 			"pay": "$207K – $230K",
 			"url": "https://jobs.ashbyhq.com/openai/04050b95-dde6-48c4-a5a2-1a9691560e82",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/0503a31f-5550-44e8-bec3-99b493532000": {
+			"company": "openai",
+			"id": "0503a31f-5550-44e8-bec3-99b493532000",
+			"title": "Researcher, Cyber Safety Training",
+			"team": "Research",
+			"location": "San Francisco",
+			"pay": "$380K – $500K",
+			"url": "https://jobs.ashbyhq.com/openai/0503a31f-5550-44e8-bec3-99b493532000",
+			"firstSeen": "2026-11-21T01:00:14.462Z"
 		},
 		"openai/05a8cae8-81bd-4f7b-bc48-41ef1bd67e5d": {
 			"company": "openai",
@@ -5033,16 +5033,6 @@
 			"location": "San Francisco",
 			"pay": "$180K – $260K",
 			"url": "https://jobs.ashbyhq.com/openai/1a979fd4-1bce-484e-a416-aed2810677a6",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/1aa89889-9323-44eb-a3fb-042c68c45252": {
-			"company": "openai",
-			"id": "1aa89889-9323-44eb-a3fb-042c68c45252",
-			"title": "Marketplace Lead",
-			"team": "Partnerships",
-			"location": "New York City | San Francisco",
-			"pay": "$333K – $445K",
-			"url": "https://jobs.ashbyhq.com/openai/1aa89889-9323-44eb-a3fb-042c68c45252",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/1ae64ddb-505f-4ad2-a731-3a857e94edee": {
@@ -5688,7 +5678,7 @@
 		"openai/30a1d941-f12c-4589-a7a0-dad116b9aa33": {
 			"company": "openai",
 			"id": "30a1d941-f12c-4589-a7a0-dad116b9aa33",
-			"title": "Product Reliability Engineer",
+			"title": "Advanced Manufacturing Technology Lead",
 			"team": "Scaling",
 			"location": "San Francisco",
 			"pay": "$207K – $365K",
@@ -5913,16 +5903,6 @@
 			"location": "San Francisco",
 			"pay": "$207K – $445K",
 			"url": "https://jobs.ashbyhq.com/openai/3a05c5d7-fdd9-4e0e-823a-2ae08b59958b",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/3a415c1d-4f66-4578-8eb3-8b15ef0ab52b": {
-			"company": "openai",
-			"id": "3a415c1d-4f66-4578-8eb3-8b15ef0ab52b",
-			"title": "Design Verification Engineer",
-			"team": "Scaling",
-			"location": "San Francisco",
-			"pay": "$226K – $445K",
-			"url": "https://jobs.ashbyhq.com/openai/3a415c1d-4f66-4578-8eb3-8b15ef0ab52b",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/3a64da1c-bf29-4e52-baa3-a8f35f16ff74": {
@@ -8183,16 +8163,6 @@
 			"location": "San Francisco | Seattle",
 			"pay": "$230K – $385K",
 			"url": "https://jobs.ashbyhq.com/openai/9d48e2e6-41a9-4a90-8b3b-6cc960e95c2f",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/9d9d9fba-e955-4c4d-8e6f-e7fc80d7a919": {
-			"company": "openai",
-			"id": "9d9d9fba-e955-4c4d-8e6f-e7fc80d7a919",
-			"title": "Audience & Content Growth Lead, SMB Ads",
-			"team": "Marketing",
-			"location": "San Francisco",
-			"pay": "$227K – $252K",
-			"url": "https://jobs.ashbyhq.com/openai/9d9d9fba-e955-4c4d-8e6f-e7fc80d7a919",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/9dfe4c27-84c0-4150-9ebe-8d4f12a95404": {
@@ -10660,7 +10630,7 @@
 			"company": "thinkingmachines",
 			"id": "9ab3e86f-b636-4a75-867c-4ffd04d7b87d",
 			"title": "Brand Designer",
-			"team": "Core Engineering",
+			"team": "Design",
 			"location": "New York | San Francisco",
 			"url": "https://jobs.ashbyhq.com/ThinkingMachines/9ab3e86f-b636-4a75-867c-4ffd04d7b87d",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
