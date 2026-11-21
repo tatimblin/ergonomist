@@ -1095,5 +1095,24 @@
 				"Design"
 			]
 		}
+	},
+	{
+		"at": "2026-11-21T08:48:13.656Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5184585008",
+		"title": "Data Science, Finance & Strategy",
+		"team": "Finance",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5184585008",
+		"openDays": 2
+	},
+	{
+		"at": "2026-11-21T08:48:13.656Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "62032f94-87e8-45b8-968c-db9b8893e907",
+		"title": "Integrated Marketing Manager",
+		"team": "Marketing",
+		"url": "https://jobs.ashbyhq.com/openai/62032f94-87e8-45b8-968c-db9b8893e907"
 	}
 ]
