@@ -988,16 +988,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5209196008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5209661008": {
-			"company": "anthropic",
-			"id": "5209661008",
-			"title": "Manager, Commercial Counsel, GTM",
-			"team": "Legal",
-			"location": "San Francisco, CA",
-			"pay": "$320K – $385K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5209661008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5223093008": {
 			"company": "anthropic",
 			"id": "5223093008",
@@ -3413,7 +3403,7 @@
 			"id": "5455618008",
 			"title": "Applied AI Architect, Public Sector (State & Local Government)",
 			"team": "Applied AI",
-			"location": "San Francisco, CA",
+			"location": "New York City, NY; San Francisco, CA; Washington, DC",
 			"pay": "$275K – $315K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5455618008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
@@ -3887,16 +3877,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5467561008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5467893008": {
-			"company": "anthropic",
-			"id": "5467893008",
-			"title": "Machine Learning Data Scientist, Forecasting Platform",
-			"team": "Finance",
-			"location": "San Francisco, CA",
-			"pay": "$270K – $345K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5467893008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5468266008": {
 			"company": "anthropic",
 			"id": "5468266008",
@@ -3985,16 +3965,6 @@
 			"location": "San Francisco, CA | New York City, NY | Seattle, WA",
 			"pay": "$405K – $485K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5469291008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"anthropic/5469337008": {
-			"company": "anthropic",
-			"id": "5469337008",
-			"title": "Gas Supply and Transport Lead, US and Canada",
-			"team": "Compute",
-			"location": "San Francisco, CA | New York City, NY",
-			"pay": "$320K – $405K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5469337008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"anthropic/5469341008": {
@@ -4455,6 +4425,16 @@
 			"pay": "$320K – $485K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490979008",
 			"firstSeen": "2026-11-20T21:00:13.364Z"
+		},
+		"anthropic/5491480008": {
+			"company": "anthropic",
+			"id": "5491480008",
+			"title": "Applied AI Architect, Technology Partnerships",
+			"team": "Applied AI",
+			"location": "San Francisco, CA | New York City, NY",
+			"pay": "$240K – $315K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5491480008",
+			"firstSeen": "2026-11-23T21:00:16.807Z"
 		},
 		"anthropic/5491573008": {
 			"company": "anthropic",
@@ -5125,6 +5105,16 @@
 			"pay": "$347K – $385K",
 			"url": "https://jobs.ashbyhq.com/openai/1dc05fc7-ceb7-4827-a905-9d1beb77a4a0",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/1dcee8e6-4543-4d01-bc0e-a230bd54b263": {
+			"company": "openai",
+			"id": "1dcee8e6-4543-4d01-bc0e-a230bd54b263",
+			"title": "Strategic Sourcing Lead, Engineering & Research Technology",
+			"team": "Finance",
+			"location": "San Francisco",
+			"pay": "$266K – $295K",
+			"url": "https://jobs.ashbyhq.com/openai/1dcee8e6-4543-4d01-bc0e-a230bd54b263",
+			"firstSeen": "2026-11-23T21:00:16.807Z"
 		},
 		"openai/1dddc3d3-00d5-4b19-a321-a8d00720f543": {
 			"company": "openai",
@@ -6514,16 +6504,6 @@
 			"location": "San Francisco | Seattle",
 			"pay": "$251K – $278K",
 			"url": "https://jobs.ashbyhq.com/openai/5c3a17db-62f1-4145-93b0-2f207d4d4af8",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/5c579ec6-be3a-409b-8ae4-9e3f46af8288": {
-			"company": "openai",
-			"id": "5c579ec6-be3a-409b-8ae4-9e3f46af8288",
-			"title": "Strategic Technology Negotiations Lead",
-			"team": "Finance",
-			"location": "San Francisco",
-			"pay": "$234K – $295K",
-			"url": "https://jobs.ashbyhq.com/openai/5c579ec6-be3a-409b-8ae4-9e3f46af8288",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/5cc72bc7-e6a0-40e0-9f60-23474cd9acdb": {
@@ -8556,6 +8536,16 @@
 			"url": "https://jobs.ashbyhq.com/openai/b46ffd99-f9f2-440c-ac13-448eb7911ad6",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
+		"openai/b57d8763-c8aa-47db-b8c5-9f1807499372": {
+			"company": "openai",
+			"id": "b57d8763-c8aa-47db-b8c5-9f1807499372",
+			"title": "Sr Structured Finance Execution Lead",
+			"team": "Strategic Finance",
+			"location": "San Francisco",
+			"pay": "$325K – $405K",
+			"url": "https://jobs.ashbyhq.com/openai/b57d8763-c8aa-47db-b8c5-9f1807499372",
+			"firstSeen": "2026-11-23T21:00:16.807Z"
+		},
 		"openai/b5a022bb-f7a5-47d9-b5e8-9d1575493dcf": {
 			"company": "openai",
 			"id": "b5a022bb-f7a5-47d9-b5e8-9d1575493dcf",
@@ -9280,7 +9270,7 @@
 			"id": "d4780eac-03ad-4dae-861f-99af22b4287e",
 			"title": "Software Engineer, Full Stack (People Innovation Labs)",
 			"team": "People",
-			"location": "US - Remote | San Francisco",
+			"location": "US - Remote | New York City | San Francisco",
 			"pay": "$153K – $385K",
 			"url": "https://jobs.ashbyhq.com/openai/d4780eac-03ad-4dae-861f-99af22b4287e",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
@@ -9403,16 +9393,6 @@
 			"location": "San Francisco",
 			"pay": "$250K – $445K",
 			"url": "https://jobs.ashbyhq.com/openai/d7efc55b-2fde-4d3f-ae34-2e467f02a57c",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/d8794980-1d3f-4d82-8b48-811449b6c492": {
-			"company": "openai",
-			"id": "d8794980-1d3f-4d82-8b48-811449b6c492",
-			"title": "Training: ML Framework Engineer",
-			"team": "Scaling",
-			"location": "San Francisco",
-			"pay": "$295K – $500K",
-			"url": "https://jobs.ashbyhq.com/openai/d8794980-1d3f-4d82-8b48-811449b6c492",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/d8915225-1d6b-4de5-96e3-e8e8511f1288": {

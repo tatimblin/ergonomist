@@ -1381,5 +1381,112 @@
 		"team": "Finance",
 		"url": "https://jobs.ashbyhq.com/openai/db40bc4f-c7fb-47d5-a7cc-918fb8b1f815",
 		"openDays": 4
+	},
+	{
+		"at": "2026-11-23T21:00:16.807Z",
+		"type": "changed",
+		"company": "anthropic",
+		"id": "5455618008",
+		"title": "Applied AI Architect, Public Sector (State & Local Government)",
+		"team": "Applied AI",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5455618008",
+		"changes": {
+			"location": [
+				"San Francisco, CA",
+				"New York City, NY; San Francisco, CA; Washington, DC"
+			]
+		}
+	},
+	{
+		"at": "2026-11-23T21:00:16.807Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5491480008",
+		"title": "Applied AI Architect, Technology Partnerships",
+		"team": "Applied AI",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5491480008"
+	},
+	{
+		"at": "2026-11-23T21:00:16.807Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5209661008",
+		"title": "Manager, Commercial Counsel, GTM",
+		"team": "Legal",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5209661008",
+		"openDays": 4
+	},
+	{
+		"at": "2026-11-23T21:00:16.807Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5467893008",
+		"title": "Machine Learning Data Scientist, Forecasting Platform",
+		"team": "Finance",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5467893008",
+		"openDays": 4
+	},
+	{
+		"at": "2026-11-23T21:00:16.807Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5469337008",
+		"title": "Gas Supply and Transport Lead, US and Canada",
+		"team": "Compute",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5469337008",
+		"openDays": 4
+	},
+	{
+		"at": "2026-11-23T21:00:16.807Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "d4780eac-03ad-4dae-861f-99af22b4287e",
+		"title": "Software Engineer, Full Stack (People Innovation Labs)",
+		"team": "People",
+		"url": "https://jobs.ashbyhq.com/openai/d4780eac-03ad-4dae-861f-99af22b4287e",
+		"changes": {
+			"location": [
+				"US - Remote | San Francisco",
+				"US - Remote | New York City | San Francisco"
+			]
+		}
+	},
+	{
+		"at": "2026-11-23T21:00:16.807Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "b57d8763-c8aa-47db-b8c5-9f1807499372",
+		"title": "Sr Structured Finance Execution Lead",
+		"team": "Strategic Finance",
+		"url": "https://jobs.ashbyhq.com/openai/b57d8763-c8aa-47db-b8c5-9f1807499372"
+	},
+	{
+		"at": "2026-11-23T21:00:16.807Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "1dcee8e6-4543-4d01-bc0e-a230bd54b263",
+		"title": "Strategic Sourcing Lead, Engineering & Research Technology",
+		"team": "Finance",
+		"url": "https://jobs.ashbyhq.com/openai/1dcee8e6-4543-4d01-bc0e-a230bd54b263"
+	},
+	{
+		"at": "2026-11-23T21:00:16.807Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "5c579ec6-be3a-409b-8ae4-9e3f46af8288",
+		"title": "Strategic Technology Negotiations Lead",
+		"team": "Finance",
+		"url": "https://jobs.ashbyhq.com/openai/5c579ec6-be3a-409b-8ae4-9e3f46af8288",
+		"openDays": 4
+	},
+	{
+		"at": "2026-11-23T21:00:16.807Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "d8794980-1d3f-4d82-8b48-811449b6c492",
+		"title": "Training: ML Framework Engineer",
+		"team": "Scaling",
+		"url": "https://jobs.ashbyhq.com/openai/d8794980-1d3f-4d82-8b48-811449b6c492",
+		"openDays": 4
 	}
 ]
