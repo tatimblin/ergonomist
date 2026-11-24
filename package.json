@@ -19,6 +19,7 @@
     "products": "bun scripts/products.ts",
     "jobs": "bun scripts/jobs.ts",
     "jobs:data": "bun scripts/jobs-data.ts",
+    "wire": "bun scripts/wire.ts",
     "test": "bun scripts/test.ts",
     "test:smoke": "bun scripts/smoke.ts",
     "test:html": "html-validate dist",

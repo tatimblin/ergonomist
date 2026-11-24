@@ -1,0 +1,471 @@
+{
+	"about": "The owner's Newswire picks. yes: published; no: seen and passed over. Interim results and races still being counted are left out of both.",
+	"yes": [
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "Gary McCoy declares victory in Castro supervisor race",
+			"url": "https://missionlocal.org/2026/11/san-francisco-district-8-castro-supervisor-results/",
+			"why": "Election result: Castro supervisor."
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "Theo Ellington overwhelmingly wins race for Bayview-Hunters Point supervisor",
+			"url": "https://missionlocal.org/2026/11/theo-ellington-district-10-supervisor-victory-san-francisco/",
+			"why": "Election result: Bayview supervisor."
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "Great Highway measure Prop. G fails. Sunset Dunes will stay a park.",
+			"url": "https://missionlocal.org/2026/11/sf-great-highway-sunset-dunes-prop-g/",
+			"why": "Voters decided: Sunset Dunes stays a park."
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "Mayor Lurie’s effort to consolidate City Hall power coasting to victory",
+			"url": "https://missionlocal.org/2026/11/mayor-daniel-lurie-san-francisco-charter-reform-city-hall/",
+			"why": "Voters decided a charter change."
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "One San Francisco affordable-housing measure set to pass, another unlikely to succeed",
+			"url": "https://missionlocal.org/2026/11/san-francisco-affordable-housing-measures-2026-election-results/",
+			"why": "Voters decided housing measures."
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "Phil Kim wins school board reelection, other GrowSF candidates likely to win",
+			"url": "https://missionlocal.org/2026/11/san-francisco-school-board-race-results/",
+			"why": "Election result: school board."
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "Measures to rescue BART, Muni from financial ruin winning with unexpected ease",
+			"url": "https://missionlocal.org/2026/11/san-francisco-election-results-transit-proposition-h-rtm/",
+			"why": "Voters decided transit funding."
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "Three incumbent S.F. supervisors on track to easily win reelection, backed by similar allies",
+			"url": "https://missionlocal.org/2026/11/three-incumbent-sf-supervisors-win-reelection/",
+			"why": "Election result: supervisors."
+		},
+		{
+			"date": "2026-11-05",
+			"source": "Mission Local",
+			"title": "Scott Wiener wins Nancy Pelosi’s seat after Connie Chan concedes",
+			"url": "https://missionlocal.org/2026/11/scott-wiener-san-francisco-congress-race-connie-chan/",
+			"why": "Election result: Congress."
+		},
+		{
+			"date": "2026-11-06",
+			"source": "Mission Local",
+			"title": "Tim Tung, Autumn Brown Garibay win final two S.F. school board seats",
+			"url": "https://missionlocal.org/2026/11/san-francisco-school-board-race-final-results/",
+			"why": "Election result: school board."
+		},
+		{
+			"date": "2026-11-09",
+			"source": "Mission Local",
+			"title": "San Francisco can now create a public bank after measure declares victory",
+			"url": "https://missionlocal.org/2026/11/san-francisco-prop-b-public-bank-victory/",
+			"why": "Voters decided: public bank."
+		},
+		{
+			"date": "2026-11-10",
+			"source": "Mission Local",
+			"title": "San Francisco ‘social housing’ measure loses after heavy real-estate opposition",
+			"url": "https://missionlocal.org/2026/11/san-francisco-proposition-i-social-housing-election-loss/",
+			"why": "Voters decided: social housing fails."
+		},
+		{
+			"date": "2026-11-11",
+			"source": "Mission Local",
+			"title": "PSA: BART to shut down trains between 24th Street and Daly City this weekend, bus bridge available",
+			"url": "https://missionlocal.org/2026/11/bart-shutdown-weekend-24th-street-daly-city/",
+			"why": "Service change with dates: BART weekend shutdown and bus bridge."
+		},
+		{
+			"date": "2026-11-11",
+			"source": "Mission Local",
+			"title": "San Francisco legalizes home restaurants, a win for city’s street vendors",
+			"url": "https://missionlocal.org/2026/11/san-francisco-legalizes-home-restaurants/",
+			"why": "Rule change: what residents can now do."
+		}
+	],
+	"no": [
+		{
+			"date": "2026-10-31",
+			"source": "Mission Local",
+			"title": "People We Meet: Raymond Robinson is behind the wheel all day",
+			"url": "https://missionlocal.org/2026/10/sf-people-we-meet-muni-driver-48-36/"
+		},
+		{
+			"date": "2026-10-31",
+			"source": "Mission Local",
+			"title": "Happy Halloween!!!",
+			"url": "https://missionlocal.org/2026/10/happy-halloween-2/"
+		},
+		{
+			"date": "2026-10-31",
+			"source": "Mission Local",
+			"title": "Wiener vs. Chan: Two very different urbanist visions in San Francisco’s congressional race",
+			"url": "https://missionlocal.org/2026/10/san-francisco-congress-connie-chan-scott-wiener-housing-transit/"
+		},
+		{
+			"date": "2026-11-01",
+			"source": "Mission Local",
+			"title": "Valkyries win WNBA Finals, making history in franchise’s 2nd year",
+			"url": "https://missionlocal.org/2026/10/wnba-finals-golden-state-valkyries-game-seven-ballhalla-boohalla/"
+		},
+		{
+			"date": "2026-11-01",
+			"source": "Mission Local",
+			"title": "Marífer Ramírez and David García, owners of Niebla, like their bookstores spooky",
+			"url": "https://missionlocal.org/2026/11/marifer-ramirez-and-david-garcia-niebla/"
+		},
+		{
+			"date": "2026-11-01",
+			"source": "Mission Local",
+			"title": "What’s on now at San Francisco museums, November 2026",
+			"url": "https://missionlocal.org/2026/11/whats-on-now-at-san-francisco-museums-november-2026/"
+		},
+		{
+			"date": "2026-11-02",
+			"source": "Mission Local",
+			"title": "I have seen the fuchsia",
+			"url": "https://missionlocal.org/2026/11/i-have-seen-the-fuchsia/"
+		},
+		{
+			"date": "2026-11-02",
+			"source": "Mission Local",
+			"title": "We asked every S.F. politician and major candidate: How would you fix housing affordability?",
+			"url": "https://missionlocal.org/2026/11/san-francisco-housing-affordability-plans/"
+		},
+		{
+			"date": "2026-11-02",
+			"source": "Mission Local",
+			"title": "The U.S. midterms could be a big swing left. San Francisco is poised to double down on its gilded age.",
+			"url": "https://missionlocal.org/2026/11/the-u-s-midterms-could-be-a-huge-swing-left-san-francisco-is-poised-to-double-down-on-its-gilded-age/"
+		},
+		{
+			"date": "2026-11-02",
+			"source": "Mission Local",
+			"title": "Seeing red",
+			"url": "https://missionlocal.org/2026/11/seeing-red/"
+		},
+		{
+			"date": "2026-11-02",
+			"source": "Mission Local",
+			"title": "Photos: The Mission and Tenderloin storefront ofrendas for Día de los Muertos",
+			"url": "https://missionlocal.org/2026/11/window-front-ofrendas-for-dia-de-los-muertos/"
+		},
+		{
+			"date": "2026-11-02",
+			"source": "Mission Local",
+			"title": "Quiz: Who said it? Match each quote to the right San Francisco candidate.",
+			"url": "https://missionlocal.org/2026/11/san-francisco-2026-election-candidate-quote-game-quiz/"
+		},
+		{
+			"date": "2026-11-02",
+			"source": "Mission Local",
+			"title": "Connie Chan’s backers want one thing on Election Day: High voter turnout",
+			"url": "https://missionlocal.org/2026/11/chan-wiener-pelosi-congress-voter-turnout/"
+		},
+		{
+			"date": "2026-11-03",
+			"source": "Mission Local",
+			"title": "S.F. wants feds to ‘immediately remove’ ICE vehicles from city-owned garage",
+			"url": "https://missionlocal.org/2026/11/sfmta-removal-ice-parking-garage/"
+		},
+		{
+			"date": "2026-11-03",
+			"source": "Mission Local",
+			"title": "Photos: Deep roots in Mission District’s Day of the Dead celebration",
+			"url": "https://missionlocal.org/2026/11/sf-portero-dia-de-los-muertos-26/"
+		},
+		{
+			"date": "2026-11-03",
+			"source": "Mission Local",
+			"title": "At Día de los Muertos, the Mission mourns and celebrates four community pillars",
+			"url": "https://missionlocal.org/2026/11/mission-dia-de-los-muertos-procession-2026/"
+		},
+		{
+			"date": "2026-11-03",
+			"source": "Mission Local",
+			"title": "Election Day 2026: San Francisco lefties lose, let loose — Mayor Lurie wins, again",
+			"url": "https://missionlocal.org/2026/11/san-francisco-november-election-2026-updates/"
+		},
+		{
+			"date": "2026-11-03",
+			"source": "Mission Local",
+			"title": "Vote!",
+			"url": "https://missionlocal.org/2026/11/vote-2/"
+		},
+		{
+			"date": "2026-11-03",
+			"source": "Mission Local",
+			"title": "More than 100 S.F. firefighters subdue Twin Peaks apartment-building blaze",
+			"url": "https://missionlocal.org/2026/11/twin-peaks-apartment-building-blaze/"
+		},
+		{
+			"date": "2026-11-03",
+			"source": "Mission Local",
+			"title": "Spreading the gospel of Leonard Cohen",
+			"url": "https://missionlocal.org/2026/11/spreading-the-gospel-of-leonard-cohen/"
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "Scott Wiener campaign backtracks after barring Mission Local from election event",
+			"url": "https://missionlocal.org/2026/11/scott-wiener-campaign-bars-mission-local/"
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "We are all in San Francisco’s ‘March for Billionaires’ now",
+			"url": "https://missionlocal.org/2026/11/san-francisco-election-daniel-lurie-billionaire/"
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "Right here right now: Surfing at Ocean Beach",
+			"url": "https://missionlocal.org/2026/11/right-here-right-now-surfing-at-ocean-beach/"
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "Debra ‘Beaver’ Bauer, avant-garde costume designer, is fabulous at 76",
+			"url": "https://missionlocal.org/2026/11/debra-beaver-bauer-fabulous-at-76/"
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "The Big Question: What gave you the greatest joy recently?",
+			"url": "https://missionlocal.org/2026/11/the-big-question-what-gave-you-the-greatest-joy-recently/"
+		},
+		{
+			"date": "2026-11-04",
+			"source": "Mission Local",
+			"title": "Bayview Buzz: Bob from Surfside Liquors gets his flowers and one ‘scraptacular’ Saturday",
+			"url": "https://missionlocal.org/2026/11/bayview-buzz-bob-from-surfside-liquors-gets-his-flowers-and-one-scraptacular-saturday/"
+		},
+		{
+			"date": "2026-11-05",
+			"source": "Mission Local",
+			"title": "Valkyries parade is unabashedly Bay Area, celebrating the players and their fans",
+			"url": "https://missionlocal.org/2026/11/valkyries-parade-finals-winners-wnba-bay-area-sf-oakland/"
+		},
+		{
+			"date": "2026-11-05",
+			"source": "Mission Local",
+			"title": "24th Street BART elevator was out 94 days. Was that legal?",
+			"url": "https://missionlocal.org/2026/11/bart-elevator-outage-san-francisco-lawsuit/"
+		},
+		{
+			"date": "2026-11-05",
+			"source": "Mission Local",
+			"title": "Hello",
+			"url": "https://missionlocal.org/2026/11/hello/"
+		},
+		{
+			"date": "2026-11-05",
+			"source": "Mission Local",
+			"title": "SoMa police station losing 4th captain since last June",
+			"url": "https://missionlocal.org/2026/11/soma-police-station-losing-4th-captain-since-last-june/"
+		},
+		{
+			"date": "2026-11-06",
+			"source": "Mission Local",
+			"title": "Citywide count shows number of homeless children in S.F. increased 27% in 2 years",
+			"url": "https://missionlocal.org/2026/11/san-francisco-homeless-point-in-time-count-children/"
+		},
+		{
+			"date": "2026-11-06",
+			"source": "Mission Local",
+			"title": "S.F. to get $9.25 million gift to tackle conditions at Mission BART plazas",
+			"url": "https://missionlocal.org/2026/11/san-francisco-mission-bart-plazas-crankstart-gift/"
+		},
+		{
+			"date": "2026-11-06",
+			"source": "Mission Local",
+			"title": "Skyline",
+			"url": "https://missionlocal.org/2026/11/skyline/"
+		},
+		{
+			"date": "2026-11-06",
+			"source": "Mission Local",
+			"title": "Excelsior Buzz: Donate to a local birthing center or take what you need at weekly giveaway",
+			"url": "https://missionlocal.org/2026/11/excelsior-buzz-free-toy-baby-clothes-giveaway/"
+		},
+		{
+			"date": "2026-11-06",
+			"source": "Mission Local",
+			"title": "Sunset Buzz: Rusty Ladle wins best chowder in San Francisco",
+			"url": "https://missionlocal.org/2026/11/sf-sunset-buzz-rusty-ladle-nippon-curry/"
+		},
+		{
+			"date": "2026-11-06",
+			"source": "Mission Local",
+			"title": "Ripple Labs giving SFPD surveillance unit another 5 years of free rent, worth $5.5M",
+			"url": "https://missionlocal.org/2026/11/ripple-labs-giving-sfpd-surveillance-unit-another-5-years-of-free-rent-worth-5-5m/"
+		},
+		{
+			"date": "2026-11-07",
+			"source": "Mission Local",
+			"title": "S.F. retains ‘sole discretion’ to end contract that facilitates ICE use of city-owned garage",
+			"url": "https://missionlocal.org/2026/11/ice-garage-contract/"
+		},
+		{
+			"date": "2026-11-07",
+			"source": "Mission Local",
+			"title": "Gov. Newsom taps ex-spokesperson Nate Ballard, sentenced for domestic violence, for state commission",
+			"url": "https://missionlocal.org/2026/11/gavin-newsom-nathan-ballard-state-historical-commission/"
+		},
+		{
+			"date": "2026-11-07",
+			"source": "Mission Local",
+			"title": "Mayor Daniel Lurie gains power and loses excuses",
+			"url": "https://missionlocal.org/2026/11/daniel-lurie-election-city-hall-power/"
+		},
+		{
+			"date": "2026-11-07",
+			"source": "Mission Local",
+			"title": "Cempaxochitl, the Mexican marigold.",
+			"url": "https://missionlocal.org/2026/11/cempaxochitl-the-mexican-marigold/"
+		},
+		{
+			"date": "2026-11-08",
+			"source": "Mission Local",
+			"title": "Everyone knows about Bayview’s 3rd St., but there’s far more to the neighborhood",
+			"url": "https://missionlocal.org/2026/11/sf-bayview-businesses-beyond-third-street/"
+		},
+		{
+			"date": "2026-11-08",
+			"source": "Mission Local",
+			"title": "Altar in rice and beans",
+			"url": "https://missionlocal.org/2026/11/altar-in-rice-and-beans/"
+		},
+		{
+			"date": "2026-11-09",
+			"source": "Mission Local",
+			"title": "Westside voters, once strongly against Sunset Dunes park, flipped to save it",
+			"url": "https://missionlocal.org/2026/11/sf-westside-sunset-dunes-richmond/"
+		},
+		{
+			"date": "2026-11-09",
+			"source": "Mission Local",
+			"title": "Jane Kim did better in Fresno than she did in San Francisco. That figures.",
+			"url": "https://missionlocal.org/2026/11/jane-kim-insurance-commissioner-san-francisco-fresno-bakersfield-san-joaquin-ben-allen/"
+		},
+		{
+			"date": "2026-11-09",
+			"source": "Mission Local",
+			"title": "Nice boots",
+			"url": "https://missionlocal.org/2026/11/the-nice-boots/"
+		},
+		{
+			"date": "2026-11-10",
+			"source": "Mission Local",
+			"title": "Vigil: Rolando Jose Dusuau, ‘RJ,’ was teen ‘beyond his years’ who once wanted to be a paleontologist",
+			"url": "https://missionlocal.org/2026/11/rolando-jose-dusuau-rj-san-francisco-vigil/"
+		},
+		{
+			"date": "2026-11-10",
+			"source": "Mission Local",
+			"title": "Lost in translation? Tenderloin’s Arabic speakers struggle with city services.",
+			"url": "https://missionlocal.org/2026/11/san-francisco-tenderloin-arabic-language-translation/"
+		},
+		{
+			"date": "2026-11-10",
+			"source": "Mission Local",
+			"title": "Scott Wiener was the AI-safety world’s congressional pick. Can the freshman find his voice on Capitol Hill?",
+			"url": "https://missionlocal.org/2026/11/scott-wiener-ai-regulation-congress-anthropic-openai/"
+		},
+		{
+			"date": "2026-11-10",
+			"source": "Mission Local",
+			"title": "Blue tsunami",
+			"url": "https://missionlocal.org/2026/11/blue-tsunami/"
+		},
+		{
+			"date": "2026-11-10",
+			"source": "Mission Local",
+			"title": "Mayor Lurie, S.F. city administrator take first action with new voter-approved powers",
+			"url": "https://missionlocal.org/2026/11/san-francisco-lurie-city-administrator-power-contracting/"
+		},
+		{
+			"date": "2026-11-10",
+			"source": "Mission Local",
+			"title": "SFUSD says Bernal school is ‘transitioning.’ Parents say it’s closing.",
+			"url": "https://missionlocal.org/2026/11/junipero-serra-annex-school-closure-sfusd-san-francisco/"
+		},
+		{
+			"date": "2026-11-10",
+			"source": "Mission Local",
+			"title": "Bob Lee’s killer, Nima Momeni, gets 16 years to life for Cash App founder’s stabbing",
+			"url": "https://missionlocal.org/2026/11/nima-momeni-sentenced-16-years-to-life/"
+		},
+		{
+			"date": "2026-11-11",
+			"source": "Mission Local",
+			"title": "Maps: How voter turnout helped Scott Wiener beat Connie Chan",
+			"url": "https://missionlocal.org/2026/11/scott-wiener-connie-chan-san-francisco-congress-results-data/"
+		},
+		{
+			"date": "2026-11-11",
+			"source": "Mission Local",
+			"title": "Viz Valley Middle School had no PTA, so teachers created a nonprofit instead",
+			"url": "https://missionlocal.org/2026/11/san-francisco-nonprofit-supplementing-pta-fundraising/"
+		},
+		{
+			"date": "2026-11-11",
+			"source": "Mission Local",
+			"title": "The Tower Theatre still stands",
+			"url": "https://missionlocal.org/2026/11/the-tower-theatre-still-stands/"
+		},
+		{
+			"date": "2026-11-11",
+			"source": "Mission Local",
+			"title": "The Big Question: What is the worst thing you ever did as a kid?",
+			"url": "https://missionlocal.org/2026/11/the-big-question-what-is-the-worst-thing-you-ever-did-as-a-kid/"
+		},
+		{
+			"date": "2026-11-11",
+			"source": "Mission Local",
+			"title": "Mission Buzz: Radio Habana to open as daytime cafe. Supes vote to rename Cesar Chavez St.",
+			"url": "https://missionlocal.org/2026/11/supes-vote-to-rename-cesar-chavez-st/"
+		},
+		{
+			"date": "2026-11-12",
+			"source": "Mission Local",
+			"title": "Former bail bondsman, 87, finds his medium in tossed plastic",
+			"url": "https://missionlocal.org/2026/11/former-bail-bondsman-87-finds-his-medium-in-tossed-plastic/"
+		},
+		{
+			"date": "2026-11-12",
+			"source": "Mission Local",
+			"title": "New hours",
+			"url": "https://missionlocal.org/2026/11/new-hours/"
+		},
+		{
+			"date": "2026-11-12",
+			"source": "Mission Local",
+			"title": "Video: SFPD officer lunged at scooter-rider seconds before fatal crash",
+			"url": "https://missionlocal.org/2026/11/video-sfpd-death-tackle-pursuit/"
+		},
+		{
+			"date": "2026-11-12",
+			"source": "Mission Local",
+			"title": "Richmond Buzz: New brunch, new pizza, and a new coffee pop-up at High Treason",
+			"url": "https://missionlocal.org/2026/11/richmond-buzz-brunch-pizza-coffee-book-club/"
+		}
+	]
+}

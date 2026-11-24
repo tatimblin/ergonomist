@@ -8,3 +8,6 @@ inbox/
 
 # The Jobs desk's data, from the jobs-data branch (scripts/jobs-data.ts).
 src/data/jobs/
+
+# The Newswire inbox and what it has seen (scripts/wire.ts).
+src/data/wire/
