@@ -4376,6 +4376,26 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490122008",
 			"firstSeen": "2026-11-20T09:12:56.597Z"
 		},
+		"anthropic/5490494008": {
+			"company": "anthropic",
+			"id": "5490494008",
+			"title": "Head of Laboratory Facilities",
+			"team": "AI Research & Engineering",
+			"location": "San Francisco, CA",
+			"pay": "$310K – $365K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490494008",
+			"firstSeen": "2026-11-24T17:00:16.225Z"
+		},
+		"anthropic/5490502008": {
+			"company": "anthropic",
+			"id": "5490502008",
+			"title": "Life Sciences Operator, External Research",
+			"team": "AI Research & Engineering",
+			"location": "San Francisco, CA",
+			"pay": "$320K – $405K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5490502008",
+			"firstSeen": "2026-11-24T17:00:16.225Z"
+		},
 		"anthropic/5490950008": {
 			"company": "anthropic",
 			"id": "5490950008",
@@ -4616,6 +4636,16 @@
 			"url": "https://jobs.ashbyhq.com/openai/079ba35a-b4fa-42a3-92bb-dc31de99d9e3",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
+		"openai/07fddd60-30a7-45fb-8564-f0ad1cd75716": {
+			"company": "openai",
+			"id": "07fddd60-30a7-45fb-8564-f0ad1cd75716",
+			"title": "Global Head of Applied AI Engineering, SMB / Mid-Market",
+			"team": "Go To Market",
+			"location": "San Francisco",
+			"pay": "$374K – $415K",
+			"url": "https://jobs.ashbyhq.com/openai/07fddd60-30a7-45fb-8564-f0ad1cd75716",
+			"firstSeen": "2026-11-24T17:00:16.225Z"
+		},
 		"openai/082f4d82-499f-4150-892f-0b0d1105fffe": {
 			"company": "openai",
 			"id": "082f4d82-499f-4150-892f-0b0d1105fffe",
@@ -4649,7 +4679,7 @@
 		"openai/096be63b-69cf-4295-9d29-d2e740058ea4": {
 			"company": "openai",
 			"id": "096be63b-69cf-4295-9d29-d2e740058ea4",
-			"title": "Strategic Finance Lead, OpenAI for Inference",
+			"title": "Strategic Finance, OpenAI for Inference",
 			"team": "Strategic Finance",
 			"location": "San Francisco",
 			"pay": "$234K – $260K",
@@ -6066,6 +6096,16 @@
 			"url": "https://jobs.ashbyhq.com/openai/48bd347f-c799-48ac-aa5b-1b0dfbff90f7",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
+		"openai/49095b0c-ffea-41be-9cf9-93cb73e40490": {
+			"company": "openai",
+			"id": "49095b0c-ffea-41be-9cf9-93cb73e40490",
+			"title": "Program Manager, People Innovation Labs",
+			"team": "People",
+			"location": "San Francisco",
+			"pay": "$216K – $310K",
+			"url": "https://jobs.ashbyhq.com/openai/49095b0c-ffea-41be-9cf9-93cb73e40490",
+			"firstSeen": "2026-11-24T17:00:16.225Z"
+		},
 		"openai/4923fd3e-acf2-4551-91ad-5a92ca81455b": {
 			"company": "openai",
 			"id": "4923fd3e-acf2-4551-91ad-5a92ca81455b",
@@ -6879,7 +6919,7 @@
 		"openai/681d205f-5b03-4d4d-a024-5ae7815bfde5": {
 			"company": "openai",
 			"id": "681d205f-5b03-4d4d-a024-5ae7815bfde5",
-			"title": "Project Manager, Infrastructure Transformation",
+			"title": "Program Manager, Infrastructure Systems Transformation",
 			"team": "Finance",
 			"location": "San Francisco",
 			"pay": "$278K – $308K",
@@ -7185,6 +7225,16 @@
 			"pay": "$230K – $385K",
 			"url": "https://jobs.ashbyhq.com/openai/7649205e-20dc-4bb4-9358-69474a851132",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/76709e27-2fe8-4930-ac87-76a8ef484a67": {
+			"company": "openai",
+			"id": "76709e27-2fe8-4930-ac87-76a8ef484a67",
+			"title": "Cloud GTM Program Lead",
+			"team": "Go To Market",
+			"location": "San Francisco",
+			"pay": "$239K – $279K",
+			"url": "https://jobs.ashbyhq.com/openai/76709e27-2fe8-4930-ac87-76a8ef484a67",
+			"firstSeen": "2026-11-24T17:00:16.225Z"
 		},
 		"openai/76c2a136-4e93-4e1a-bbdf-de4268498838": {
 			"company": "openai",
@@ -8536,6 +8586,16 @@
 			"url": "https://jobs.ashbyhq.com/openai/b65f9125-2c3a-4507-bb20-6213952b5f2c",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
+		"openai/b6736e0a-db0b-428f-ad14-448353a92243": {
+			"company": "openai",
+			"id": "b6736e0a-db0b-428f-ad14-448353a92243",
+			"title": "Cyber AI Partner Director",
+			"team": "Go To Market",
+			"location": "New York City | San Francisco",
+			"pay": "$297K – $420K",
+			"url": "https://jobs.ashbyhq.com/openai/b6736e0a-db0b-428f-ad14-448353a92243",
+			"firstSeen": "2026-11-24T17:00:16.225Z"
+		},
 		"openai/b6a86e39-8059-4ccf-8d33-1bf5bd92fa86": {
 			"company": "openai",
 			"id": "b6a86e39-8059-4ccf-8d33-1bf5bd92fa86",
@@ -9052,6 +9112,7 @@
 			"title": "Research Engineer, Privacy",
 			"team": "Security",
 			"location": "San Francisco",
+			"pay": "$380K – $500K",
 			"url": "https://jobs.ashbyhq.com/openai/cc434f5b-dc0b-42fd-97ec-e0171545c6e9",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
@@ -9985,16 +10046,6 @@
 			"url": "https://jobs.ashbyhq.com/openai/f363932f-2820-4056-9786-14cb697f4a93",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"openai/f3ddd41c-541f-485e-90d6-86c26e018e9f": {
-			"company": "openai",
-			"id": "f3ddd41c-541f-485e-90d6-86c26e018e9f",
-			"title": "Software Engineer, GPT Infrastructure",
-			"team": "Scaling",
-			"location": "San Francisco | Seattle",
-			"pay": "$293K – $385K",
-			"url": "https://jobs.ashbyhq.com/openai/f3ddd41c-541f-485e-90d6-86c26e018e9f",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"openai/f42d2e1e-8c2d-47cf-bd29-4b459c06ae1a": {
 			"company": "openai",
 			"id": "f42d2e1e-8c2d-47cf-bd29-4b459c06ae1a",
@@ -10114,6 +10165,16 @@
 			"pay": "$266K – $445K",
 			"url": "https://jobs.ashbyhq.com/openai/f763c6b3-5167-4a67-b691-4c3fa2c44156",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/f772d873-6bfb-4ed1-bfae-af9fafc3e561": {
+			"company": "openai",
+			"id": "f772d873-6bfb-4ed1-bfae-af9fafc3e561",
+			"title": "Integrations Architect - Enterprise Systems",
+			"team": "Finance",
+			"location": "San Francisco",
+			"pay": "$272K – $302K",
+			"url": "https://jobs.ashbyhq.com/openai/f772d873-6bfb-4ed1-bfae-af9fafc3e561",
+			"firstSeen": "2026-11-24T17:00:16.225Z"
 		},
 		"openai/f7dbbb26-4880-4cf1-bdf9-b8aefa3572cd": {
 			"company": "openai",
