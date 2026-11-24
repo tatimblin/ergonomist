@@ -81,6 +81,9 @@ export const storySchema =
 				veracity: z.enum(["satire", "reported"]).optional(),
 				// What a reported story is based on.
 				source: z.url().optional(),
+				// The outlet's story it came to the paper through, credited
+				// "via Mission Local" next to the source.
+				via: z.url().optional(),
 				// At the foot of the story, or the top when `significant`; all
 				// of them at /corrections/ too.
 				corrections: z

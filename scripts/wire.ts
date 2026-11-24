@@ -15,14 +15,19 @@
  *   warning is one item however often it's reissued.
  *
  * What's been seen is src/data/wire/seen.json (gitignored), keyed by URL or
- * warning id. A run adds this run's items to it.
+ * warning id, and kept on the `wire-data` branch so each scheduled run (a
+ * fresh checkout) knows what the last one read. A run reads the branch's
+ * copy, adds this run's items, and writes the file; `bun run wire --save`
+ * then commits it to the branch, once the run's pull request is open.
  *
  * - `--since 2026-10-31` reads back to that date (Mission Local's feed pages
  *   back about four weeks; SF Standard's holds its latest 10 stories),
  *   ignores seen.json and doesn't write it: the backtest.
  * - `--dry` prints the inbox and writes nothing.
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { Element, Root } from "hast";
 import { fromHtml } from "hast-util-from-html";
@@ -50,7 +55,48 @@ export type InboxItem = {
 	ends?: string;
 };
 
+const BRANCH = "wire-data";
+const SEEN = join(DIR, "seen.json");
+
+const git = (...a: string[]) => {
+	const run = spawnSync("git", a);
+	if (run.status !== 0) throw new Error(`git ${a.join(" ")}: ${run.stderr.toString().trim()}`);
+	return run.stdout.toString();
+};
+
 const args = process.argv.slice(2);
+
+// `--save`: commit seen.json to the wire-data branch (made on the first save).
+if (args.includes("--save")) {
+	if (!existsSync(SEEN)) throw new Error(`wire: no ${SEEN} to save; run \`bun run wire\` first.`);
+	const tree = join(tmpdir(), `wire-data-${process.pid}`);
+	let exists = true;
+	try {
+		git("fetch", "--quiet", "--depth=1", "origin", BRANCH);
+	} catch {
+		exists = false;
+	}
+	try {
+		if (exists) git("worktree", "add", "--quiet", "--detach", tree, "FETCH_HEAD");
+		else git("worktree", "add", "--quiet", "--orphan", "-b", BRANCH, tree);
+		writeFileSync(join(tree, "seen.json"), readFileSync(SEEN));
+		git("-C", tree, "add", "seen.json");
+		if (spawnSync("git", ["-C", tree, "diff", "--cached", "--quiet"]).status === 0) {
+			console.log("wire: seen.json unchanged.");
+		} else {
+			git("-C", tree, "-c", "user.name=Ergonomist Newswire", "-c", "user.email=newswire@users.noreply.github.com", "commit", "--quiet", "-m", `Newswire: seen ${new Date().toISOString().slice(0, 16)}Z`);
+			git("-C", tree, "push", "--quiet", "origin", `HEAD:${BRANCH}`);
+			console.log(`wire: saved seen.json to ${BRANCH}.`);
+		}
+	} finally {
+		spawnSync("git", ["worktree", "remove", "--force", tree]);
+		rmSync(tree, { recursive: true, force: true });
+		// The first save made a local branch for the orphan; the remote one is what counts.
+		if (!exists) spawnSync("git", ["branch", "-D", BRANCH], { stdio: "ignore" });
+	}
+	process.exit(0);
+}
+
 const dry = args.includes("--dry");
 const sinceArg = args[args.indexOf("--since") + 1];
 const backtest = args.includes("--since");
@@ -200,8 +246,18 @@ for (const f of failed) console.warn(`wire: a source failed (${(f as PromiseReje
 if (failed.length === results.length) process.exit(1);
 
 mkdirSync(DIR, { recursive: true });
-const seenFile = join(DIR, "seen.json");
-const seen: Record<string, string> = !backtest && existsSync(seenFile) ? JSON.parse(readFileSync(seenFile, "utf8")) : {};
+/** What earlier runs read: the wire-data branch's copy, else the local one. */
+function loadSeen(): Record<string, string> {
+	if (backtest) return {};
+	try {
+		git("fetch", "--quiet", "--depth=1", "origin", BRANCH);
+		return JSON.parse(git("show", "FETCH_HEAD:seen.json"));
+	} catch {
+		console.warn(`wire: no ${BRANCH} branch yet; using ${existsSync(SEEN) ? SEEN : "nothing"} as seen.`);
+		return existsSync(SEEN) ? JSON.parse(readFileSync(SEEN, "utf8")) : {};
+	}
+}
+const seen = loadSeen();
 
 const all = results.flatMap((r) => (r.status === "fulfilled" ? r.value : []));
 const inbox = all.filter((i) => !seen[i.id]).sort((a, b) => a.date.localeCompare(b.date));
@@ -219,5 +275,8 @@ writeFileSync(join(DIR, "inbox.json"), `${JSON.stringify(inbox, null, "\t")}\n`)
 if (!backtest) {
 	const now = new Date().toISOString();
 	for (const i of inbox) seen[i.id] = now;
-	writeFileSync(seenFile, `${JSON.stringify(seen, null, "\t")}\n`);
+	// Forget what's older than any feed reaches back (Mission Local's ~4 weeks).
+	const cutoff = new Date(Date.now() - 45 * 86_400_000).toISOString();
+	for (const [id, when] of Object.entries(seen)) if (when < cutoff) delete seen[id];
+	writeFileSync(SEEN, `${JSON.stringify(seen, null, "\t")}\n`);
 }

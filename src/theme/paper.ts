@@ -208,10 +208,21 @@ export const tagsOf = (story: Story) => (story.origin === "local" ? story.entry.
  * what a reported one is based on. A copy is a column: the real author's own post, neither a bit nor
  * reporting. Its source is the original.
  */
-export const veracityOf = (story: Story): { veracity?: "satire" | "reported" | "column"; source?: string } =>
+export const veracityOf = (story: Story): { veracity?: "satire" | "reported" | "column"; source?: string; via?: string } =>
 	story.origin === "local"
-		? { veracity: story.entry.data.veracity, source: story.entry.data.source }
+		? { veracity: story.entry.data.veracity, source: story.entry.data.source, via: story.entry.data.via }
 		: { veracity: "column", source: story.entry.data.canonical };
+
+const OUTLETS: Record<string, string> = {
+	"missionlocal.org": "Mission Local",
+	"sfstandard.com": "The San Francisco Standard",
+};
+
+/** An outlet's name for a link to one of its stories: "Mission Local", else the host. */
+export const outletOf = (url: string) => {
+	const host = new URL(url).host.replace(/^www\./, "");
+	return OUTLETS[host] ?? host;
+};
 
 /** When a story last changed: its `updated` (a copy's `modified`), else its date. */
 export const modifiedOf = (story: Story) =>
