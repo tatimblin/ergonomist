@@ -2248,16 +2248,6 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5409055008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5410004008": {
-			"company": "anthropic",
-			"id": "5410004008",
-			"title": "Safeguards Enforcement Lead, User Well-Being",
-			"team": "Safeguards (Trust & Safety)",
-			"location": "San Francisco, CA | New York City, NY | Washington, DC",
-			"pay": "$285K – $330K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5410004008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"anthropic/5411267008": {
 			"company": "anthropic",
 			"id": "5411267008",
@@ -4551,7 +4541,7 @@
 			"id": "04050b95-dde6-48c4-a5a2-1a9691560e82",
 			"title": "Advanced User Education Lead",
 			"team": "Go To Market",
-			"location": "San Francisco | New York City",
+			"location": "San Francisco",
 			"pay": "$207K – $230K",
 			"url": "https://jobs.ashbyhq.com/openai/04050b95-dde6-48c4-a5a2-1a9691560e82",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
@@ -4745,6 +4735,16 @@
 			"pay": "$347K – $445K",
 			"url": "https://jobs.ashbyhq.com/openai/0ca02747-5c97-432b-95c5-4b9099bce992",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/0cbc1196-37ee-4c41-b02b-12653309a8f7": {
+			"company": "openai",
+			"id": "0cbc1196-37ee-4c41-b02b-12653309a8f7",
+			"title": "Optical Mechanical Engineer",
+			"team": "Scaling",
+			"location": "San Francisco",
+			"pay": "$287K – $485K",
+			"url": "https://jobs.ashbyhq.com/openai/0cbc1196-37ee-4c41-b02b-12653309a8f7",
+			"firstSeen": "2026-11-24T01:00:15.651Z"
 		},
 		"openai/0dc614c9-4eec-475f-b215-5480fe41317a": {
 			"company": "openai",
@@ -5035,6 +5035,16 @@
 			"pay": "$189K – $265K",
 			"url": "https://jobs.ashbyhq.com/openai/1ae64ddb-505f-4ad2-a731-3a857e94edee",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/1af2996f-046c-466f-bf35-4b13da116af4": {
+			"company": "openai",
+			"id": "1af2996f-046c-466f-bf35-4b13da116af4",
+			"title": "Applied AI Engineer, Mid-Market Enterprise",
+			"team": "Go To Market",
+			"location": "San Francisco | New York City | US - Remote",
+			"pay": "$211K – $278K",
+			"url": "https://jobs.ashbyhq.com/openai/1af2996f-046c-466f-bf35-4b13da116af4",
+			"firstSeen": "2026-11-24T01:00:15.651Z"
 		},
 		"openai/1b62655e-87e5-4dfb-ad92-03dabeb8304f": {
 			"company": "openai",
@@ -5504,16 +5514,6 @@
 			"location": "San Francisco | New York City",
 			"pay": "$239K – $325K",
 			"url": "https://jobs.ashbyhq.com/openai/2b9fa1aa-d844-4aa5-a762-6ac9bbb27d33",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/2bc7ca9b-4eae-4bda-982b-c1ac1d4e8596": {
-			"company": "openai",
-			"id": "2bc7ca9b-4eae-4bda-982b-c1ac1d4e8596",
-			"title": "Partner Director, Oracle North America",
-			"team": "Go To Market",
-			"location": "San Francisco | New York City",
-			"pay": "$378K – $420K",
-			"url": "https://jobs.ashbyhq.com/openai/2bc7ca9b-4eae-4bda-982b-c1ac1d4e8596",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/2bdd1b8b-2883-40fb-b006-583959ad4c5f": {
@@ -6086,16 +6086,6 @@
 			"url": "https://jobs.ashbyhq.com/openai/4923fd3e-acf2-4551-91ad-5a92ca81455b",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"openai/49ae54dc-3d33-4107-8112-63fac1ee86ca": {
-			"company": "openai",
-			"id": "49ae54dc-3d33-4107-8112-63fac1ee86ca",
-			"title": "IT Support Specialist",
-			"team": "IT",
-			"location": "San Francisco | London, UK",
-			"pay": "$60.58 – $108.17",
-			"url": "https://jobs.ashbyhq.com/openai/49ae54dc-3d33-4107-8112-63fac1ee86ca",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"openai/4a4a2604-b4b3-4944-a2a2-4ec4c5261d7d": {
 			"company": "openai",
 			"id": "4a4a2604-b4b3-4944-a2a2-4ec4c5261d7d",
@@ -6526,16 +6516,6 @@
 			"url": "https://jobs.ashbyhq.com/openai/5ceff3dd-3503-4ea0-9ade-eeb36b29f14e",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"openai/5d66a54f-ad89-4155-ac37-9dcd7d52db34": {
-			"company": "openai",
-			"id": "5d66a54f-ad89-4155-ac37-9dcd7d52db34",
-			"title": "AI Deployment Manager",
-			"team": "Go To Market",
-			"location": "San Francisco | New York City",
-			"pay": "$162K – $230K",
-			"url": "https://jobs.ashbyhq.com/openai/5d66a54f-ad89-4155-ac37-9dcd7d52db34",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"openai/5dce6671-9aa8-4c49-b263-b175a2a927f8": {
 			"company": "openai",
 			"id": "5dce6671-9aa8-4c49-b263-b175a2a927f8",
@@ -6771,8 +6751,8 @@
 			"id": "654f8dde-2ccb-4349-aeb7-40f454f28cce",
 			"title": "User Education Lead",
 			"team": "Go To Market",
-			"location": "San Francisco | New York City",
-			"pay": "$207K – $295K",
+			"location": "San Francisco",
+			"pay": "$207K – $230K",
 			"url": "https://jobs.ashbyhq.com/openai/654f8dde-2ccb-4349-aeb7-40f454f28cce",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
@@ -7124,16 +7104,6 @@
 			"location": "San Francisco | US - Remote",
 			"pay": "$347K – $385K",
 			"url": "https://jobs.ashbyhq.com/openai/73875295-889e-4373-b20f-654e85c66ba4",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/73a111f9-e83d-4cce-9148-2a32ccf1d251": {
-			"company": "openai",
-			"id": "73a111f9-e83d-4cce-9148-2a32ccf1d251",
-			"title": "Senior Legal Discovery Program Manager",
-			"team": "Legal",
-			"location": "San Francisco | New York City",
-			"pay": "$216K – $240K",
-			"url": "https://jobs.ashbyhq.com/openai/73a111f9-e83d-4cce-9148-2a32ccf1d251",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/740b5d1b-f63d-49bb-962d-8e2778e925ef": {
@@ -9135,16 +9105,6 @@
 			"url": "https://jobs.ashbyhq.com/openai/cd3c9c99-9527-4ba2-bea7-9f8f4892bc62",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"openai/cda6eab0-edab-4dfc-8923-40ca3b0928b5": {
-			"company": "openai",
-			"id": "cda6eab0-edab-4dfc-8923-40ca3b0928b5",
-			"title": "Legal Program Manager",
-			"team": "Legal",
-			"location": "San Francisco | New York City",
-			"pay": "$162K – $180K",
-			"url": "https://jobs.ashbyhq.com/openai/cda6eab0-edab-4dfc-8923-40ca3b0928b5",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"openai/ce15d226-65db-43f1-98ec-078e96a3a281": {
 			"company": "openai",
 			"id": "ce15d226-65db-43f1-98ec-078e96a3a281",
@@ -9340,7 +9300,7 @@
 			"id": "d6fac6f4-0b96-4c09-9349-9b7fc99a6547",
 			"title": "Builder Education",
 			"team": "Go To Market",
-			"location": "San Francisco | New York City",
+			"location": "San Francisco",
 			"pay": "$207K – $230K",
 			"url": "https://jobs.ashbyhq.com/openai/d6fac6f4-0b96-4c09-9349-9b7fc99a6547",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
