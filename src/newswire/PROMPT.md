@@ -66,7 +66,9 @@ the outlet's own links to officials' posts and city pages. Then search.
   `https://cdn.syndication.twimg.com/tweet-result?id=<id>&token=a`.
 - Otherwise cite the outlet's story. That's fine, and for practical-help
   stories it's usually the only source.
-- A weather warning's source is the inbox's link to it.
+- A weather warning's source is its `url`, the Weather Service's Bay Area
+  page. Its `archive` link has the warning's full text if you need the
+  details.
 - **Credit the outlet.** When the pick came from a Mission Local or SF
   Standard story and `source` is something else, put the outlet's story in
   `via`. The page prints "via Mission Local". It's how we thank them for
@@ -92,9 +94,17 @@ draft: true
 ---
 ```
 
-The title is the whole item: say what changed and when, in the paper's plain
-voice. No jokes; the editor adds those. Don't invent anything the sources
-don't say.
+The title is the whole item. Write it the way you'd tell a neighbor: casual,
+short, one line (about 12 words or fewer), with what changed and when. Leave
+the fine print (exceptions, addresses, hours) to the source. Practical-help
+items say the actual tip, not "what you can do". No jokes; the editor adds
+those. Don't invent anything the sources don't say.
+
+- Free parking at meters through Thanksgiving. Street sweeping still counts.
+- Grab up to 10 free sandbags from Public Works.
+- Mission library reopens Saturday after its renovation.
+- High surf warning for the coast through Thursday night.
+- Anthropic IPO windfall? Moving, giving or losing money can cut the tax bill.
 
 ## 5. Check and hand over
 

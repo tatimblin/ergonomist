@@ -53,6 +53,8 @@ export type InboxItem = {
 	/** Weather warnings: when the warning starts and ends. */
 	starts?: string;
 	ends?: string;
+	/** Weather warnings: the warning's own text, in Iowa State's archive. */
+	archive?: string;
 };
 
 const BRANCH = "wire-data";
@@ -225,7 +227,11 @@ async function warnings(): Promise<InboxItem[]> {
 			return {
 				id,
 				source: "National Weather Service" as const,
-				url: `https://mesonet.agron.iastate.edu${e.url}`,
+				// The Bay Area office's page, which carries its current
+				// warnings: the paper credits the Weather Service, not the
+				// archive the warning was read from.
+				url: "https://www.weather.gov/mtr/",
+				archive: `https://mesonet.agron.iastate.edu${e.url}`,
 				title: `${e.name} for San Francisco`,
 				date: new Date(e.issue).toISOString(),
 				starts: new Date(e.issue).toISOString(),
