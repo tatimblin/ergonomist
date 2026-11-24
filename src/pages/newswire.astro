@@ -26,7 +26,7 @@ const headlines = (await getStories(paper)).filter(isHeadline);
 				<li>
 					<h2 id={s.slug}>{s.entry.data.title}</h2>
 					<p data-pagefind-ignore>
-						<Label story={s} after=" · " />By <Byline authors={s.authors} /> · <time datetime={s.entry.data.date.toISOString()}>{formatDate(s.entry.data.date)}</time>
+						<Label story={s} source after=" · " />By <Byline authors={s.authors} /> · <time datetime={s.entry.data.date.toISOString()}>{formatDate(s.entry.data.date)}</time>
 					</p>
 				</li>
 			))}

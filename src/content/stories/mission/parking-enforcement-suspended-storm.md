@@ -8,6 +8,7 @@ authors: [tristan-timblin]
 tags: [rain, flooding, king-tides, parking, sfmta]
 veracity: reported
 source: https://x.com/DanielLurie/status/2124342013667737850
+via: https://missionlocal.org/2026/11/san-francisco-ticketing-suspended-sfmta-storms-floods/
 ---
 
 The SFMTA isn't ticketing parking meters or time limits from Monday through Wednesday, and Thanksgiving is already a holiday with no enforcement, so the break runs through Thursday ([Mission Local](https://missionlocal.org/2026/11/san-francisco-ticketing-suspended-sfmta-storms-floods/)). Mayor Daniel Lurie asked anyone parked in a flood zone to move their car.
