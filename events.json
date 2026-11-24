@@ -1839,5 +1839,151 @@
 		"team": "Scaling",
 		"url": "https://jobs.ashbyhq.com/openai/f3ddd41c-541f-485e-90d6-86c26e018e9f",
 		"openDays": 5
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5471539008",
+		"title": "Accounting Analytics & BI Engineer",
+		"team": "Finance",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5471539008"
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5257689008",
+		"title": "Platform Hardware Security",
+		"team": "Security",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5257689008",
+		"openDays": 5
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5405548008",
+		"title": "Engineering Manager, Hardware Platform Security",
+		"team": "Security",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5405548008",
+		"openDays": 5
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5432845008",
+		"title": "Digital Campaigns, Policy Advocacy",
+		"team": "Public Policy",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5432845008",
+		"openDays": 5
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "8d332d03-1f38-40e3-85be-b4c99231a896",
+		"title": "Transformation Leads Regional Manager",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/8d332d03-1f38-40e3-85be-b4c99231a896",
+		"changes": {
+			"location": [
+				"San Francisco | New York City",
+				"San Francisco"
+			]
+		}
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "894ba35c-c6b6-4cf0-9451-f996aa695e49",
+		"title": "Product Marketing Manager, SMB",
+		"team": "Marketing",
+		"url": "https://jobs.ashbyhq.com/openai/894ba35c-c6b6-4cf0-9451-f996aa695e49",
+		"changes": {
+			"title": [
+				"Product Marketing Manager, SMB, Verticals & Partner Ecosystem",
+				"Product Marketing Manager, SMB"
+			],
+			"pay": [
+				"$225K – $252K",
+				"$225K – $300K"
+			]
+		}
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "faaf4418-8fea-4781-95b7-8cfc40f8c818",
+		"title": "Associate General Counsel, Security & National Security",
+		"team": "Legal",
+		"url": "https://jobs.ashbyhq.com/openai/faaf4418-8fea-4781-95b7-8cfc40f8c818"
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "97493ce9-9491-4384-9be9-8069625cd766",
+		"title": "Learning & Instruction Lead, Academy",
+		"team": "Global Affairs",
+		"url": "https://jobs.ashbyhq.com/openai/97493ce9-9491-4384-9be9-8069625cd766"
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "2ff3536b-633d-4d02-b492-f6ed92b823b4",
+		"title": "Partner Director, BCG AMER",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/2ff3536b-633d-4d02-b492-f6ed92b823b4"
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "2c4516ae-b440-40b3-8068-8131772f36ae",
+		"title": "Organizational Design Lead",
+		"team": "People",
+		"url": "https://jobs.ashbyhq.com/openai/2c4516ae-b440-40b3-8068-8131772f36ae"
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "eecf56df-1a74-4497-a8cd-ea3890d4155a",
+		"title": "Program Manager, Critical Harm Operations",
+		"team": "User Operations",
+		"url": "https://jobs.ashbyhq.com/openai/eecf56df-1a74-4497-a8cd-ea3890d4155a"
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "607078a7-0b16-4615-8d5b-55c89853d3ff",
+		"title": "Business Development Lead, Compute Strategy & Partnerships",
+		"team": "Scaling",
+		"url": "https://jobs.ashbyhq.com/openai/607078a7-0b16-4615-8d5b-55c89853d3ff"
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "5b9cb831-673b-479d-a88a-dddf476b736f",
+		"title": "Lead Revenue Accounting, Technical (Strategic Partnerships)",
+		"team": "Finance",
+		"url": "https://jobs.ashbyhq.com/openai/5b9cb831-673b-479d-a88a-dddf476b736f",
+		"openDays": 5
+	},
+	{
+		"at": "2026-11-24T21:00:12.706Z",
+		"type": "opened",
+		"company": "thinkingmachines",
+		"id": "8d9a8793-f914-4327-9393-7851ec18cc66",
+		"title": "Research, Model Behavior",
+		"team": "Research",
+		"url": "https://jobs.ashbyhq.com/ThinkingMachines/8d9a8793-f914-4327-9393-7851ec18cc66"
 	}
 ]
