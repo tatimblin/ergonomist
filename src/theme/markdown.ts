@@ -111,21 +111,34 @@ function headnoteHtml(
 
 /**
  * Social embeds, in any story's body: a paragraph holding nothing but a link
- * to an Instagram post or reel prints the post in an iframe, with a link to it
- * underneath for readers (and feeds) that don't load the frame. Paste the URL
- * on a line of its own:
+ * to an Instagram post or reel, or to a post on X, prints the post in an
+ * iframe, with a link to it underneath for readers (and feeds) that don't load
+ * the frame. Paste the URL on a line of its own:
  *
  *     https://www.instagram.com/reel/Df5J0IxqHv8/
+ *     https://x.com/DanielLurie/status/2124342013667737850
  *
- * Tracking parameters are dropped from the link. The frame is Instagram's own
- * embed page, so the paper loads no script of Instagram's.
+ * Tracking parameters are dropped from the link. The frame is the site's own
+ * embed page, so the paper loads no script of Instagram's or X's.
  */
 const INSTAGRAM = /^https?:\/\/(?:www\.)?instagram\.com\/(p|reel|tv)\/([A-Za-z0-9_-]+)\/?(?:[?#].*)?$/;
+const X_POST = /^https?:\/\/(?:www\.)?(?:x|twitter)\.com\/([A-Za-z0-9_]+)\/status\/(\d+)\/?(?:[?#].*)?$/;
 
 const escape = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
 /** The embed's HTML for a URL, or undefined if it isn't one the paper embeds. */
 export function embedHtml(url: string): string | undefined {
+	const post = X_POST.exec(url.trim());
+	if (post) {
+		const [, user, id] = post;
+		const link = `https://x.com/${user}/status/${id}`;
+		return [
+			`<figure data-embed="x">`,
+			`<iframe src="https://platform.twitter.com/embed/Tweet.html?id=${id}&amp;dnt=true" title="Post on X by @${escape(user)}" width="550" height="800" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+			`<figcaption><a href="${escape(link)}">View on X</a></figcaption>`,
+			`</figure>`,
+		].join("");
+	}
 	const match = INSTAGRAM.exec(url.trim());
 	if (!match) return undefined;
 	const [, type, id] = match;
