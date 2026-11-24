@@ -14,7 +14,7 @@ The SFMTA isn't ticketing parking meters or time limits from Monday through Wedn
 
 https://x.com/DanielLurie/status/2124342013667737850
 
-You can still be ticketed for blocking a driveway or crosswalk, parking at a color curb, or street sweeping, unless Public Works calls off sweeping.
+You can still be ticketed for blocking a driveway or crosswalk, parking at a color curb, or street sweeping, unless Public Works calls off sweeping. This isn't Philadelphia.
 
 ## The tides
 
