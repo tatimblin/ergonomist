@@ -90,9 +90,10 @@ tags: [two, or, three]
 veracity: reported
 source: <primary source URL>
 via: <the outlet's story URL, when source isn't it>
-draft: true
 ---
 ```
+
+No `draft: true`: the pull request is the draft, and merging it publishes.
 
 The title is the whole item. Write it the way you'd tell a neighbor: casual,
 short, one line (about 12 words or fewer), with what changed and when. Leave
