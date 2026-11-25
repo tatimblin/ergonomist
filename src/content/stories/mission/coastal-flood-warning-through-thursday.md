@@ -6,5 +6,4 @@ authors: [ergonomist-staff]
 tags: [weather, flooding, king-tides]
 veracity: reported
 source: https://www.weather.gov/mtr/
-draft: true
 ---

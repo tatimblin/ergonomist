@@ -6,5 +6,4 @@ authors: [ergonomist-staff]
 tags: [weather, ocean-beach, surf]
 veracity: reported
 source: https://www.weather.gov/mtr/
-draft: true
 ---
