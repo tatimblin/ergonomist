@@ -2214,5 +2214,24 @@
 		"team": "Finance",
 		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5076754008",
 		"openDays": 6
+	},
+	{
+		"at": "2026-11-25T21:00:14.894Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "92ecf75c-86ec-442d-bdfa-078789ce9579",
+		"title": "Senior Counsel, Competition",
+		"team": "Legal",
+		"url": "https://jobs.ashbyhq.com/openai/92ecf75c-86ec-442d-bdfa-078789ce9579",
+		"openDays": 6
+	},
+	{
+		"at": "2026-11-25T21:00:14.894Z",
+		"type": "opened",
+		"company": "thinkingmachines",
+		"id": "fdb92624-9df4-4a0f-bc23-bfb60b69d7cb",
+		"title": "Software Engineer, Safety Platform",
+		"team": "Security & IT",
+		"url": "https://jobs.ashbyhq.com/ThinkingMachines/fdb92624-9df4-4a0f-bc23-bfb60b69d7cb"
 	}
 ]
