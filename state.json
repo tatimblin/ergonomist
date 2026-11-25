@@ -4474,6 +4474,16 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5494120008",
 			"firstSeen": "2026-11-25T01:00:16.966Z"
 		},
+		"anthropic/5494145008": {
+			"company": "anthropic",
+			"id": "5494145008",
+			"title": "Safeguards Enforcement Analyst, Targeting, Tracking & Surveillance",
+			"team": "Safeguards (Trust & Safety)",
+			"location": "Boston, MA; San Francisco, CA | Seattle, WA | New York City, NY | Washington, DC",
+			"pay": "$245K – $285K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5494145008",
+			"firstSeen": "2026-11-25T10:31:09.574Z"
+		},
 		"openai/00207abc-49b7-465c-a219-f7c1140f8047": {
 			"company": "openai",
 			"id": "00207abc-49b7-465c-a219-f7c1140f8047",
@@ -9387,7 +9397,7 @@
 		"openai/d6fac6f4-0b96-4c09-9349-9b7fc99a6547": {
 			"company": "openai",
 			"id": "d6fac6f4-0b96-4c09-9349-9b7fc99a6547",
-			"title": "Builder Education",
+			"title": "Builder Education Lead",
 			"team": "Go To Market",
 			"location": "San Francisco",
 			"pay": "$207K – $230K",
@@ -9873,6 +9883,16 @@
 			"pay": "$318K – $485K",
 			"url": "https://jobs.ashbyhq.com/openai/eb112d35-cd7e-45a4-8633-5d7ade298a39",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/eb3b695e-6c60-4875-b8bc-8f4d5d8a9bbb": {
+			"company": "openai",
+			"id": "eb3b695e-6c60-4875-b8bc-8f4d5d8a9bbb",
+			"title": "Solutions Engineer, Ads Solutions - NYC",
+			"team": "Go To Market",
+			"location": "San Francisco",
+			"pay": "$234K – $260K",
+			"url": "https://jobs.ashbyhq.com/openai/eb3b695e-6c60-4875-b8bc-8f4d5d8a9bbb",
+			"firstSeen": "2026-11-25T10:31:09.574Z"
 		},
 		"openai/ebc65e7d-d86a-4066-aa82-3a7758d97bb6": {
 			"company": "openai",

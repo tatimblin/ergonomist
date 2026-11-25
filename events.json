@@ -2171,5 +2171,38 @@
 		"title": "Head of Applied AI Architects – Commercial Sales (Midmarket, SMB)",
 		"team": "Go To Market",
 		"url": "https://jobs.ashbyhq.com/openai/c58aecd7-b306-4c06-9648-8090d0a93217"
+	},
+	{
+		"at": "2026-11-25T10:31:09.574Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5494145008",
+		"title": "Safeguards Enforcement Analyst, Targeting, Tracking & Surveillance",
+		"team": "Safeguards (Trust & Safety)",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5494145008"
+	},
+	{
+		"at": "2026-11-25T10:31:09.574Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "eb3b695e-6c60-4875-b8bc-8f4d5d8a9bbb",
+		"title": "Solutions Engineer, Ads Solutions - NYC",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/eb3b695e-6c60-4875-b8bc-8f4d5d8a9bbb"
+	},
+	{
+		"at": "2026-11-25T10:31:09.574Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "d6fac6f4-0b96-4c09-9349-9b7fc99a6547",
+		"title": "Builder Education Lead",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/d6fac6f4-0b96-4c09-9349-9b7fc99a6547",
+		"changes": {
+			"title": [
+				"Builder Education",
+				"Builder Education Lead"
+			]
+		}
 	}
 ]
