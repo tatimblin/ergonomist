@@ -1985,5 +1985,182 @@
 		"title": "Research, Model Behavior",
 		"team": "Research",
 		"url": "https://jobs.ashbyhq.com/ThinkingMachines/8d9a8793-f914-4327-9393-7851ec18cc66"
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5494120008",
+		"title": "Engineering Manager, Cybersecurity Products",
+		"team": "Engineering & Design - Product",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5494120008"
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5369102008",
+		"title": "Engineering Manager, Labs",
+		"team": "Engineering & Design - Product",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5369102008"
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5489900008",
+		"title": "Manager, Compliance & Regulatory Operations",
+		"team": "Legal",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5489900008"
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5391277008",
+		"title": "Program Operations, Coordination & Logistics, Claude Frontier Academy",
+		"team": "Sales",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5391277008"
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "opened",
+		"company": "anthropic",
+		"id": "5311159008",
+		"title": "Safeguards Enforcement Analyst, Cyber Harm",
+		"team": "Safeguards (Trust & Safety)",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5311159008"
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5311149008",
+		"title": "Safeguards Enforcement Analyst, Integrity & Authenticity",
+		"team": "Safeguards (Trust & Safety)",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5311149008",
+		"openDays": 5
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "closed",
+		"company": "anthropic",
+		"id": "5319696008",
+		"title": "Safeguards Enforcement Analyst, Bio Harms",
+		"team": "Safeguards (Trust & Safety)",
+		"url": "https://job-boards.greenhouse.io/anthropic/jobs/5319696008",
+		"openDays": 5
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "096be63b-69cf-4295-9d29-d2e740058ea4",
+		"title": "Strategic Finance, Product & Commercialization",
+		"team": "Strategic Finance",
+		"url": "https://jobs.ashbyhq.com/openai/096be63b-69cf-4295-9d29-d2e740058ea4",
+		"changes": {
+			"title": [
+				"Strategic Finance, OpenAI for Inference",
+				"Strategic Finance, Product & Commercialization"
+			]
+		}
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "0d06daee-298b-4594-a67b-8955d07adb22",
+		"title": "Software Engineer, Full Stack — ChatGPT Voice",
+		"team": "Applied AI",
+		"url": "https://jobs.ashbyhq.com/openai/0d06daee-298b-4594-a67b-8955d07adb22"
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "changed",
+		"company": "openai",
+		"id": "1790fe9e-2ac3-45df-894e-f731d243395f",
+		"title": "AI Deployment Manager",
+		"team": "Go To Market",
+		"url": "https://jobs.ashbyhq.com/openai/1790fe9e-2ac3-45df-894e-f731d243395f",
+		"changes": {
+			"pay": [
+				"$240K – $240K",
+				"$162K – $230K"
+			]
+		}
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "3359a138-2a17-4f9f-be79-f17268f5c8c1",
+		"title": "Deal Lead, Special Situations",
+		"team": "Partnerships",
+		"url": "https://jobs.ashbyhq.com/openai/3359a138-2a17-4f9f-be79-f17268f5c8c1"
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "opened",
+		"company": "openai",
+		"id": "d22b6934-3bdc-459f-b801-87195d79be8a",
+		"title": "Software Engineer, Backend — ChatGPT Voice",
+		"team": "Applied AI",
+		"url": "https://jobs.ashbyhq.com/openai/d22b6934-3bdc-459f-b801-87195d79be8a"
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "3942de32-739a-409a-841c-828af04bad83",
+		"title": "Content Designer",
+		"team": "Product Design",
+		"url": "https://jobs.ashbyhq.com/openai/3942de32-739a-409a-841c-828af04bad83",
+		"openDays": 5
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "a73cfbfc-aeed-4bad-b57d-79fd30dcd9c8",
+		"title": "Experiential Producer",
+		"team": "Marketing",
+		"url": "https://jobs.ashbyhq.com/openai/a73cfbfc-aeed-4bad-b57d-79fd30dcd9c8",
+		"openDays": 5
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "bb4e2d58-d481-4e81-ac69-0d99bbf5808e",
+		"title": "Subject Matter Expert, Legal",
+		"team": "Applied AI",
+		"url": "https://jobs.ashbyhq.com/openai/bb4e2d58-d481-4e81-ac69-0d99bbf5808e",
+		"openDays": 5
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "closed",
+		"company": "openai",
+		"id": "f16eaf44-208f-4374-b576-f033ed6e5eed",
+		"title": "Deal Lead, Special Situations",
+		"team": "Partnerships",
+		"url": "https://jobs.ashbyhq.com/openai/f16eaf44-208f-4374-b576-f033ed6e5eed",
+		"openDays": 5
+	},
+	{
+		"at": "2026-11-25T01:00:16.966Z",
+		"type": "changed",
+		"company": "thinkingmachines",
+		"id": "7c8b01f8-8542-4cb4-9701-5578960cda3b",
+		"title": "Application Security Engineer",
+		"team": "Security & IT",
+		"url": "https://jobs.ashbyhq.com/ThinkingMachines/7c8b01f8-8542-4cb4-9701-5578960cda3b",
+		"changes": {
+			"title": [
+				"Software Engineer, Security",
+				"Application Security Engineer"
+			]
+		}
 	}
 ]

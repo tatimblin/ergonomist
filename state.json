@@ -1328,15 +1328,15 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5305631008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"anthropic/5311149008": {
+		"anthropic/5311159008": {
 			"company": "anthropic",
-			"id": "5311149008",
-			"title": "Safeguards Enforcement Analyst, Integrity & Authenticity",
+			"id": "5311159008",
+			"title": "Safeguards Enforcement Analyst, Cyber Harm",
 			"team": "Safeguards (Trust & Safety)",
-			"location": "San Francisco, CA | New York City, NY | Washington, DC",
-			"pay": "$285K – $330K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5311149008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
+			"location": "Boston, MA; San Francisco, CA | Seattle, WA | New York City, NY | Washington, DC",
+			"pay": "$245K – $285K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5311159008",
+			"firstSeen": "2026-11-25T01:00:16.966Z"
 		},
 		"anthropic/5311465008": {
 			"company": "anthropic",
@@ -1376,16 +1376,6 @@
 			"location": "San Francisco, CA | New York City, NY | Washington, DC",
 			"pay": "$285K – $330K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5319626008",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"anthropic/5319696008": {
-			"company": "anthropic",
-			"id": "5319696008",
-			"title": "Safeguards Enforcement Analyst, Bio Harms",
-			"team": "Safeguards (Trust & Safety)",
-			"location": "San Francisco, CA | New York City, NY | Washington, DC",
-			"pay": "$245K – $285K",
-			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5319696008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"anthropic/5320469008": {
@@ -1597,6 +1587,15 @@
 			"pay": "$405K – $485K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5368034008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"anthropic/5369102008": {
+			"company": "anthropic",
+			"id": "5369102008",
+			"title": "Engineering Manager, Labs",
+			"team": "Engineering & Design - Product",
+			"location": "San Francisco, CA | New York City, NY",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5369102008",
+			"firstSeen": "2026-11-25T01:00:16.966Z"
 		},
 		"anthropic/5369710008": {
 			"company": "anthropic",
@@ -1927,6 +1926,16 @@
 			"pay": "$215K – $300K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5391253008",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"anthropic/5391277008": {
+			"company": "anthropic",
+			"id": "5391277008",
+			"title": "Program Operations, Coordination & Logistics, Claude Frontier Academy",
+			"team": "Sales",
+			"location": "San Francisco, CA | New York City, NY",
+			"pay": "$215K – $300K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5391277008",
+			"firstSeen": "2026-11-25T01:00:16.966Z"
 		},
 		"anthropic/5391782008": {
 			"company": "anthropic",
@@ -4346,6 +4355,16 @@
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5489567008",
 			"firstSeen": "2026-11-23T17:00:13.524Z"
 		},
+		"anthropic/5489900008": {
+			"company": "anthropic",
+			"id": "5489900008",
+			"title": "Manager, Compliance & Regulatory Operations",
+			"team": "Legal",
+			"location": "San Francisco, CA | New York City, NY | Washington, DC",
+			"pay": "$270K – $345K",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5489900008",
+			"firstSeen": "2026-11-25T01:00:16.966Z"
+		},
 		"anthropic/5490122008": {
 			"company": "anthropic",
 			"id": "5490122008",
@@ -4445,6 +4464,15 @@
 			"pay": "$320K – $320K",
 			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5491578008",
 			"firstSeen": "2026-11-23T17:00:13.524Z"
+		},
+		"anthropic/5494120008": {
+			"company": "anthropic",
+			"id": "5494120008",
+			"title": "Engineering Manager, Cybersecurity Products",
+			"team": "Engineering & Design - Product",
+			"location": "San Francisco, CA | New York City, NY",
+			"url": "https://job-boards.greenhouse.io/anthropic/jobs/5494120008",
+			"firstSeen": "2026-11-25T01:00:16.966Z"
 		},
 		"openai/00207abc-49b7-465c-a219-f7c1140f8047": {
 			"company": "openai",
@@ -4659,7 +4687,7 @@
 		"openai/096be63b-69cf-4295-9d29-d2e740058ea4": {
 			"company": "openai",
 			"id": "096be63b-69cf-4295-9d29-d2e740058ea4",
-			"title": "Strategic Finance, OpenAI for Inference",
+			"title": "Strategic Finance, Product & Commercialization",
 			"team": "Strategic Finance",
 			"location": "San Francisco",
 			"pay": "$234K – $260K",
@@ -4745,6 +4773,16 @@
 			"pay": "$287K – $485K",
 			"url": "https://jobs.ashbyhq.com/openai/0cbc1196-37ee-4c41-b02b-12653309a8f7",
 			"firstSeen": "2026-11-24T01:00:15.651Z"
+		},
+		"openai/0d06daee-298b-4594-a67b-8955d07adb22": {
+			"company": "openai",
+			"id": "0d06daee-298b-4594-a67b-8955d07adb22",
+			"title": "Software Engineer, Full Stack — ChatGPT Voice",
+			"team": "Applied AI",
+			"location": "San Francisco",
+			"pay": "$347K – $385K",
+			"url": "https://jobs.ashbyhq.com/openai/0d06daee-298b-4594-a67b-8955d07adb22",
+			"firstSeen": "2026-11-25T01:00:16.966Z"
 		},
 		"openai/0dc614c9-4eec-475f-b215-5480fe41317a": {
 			"company": "openai",
@@ -4972,7 +5010,7 @@
 			"title": "AI Deployment Manager",
 			"team": "Go To Market",
 			"location": "New York City | San Francisco",
-			"pay": "$240K – $240K",
+			"pay": "$162K – $230K",
 			"url": "https://jobs.ashbyhq.com/openai/1790fe9e-2ac3-45df-894e-f731d243395f",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
@@ -5716,6 +5754,16 @@
 			"url": "https://jobs.ashbyhq.com/openai/333ebd68-cc1d-4706-8d0a-07f3e50d7bfd",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
+		"openai/3359a138-2a17-4f9f-be79-f17268f5c8c1": {
+			"company": "openai",
+			"id": "3359a138-2a17-4f9f-be79-f17268f5c8c1",
+			"title": "Deal Lead, Special Situations",
+			"team": "Partnerships",
+			"location": "San Francisco",
+			"pay": "$333K – $401K",
+			"url": "https://jobs.ashbyhq.com/openai/3359a138-2a17-4f9f-be79-f17268f5c8c1",
+			"firstSeen": "2026-11-25T01:00:16.966Z"
+		},
 		"openai/33acf0e2-5c11-46d7-9dc9-417f5537139b": {
 			"company": "openai",
 			"id": "33acf0e2-5c11-46d7-9dc9-417f5537139b",
@@ -5844,16 +5892,6 @@
 			"location": "San Francisco",
 			"pay": "$230K – $290K",
 			"url": "https://jobs.ashbyhq.com/openai/393b88d7-1fbc-466a-9108-a7c1bafeb8d8",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/3942de32-739a-409a-841c-828af04bad83": {
-			"company": "openai",
-			"id": "3942de32-739a-409a-841c-828af04bad83",
-			"title": "Content Designer",
-			"team": "Product Design",
-			"location": "San Francisco",
-			"pay": "$287K – $318K",
-			"url": "https://jobs.ashbyhq.com/openai/3942de32-739a-409a-841c-828af04bad83",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/39e06ef9-5e62-425d-81e2-e8690188011f": {
@@ -8376,16 +8414,6 @@
 			"url": "https://jobs.ashbyhq.com/openai/a6ae5d2e-7f81-4046-ae43-2c7917c2e7b7",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"openai/a73cfbfc-aeed-4bad-b57d-79fd30dcd9c8": {
-			"company": "openai",
-			"id": "a73cfbfc-aeed-4bad-b57d-79fd30dcd9c8",
-			"title": "Experiential Producer",
-			"team": "Marketing",
-			"location": "San Francisco",
-			"pay": "$240K – $266K",
-			"url": "https://jobs.ashbyhq.com/openai/a73cfbfc-aeed-4bad-b57d-79fd30dcd9c8",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"openai/a8210588-a178-4afe-91e7-1fa2d269d2e8": {
 			"company": "openai",
 			"id": "a8210588-a178-4afe-91e7-1fa2d269d2e8",
@@ -8704,16 +8732,6 @@
 			"location": "San Francisco | Seattle | Washington, DC",
 			"pay": "$198K – $320K",
 			"url": "https://jobs.ashbyhq.com/openai/badafdf8-116b-4849-b848-2f20a3ff2732",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
-		"openai/bb4e2d58-d481-4e81-ac69-0d99bbf5808e": {
-			"company": "openai",
-			"id": "bb4e2d58-d481-4e81-ac69-0d99bbf5808e",
-			"title": "Subject Matter Expert, Legal",
-			"team": "Applied AI",
-			"location": "San Francisco",
-			"pay": "$284K – $315K",
-			"url": "https://jobs.ashbyhq.com/openai/bb4e2d58-d481-4e81-ac69-0d99bbf5808e",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
 		"openai/bb759305-03a3-442c-a694-ae9ef478b1fd": {
@@ -9255,6 +9273,16 @@
 			"pay": "$500K – $500K",
 			"url": "https://jobs.ashbyhq.com/openai/d1f21456-f0bf-48ad-bb8d-ae0020a10600",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"openai/d22b6934-3bdc-459f-b801-87195d79be8a": {
+			"company": "openai",
+			"id": "d22b6934-3bdc-459f-b801-87195d79be8a",
+			"title": "Software Engineer, Backend — ChatGPT Voice",
+			"team": "Applied AI",
+			"location": "San Francisco",
+			"pay": "$347K – $445K",
+			"url": "https://jobs.ashbyhq.com/openai/d22b6934-3bdc-459f-b801-87195d79be8a",
+			"firstSeen": "2026-11-25T01:00:16.966Z"
 		},
 		"openai/d33eec12-e0c3-48a0-bb54-35d1e7aa9ee1": {
 			"company": "openai",
@@ -10006,16 +10034,6 @@
 			"url": "https://jobs.ashbyhq.com/openai/f0529a1d-fb6a-4229-a590-8caff1785bb3",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"openai/f16eaf44-208f-4374-b576-f033ed6e5eed": {
-			"company": "openai",
-			"id": "f16eaf44-208f-4374-b576-f033ed6e5eed",
-			"title": "Deal Lead, Special Situations",
-			"team": "Partnerships",
-			"location": "San Francisco",
-			"pay": "$333K – $401K",
-			"url": "https://jobs.ashbyhq.com/openai/f16eaf44-208f-4374-b576-f033ed6e5eed",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"openai/f2293c9f-d036-4198-a268-3dad738c8d19": {
 			"company": "openai",
 			"id": "f2293c9f-d036-4198-a268-3dad738c8d19",
@@ -10607,7 +10625,7 @@
 		"thinkingmachines/7c8b01f8-8542-4cb4-9701-5578960cda3b": {
 			"company": "thinkingmachines",
 			"id": "7c8b01f8-8542-4cb4-9701-5578960cda3b",
-			"title": "Software Engineer, Security",
+			"title": "Application Security Engineer",
 			"team": "Security & IT",
 			"location": "San Francisco",
 			"url": "https://jobs.ashbyhq.com/ThinkingMachines/7c8b01f8-8542-4cb4-9701-5578960cda3b",
