@@ -2233,5 +2233,43 @@
 		"title": "Software Engineer, Safety Platform",
 		"team": "Security & IT",
 		"url": "https://jobs.ashbyhq.com/ThinkingMachines/fdb92624-9df4-4a0f-bc23-bfb60b69d7cb"
+	},
+	{
+		"at": "2026-11-26T01:00:13.776Z",
+		"type": "opened",
+		"company": "thinkingmachines",
+		"id": "c09f086c-b34b-4d34-b1fb-e5672c666dd8",
+		"title": "Research Engineer, Infrastructure, RL Infra / Systems",
+		"team": "Research Infrastructure (ML Infrastructure and Training Stack)",
+		"url": "https://jobs.ashbyhq.com/ThinkingMachines/c09f086c-b34b-4d34-b1fb-e5672c666dd8"
+	},
+	{
+		"at": "2026-11-26T01:00:13.776Z",
+		"type": "changed",
+		"company": "thinkingmachines",
+		"id": "a5559c53-7085-45ff-8a0f-5e47b5e822bc",
+		"title": "Software Engineer, Web Crawling",
+		"team": "Core Engineering",
+		"url": "https://jobs.ashbyhq.com/ThinkingMachines/a5559c53-7085-45ff-8a0f-5e47b5e822bc",
+		"changes": {
+			"title": [
+				"Research Engineer, Web Crawling",
+				"Software Engineer, Web Crawling"
+			],
+			"team": [
+				"Research Infrastructure (ML Infrastructure and Training Stack)",
+				"Core Engineering"
+			]
+		}
+	},
+	{
+		"at": "2026-11-26T01:00:13.776Z",
+		"type": "closed",
+		"company": "thinkingmachines",
+		"id": "9ab3e86f-b636-4a75-867c-4ffd04d7b87d",
+		"title": "Brand Designer",
+		"team": "Design",
+		"url": "https://jobs.ashbyhq.com/ThinkingMachines/9ab3e86f-b636-4a75-867c-4ffd04d7b87d",
+		"openDays": 6
 	}
 ]

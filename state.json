@@ -10705,15 +10705,6 @@
 			"url": "https://jobs.ashbyhq.com/ThinkingMachines/998becdd-611f-44e5-a36d-bbfc13328ed9",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
 		},
-		"thinkingmachines/9ab3e86f-b636-4a75-867c-4ffd04d7b87d": {
-			"company": "thinkingmachines",
-			"id": "9ab3e86f-b636-4a75-867c-4ffd04d7b87d",
-			"title": "Brand Designer",
-			"team": "Design",
-			"location": "New York | San Francisco",
-			"url": "https://jobs.ashbyhq.com/ThinkingMachines/9ab3e86f-b636-4a75-867c-4ffd04d7b87d",
-			"firstSeen": "2026-11-19T15:45:42.740Z"
-		},
 		"thinkingmachines/9cff7438-49a8-4801-b19e-22b40067769b": {
 			"company": "thinkingmachines",
 			"id": "9cff7438-49a8-4801-b19e-22b40067769b",
@@ -10762,8 +10753,8 @@
 		"thinkingmachines/a5559c53-7085-45ff-8a0f-5e47b5e822bc": {
 			"company": "thinkingmachines",
 			"id": "a5559c53-7085-45ff-8a0f-5e47b5e822bc",
-			"title": "Research Engineer, Web Crawling",
-			"team": "Research Infrastructure (ML Infrastructure and Training Stack)",
+			"title": "Software Engineer, Web Crawling",
+			"team": "Core Engineering",
 			"location": "San Francisco | New York",
 			"url": "https://jobs.ashbyhq.com/ThinkingMachines/a5559c53-7085-45ff-8a0f-5e47b5e822bc",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
@@ -10785,6 +10776,15 @@
 			"location": "San Francisco",
 			"url": "https://jobs.ashbyhq.com/ThinkingMachines/b47907dc-a08e-4a58-9b46-5d86417cfa57",
 			"firstSeen": "2026-11-19T15:45:42.740Z"
+		},
+		"thinkingmachines/c09f086c-b34b-4d34-b1fb-e5672c666dd8": {
+			"company": "thinkingmachines",
+			"id": "c09f086c-b34b-4d34-b1fb-e5672c666dd8",
+			"title": "Research Engineer, Infrastructure, RL Infra / Systems",
+			"team": "Research Infrastructure (ML Infrastructure and Training Stack)",
+			"location": "San Francisco",
+			"url": "https://jobs.ashbyhq.com/ThinkingMachines/c09f086c-b34b-4d34-b1fb-e5672c666dd8",
+			"firstSeen": "2026-11-26T01:00:13.776Z"
 		},
 		"thinkingmachines/c190a799-fa73-4f38-b44a-85871968c094": {
 			"company": "thinkingmachines",
