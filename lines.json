@@ -1,8 +1,4 @@
 {
-	"day:2026-11-20": {
-		"hash": "1ox3en0",
-		"line": "Labs hiring software engineers and sales teams"
-	},
 	"day:2026-11-21": {
 		"hash": "13ba9dd",
 		"line": "OpenAI marketing role opened"
@@ -20,7 +16,11 @@
 		"line": "Labs hiring for research and security roles"
 	},
 	"week:2026-11-16": {
-		"hash": "fi1cht",
-		"line": "OpenAI hires for Go To Market"
+		"hash": "1glveeo",
+		"line": "Labs hiring for various roles"
+	},
+	"day:2026-11-26": {
+		"hash": "1s59hd5",
+		"line": "anthropic product management team had a closing"
 	}
 }
